@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 02:32:05 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/25 03:32:22 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/03/25 06:17:11 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/03/25 06:17:14 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "utils.h" 
 
-# include <stdio.h>
-typedef struct s_table
+size_t	ft_strlen(const char *src)
 {
-	char *commend;
-	char **arg;
-	char *next;
-	char *i_file;
-	char *o_file;
-	char *e_file;
-	char **env;
-} 			t_table;
+	int	i;
 
-#endif
+	i = 0;
+	while (src[i] != 0)
+	{
+		i++;
+	}
+	return (i);
+}

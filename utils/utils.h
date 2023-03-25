@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 02:32:05 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/25 03:32:22 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/03/25 06:14:07 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/03/25 06:16:10 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include <stdio.h>
-typedef struct s_table
-{
-	char *commend;
-	char **arg;
-	char *next;
-	char *i_file;
-	char *o_file;
-	char *e_file;
-	char **env;
-} 			t_table;
+# include <stdlib.h>
+
+char	**ft_split(char const *s, char c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_strlen(const char *src);
 
 #endif
