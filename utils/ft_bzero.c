@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 03:05:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/25 08:12:14 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/03/25 08:14:36 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/03/25 08:17:41 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "utils.h"
 
-int main(int argc, char **argv, char **env)
+void	ft_bzero(void *src, size_t len)
 {
-	t_table *table;
-	(void)argc;
-	(void)argv;
-	int i;
-	i = 0;
-	
-	while(env[i])
+	unsigned char	*dest;
+
+	dest = (unsigned char *)src;
+	while (len)
 	{
-		table->env[i] = env[i];
-		printf ("%s\n", table->env[i]);
-		i++;
+		*dest = 0;
+		dest++;
+		len--;
 	}
 }

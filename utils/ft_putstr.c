@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 03:05:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/25 08:12:14 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/03/25 09:29:27 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/03/25 09:29:59 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "utils.h"
 
-int main(int argc, char **argv, char **env)
+void	ft_putstr(char *str)
 {
-	t_table *table;
-	(void)argc;
-	(void)argv;
-	int i;
+	int	i;
+
 	i = 0;
-	
-	while(env[i])
-	{
-		table->env[i] = env[i];
-		printf ("%s\n", table->env[i]);
-		i++;
-	}
+	while (str[i])
+		write(1, &str[i++], 1);
+	write (1, "\n", 1);
+	return ;
 }

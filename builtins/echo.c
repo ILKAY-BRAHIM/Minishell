@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 03:05:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/25 08:12:14 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/03/25 09:26:35 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/03/25 09:39:34 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int main(int argc, char **argv, char **env)
+char	*ft_echo(t_table *cmd)
 {
-	t_table *table;
-	(void)argc;
-	(void)argv;
-	int i;
+	int	i;
+
 	i = 0;
-	
-	while(env[i])
+	while (cmd->arg[i])
 	{
-		table->env[i] = env[i];
-		printf ("%s\n", table->env[i]);
+		ft_putstr(cmd->arg[i]);
 		i++;
 	}
 }
