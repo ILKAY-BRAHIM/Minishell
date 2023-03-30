@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 03:05:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/25 03:17:47 by bchifour         ###   ########.fr       */
+/*   Created: 2023/03/30 00:27:11 by bchifour          #+#    #+#             */
+/*   Updated: 2023/03/30 06:47:48 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 int main(int argc, char **argv, char **env)
 {
 	t_table *table;
-	(void)argc;
+	char *line;
+
+	(void)argc; 
 	(void)argv;
-	int i;
-	i = 0;
-	
-	while(env[i])
+	// init_env();
+	while (1)
 	{
-		table->env[i] = env[i];
-		printf ("%s\n", table->env[i]);
-		i++;
+		line = get_prompt();
+		lexer(line);
+		// parsing()
+		// excution();
 	}
 }

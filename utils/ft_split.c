@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 06:17:19 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/03/25 06:17:22 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/03/28 02:15:45 by bchifour          #+#    #+#             */
+/*   Updated: 2023/03/30 07:09:17 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "utils.h" 
 
 static	int	word_count(const char *s, char c)
 {
@@ -36,7 +36,7 @@ static	int	word_count(const char *s, char c)
 	return (count);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c, int *tfo)
 {
 	char	**new_s;
 	int		i_word;
@@ -47,7 +47,8 @@ char	**ft_split(char const *s, char c)
 	i_word = 0;
 	if (!s)
 		return (NULL);
-	new_s = (char **)ft_calloc((word_count(s, c) + 1), sizeof(char *));
+	(*tfo) = word_count(s, c);
+	new_s = (char **)calloc((word_count(s, c) + 1), sizeof(char *));
 	if (!new_s)
 		return (NULL);
 	while (s[i_word] != '\0')
