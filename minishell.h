@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 02:32:05 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/25 03:32:22 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/03/28 04:54:19 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,4 @@ typedef struct s_table
 	char **env;
 } 			t_table;
 
-#endif
+#endif  

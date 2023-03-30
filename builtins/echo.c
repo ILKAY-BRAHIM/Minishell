@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 09:26:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/03/25 09:39:34 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/03/25 22:10:45 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,6 @@ char	*ft_echo(t_table *cmd)
 		ft_putstr(cmd->arg[i]);
 		i++;
 	}
+	if (cmd->option != NULL)
+		write (1, "\n", 1);
 }

@@ -6,11 +6,22 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/03/25 09:11:01 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/03/30 06:19:46 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../utils/utils.h"
+
+typedef struct s_env
+{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}			t_env;
+
+
+
+
 
 static	int env_size(char **env)
 {
@@ -37,7 +48,7 @@ char	**get_env(char **env, char *new)
 	if (new != NULL)
 		add = 1;
 	new_env = ft_calloc(nb_env + 1 + add, sizeof(char *));
-	while (i < nb_env)
+	while (i < nb_env) // ft_strdup
 	{
 		new_env[i] = ft_calloc(ft_strlen(env[i]) + 1, sizeof(char));
 		while (env[i][j])
@@ -48,7 +59,7 @@ char	**get_env(char **env, char *new)
 		j = 0;
 		i++;
 	}
-	if (new != NULL)
+	if (new != NULL) // ft_strdup
 	{
 		new_env[i] = ft_calloc(ft_strlen(new) + 1, sizeof(char));
 		while (new[j])
