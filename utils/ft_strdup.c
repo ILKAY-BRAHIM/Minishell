@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 03:05:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/30 09:08:49 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/03/30 08:49:19 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/03/30 08:51:22 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "utils.h"
 
-int main(int argc, char **argv, char **origin_env)
+char	*ft_strdup(char *s1)
 {
-	t_table *table;
-	t_env	*env;
-	char *line;
+	char	*ret;
+	size_t	i;
+	size_t	j;
 
-	(void)argc; 
-	(void)argv;
-	env = init_env(origin_env);
-	while (1)
+	i = ft_strlen(s1) + 1;
+	j = 0;
+	ret = malloc(i);
+	if (!ret)
+		return (NULL);
+	while (s1[j] != '\0')
 	{
-		line = get_prompt();
-		lexer(line);
-		// parsing()
-		// excution();
+		ret[j] = s1[j];
+		j++;
 	}
+	ret[j] = '\0';
+	return (ret);
 }

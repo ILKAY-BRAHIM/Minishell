@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 03:05:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/30 09:08:49 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/03/30 09:12:03 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int main(int argc, char **argv, char **origin_env)
+static	int env_size(char **env)
 {
-	t_table *table;
-	t_env	*env;
-	char *line;
+	int	i;
 
-	(void)argc; 
-	(void)argv;
-	env = init_env(origin_env);
-	while (1)
-	{
-		line = get_prompt();
-		lexer(line);
-		// parsing()
-		// excution();
-	}
+	i = 0;
+	while (env[i])
+		i++;
+	return (i);
+}
+
+t_env	*init_env(char **env)
+{
+	return (NULL);
 }

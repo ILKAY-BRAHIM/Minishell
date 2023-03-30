@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 03:05:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/30 09:08:49 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/03/25 08:14:44 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/03/25 08:14:46 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "utils.h"
 
-int main(int argc, char **argv, char **origin_env)
+void	*ft_calloc(size_t count, size_t size)
 {
-	t_table *table;
-	t_env	*env;
-	char *line;
+	void	*retval;
+	size_t	t;
 
-	(void)argc; 
-	(void)argv;
-	env = init_env(origin_env);
-	while (1)
-	{
-		line = get_prompt();
-		lexer(line);
-		// parsing()
-		// excution();
-	}
+	t = count * size;
+	retval = malloc(t);
+	if (!retval)
+		return (NULL);
+	ft_bzero(retval, t);
+	return (retval);
 }

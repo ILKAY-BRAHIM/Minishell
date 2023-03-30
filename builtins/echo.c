@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 03:05:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/30 09:08:49 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/03/25 09:26:35 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/03/25 22:10:45 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int main(int argc, char **argv, char **origin_env)
+char	*ft_echo(t_table *cmd)
 {
-	t_table *table;
-	t_env	*env;
-	char *line;
+	int	i;
 
-	(void)argc; 
-	(void)argv;
-	env = init_env(origin_env);
-	while (1)
+	i = 0;
+	while (cmd->arg[i])
 	{
-		line = get_prompt();
-		lexer(line);
-		// parsing()
-		// excution();
+		ft_putstr(cmd->arg[i]);
+		i++;
 	}
+	if (cmd->option != NULL)
+		write (1, "\n", 1);
 }

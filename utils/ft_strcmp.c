@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 03:05:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/30 09:08:49 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/03/25 09:34:56 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/03/25 09:37:39 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "utils.h"
 
-int main(int argc, char **argv, char **origin_env)
+int	ft_strcmp(char *s1, char *s2)
 {
-	t_table *table;
-	t_env	*env;
-	char *line;
+	size_t	i;
+	size_t	j;
 
-	(void)argc; 
-	(void)argv;
-	env = init_env(origin_env);
-	while (1)
+	i = 0;
+	j = 0;
+	while (s1[i] != '\0' && s2[j] != '\0' && (s1[i] == s2[j]))
 	{
-		line = get_prompt();
-		lexer(line);
-		// parsing()
-		// excution();
+		i++;
+		j++;
 	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[j]);
 }
