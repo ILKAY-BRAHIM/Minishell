@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.c                                      :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/03/30 09:12:03 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/03/30 08:49:19 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/03/30 08:51:22 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "utils.h"
 
-static	int env_size(char **env)
+char	*ft_strdup(char *s1)
 {
-	int	i;
+	char	*ret;
+	size_t	i;
+	size_t	j;
 
-	i = 0;
-	while (env[i])
-		i++;
-	return (i);
-}
-
-t_env	*init_env(char **env)
-{
-	return (NULL);
+	i = ft_strlen(s1) + 1;
+	j = 0;
+	ret = malloc(i);
+	if (!ret)
+		return (NULL);
+	while (s1[j] != '\0')
+	{
+		ret[j] = s1[j];
+		j++;
+	}
+	ret[j] = '\0';
+	return (ret);
 }

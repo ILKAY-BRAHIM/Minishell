@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 02:32:05 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/30 08:24:46 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/03/30 09:06:28 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,21 @@
 # include <readline/readline.h>
 # include <string.h>
 # include "utils/utils.h"
+
+typedef struct s_env
+{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}			t_env;
+
 typedef struct s_var
 {
 	char **split;
 	char **tokens;
 	int *array;
 }			t_var;
+
 typedef struct s_table
 {
 	char *commend;
@@ -40,8 +49,8 @@ typedef struct s_table
 	char *i_file;
 	char *o_file;
 	char *e_file;
-	char **env;
 	char *stop;
 } 			t_table;
+
 
 #endif
