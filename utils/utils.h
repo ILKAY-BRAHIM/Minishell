@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 06:14:07 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/03/25 09:40:54 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/03/30 08:24:55 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <stdio.h>
 # include <unistd.h>
 
-char	**ft_split(char const *s, char c);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	**ft_split(char *s, char c, int *tfo);
+char	*ft_substr(char *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *src);
 char	*ft_strjoin_rr(char *s1, char *s2);
 void	*ft_calloc(size_t count, size_t size);

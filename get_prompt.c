@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_prompt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 03:05:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/30 08:25:16 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/03/30 01:46:38 by bchifour          #+#    #+#             */
+/*   Updated: 2023/03/30 01:51:05 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char **argv, char **env)
+char *get_prompt(void)
 {
-	t_table *table;
 	char *line;
-
-	(void)argc; 
-	(void)argv;
-	// init_env();
-	while (1)
-	{
-		line = get_prompt();
-		lexer(line);
-		// parsing()
-		// excution();
-	}
+	line = readline("\033[0;32m ~ ");
+	return (line);
 }
