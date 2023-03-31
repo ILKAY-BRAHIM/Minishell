@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 02:32:05 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/30 09:06:28 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/03/30 09:27:21 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_var
 typedef struct s_table
 {
 	char *commend;
-	char **arg;
+	char *arg;
 	char *option;
 	int	 next;
 	char *i_file;
@@ -52,5 +52,6 @@ typedef struct s_table
 	char *stop;
 } 			t_table;
 
-
+void	lexer(char *line);
+char *get_prompt(void);
 #endif

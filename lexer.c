@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 05:37:29 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/30 08:50:57 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/03/30 09:33:15 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,12 @@ void	saver(t_table *table, t_var *var, int i)
 			n++;
 			tfo--;
 		}
-		table[j].arg = calloc(tfo, sizeof(char **));
-		while (var->tokens[n])
+		// table[j].arg = calloc(tfo, sizeof(char **));
+		if (var->tokens[n])
 		{
-			table[j].arg[count] = strdup(var->tokens[n]);
-			printf ("arg %s\n", table[j].arg[count]); // test
+			// strnstr(var->split[j],var->tokens[n], -1);
+			table[j].arg = strdup(strnstr(var->split[j],var->tokens[n], -1));
+			printf ("arg %s\n", table[j].arg); // test
 			n++;
 			count++;
 		}
