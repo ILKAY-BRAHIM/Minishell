@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 02:32:05 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/30 09:06:28 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/04/02 01:35:39 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <string.h>
-# include "utils/utils.h"
+// # include "utils/utils.h"
 
 typedef struct s_env
 {
