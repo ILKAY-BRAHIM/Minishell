@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 03:05:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/31 23:13:09 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/04/02 01:48:45 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main(int argc, char **argv, char **origin_env)
 
 	(void)argc; 
 	(void)argv;
-	env = init_env(origin_env);
+	// env = init_env(origin_env);
 	while (1)
 	{
 		line = get_prompt();
