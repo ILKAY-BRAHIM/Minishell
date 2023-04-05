@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 01:46:38 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/30 01:51:05 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/04/05 13:20:41 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 char *get_prompt(void)
 {
 	char *line;
-	line = readline("\033[0;32m ~ ");
+	line = readline(" mini~ ");
 	return (line);
 }

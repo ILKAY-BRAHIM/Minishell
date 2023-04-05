@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 02:32:05 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/30 09:27:21 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/04/05 01:30:30 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,7 @@ typedef struct s_table
 } 			t_table;
 
 void	lexer(char *line);
-char *get_prompt(void);
+char	*get_prompt(void);
+int		cont_sp(char *line);
+char	*parsing(char *line);
 #endif

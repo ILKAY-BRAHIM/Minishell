@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 05:37:29 by bchifour          #+#    #+#             */
-/*   Updated: 2023/03/30 09:33:15 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/04/05 12:48:48 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	saver(t_table *table, t_var *var, int i)
 {
 	int j;
 	int n;
+	int b;
 	int tfo;
 	int count;
 
@@ -107,7 +108,29 @@ void	saver(t_table *table, t_var *var, int i)
 		n = 0;
 		count = 0;
 		var->tokens = ft_split(var->split[j], ' ', &tfo);
-		table[j].commend = strdup(var->tokens[n]);
+		while(var->tokens[n])
+		{
+			if (strchr(var->tokens[n], '\"'))
+			{
+				n++;
+				while(!strchr(var->tokens[n], '\"'))
+					n++;
+				b = 1;
+				while (b <= n)
+				{
+					var->tokens[0] = ft_strjoin(var->tokens[0], strdup(" "));
+					var->tokens[0] = ft_strjoin(var->tokens[0], var->tokens[b++]);
+				}
+				table[j].commend = strdup(var->tokens[0]);
+				break;
+			}	
+			else 
+			{
+				table[j].commend = strdup(var->tokens[n]);
+				break;
+			}
+				
+		}
 		n++;
 		printf ("comend %s\n", table[j].commend); // test
 		if (var->tokens[n] && var->tokens[n][0] == '-')
@@ -160,6 +183,7 @@ void	lexer(char *line)
 	var->array = collect_sp(line); // need to free array
 	table = calloc(cont_sp(line), sizeof(t_table));
 	i = tokens(line, table, var);
+	// check()
 	saver(table, var, i);
 	
 	
