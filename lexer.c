@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 05:37:29 by bchifour          #+#    #+#             */
-/*   Updated: 2023/04/05 12:48:48 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:51:20 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,9 @@ void	saver(t_table *table, t_var *var, int i)
 				
 		}
 		n++;
-		printf ("comend %s\n", table[j].commend); // test
 		if (var->tokens[n] && var->tokens[n][0] == '-')
 		{
 			table[j].option = strdup(var->tokens[n]);
-			printf ("option %s\n", table[j].option); // test
 			n++;
 			tfo--;
 		}
@@ -145,35 +143,30 @@ void	saver(t_table *table, t_var *var, int i)
 		{
 			// strnstr(var->split[j],var->tokens[n], -1);
 			table[j].arg = strdup(strnstr(var->split[j],var->tokens[n], -1));
-			printf ("arg %s\n", table[j].arg); // test
 			n++;
 			count++;
 		}
 		if (table[j].next == R_INPUT)
 		{
 			table[j].i_file = strdup(var->split[j + 1]);
-			printf ("i_file %s\n", table[j].i_file); // test
 			j++;
 		}
 		else if (table[j].next == R_OUTPUT || table[j].next == O_APPEND)
 		{
 			table[j].o_file = strdup (var->split[j + 1]);
-			printf ("o_file %s\n", table[j].o_file); // test
 			j++;
 		}
 		else if (table[j].next == HERE_DOC)
 		{
 			table[j].i_file = strdup("STDIN");
 			table[j].stop = strdup(var->split[j + 1]);
-			printf ("i_file %s\n", table[j].i_file); // test
-			printf ("end %s\n", table[j].stop); // test
 			j++;
 		}
 		j++;
 	}
 }
 
-void	lexer(char *line)
+t_table		*lexer(char *line)
 {
 	t_table *table;
 	t_var *var;
@@ -185,6 +178,7 @@ void	lexer(char *line)
 	i = tokens(line, table, var);
 	// check()
 	saver(table, var, i);
+	return (table);
 	
 	
 }
