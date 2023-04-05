@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 06:14:07 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/04/05 15:07:31 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:13:13 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,6 @@ char	*ft_strchr(const char *s, int c);
 t_env	*new_list(char *org_env);
 void	add_back(t_env **list, t_env *new);
 void	add_front(t_env **list, t_env *new);
+char	*ft_strjoin(char *s1, char *s2);
+
 #endif

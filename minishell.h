@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 02:32:05 by bchifour          #+#    #+#             */
-/*   Updated: 2023/04/05 14:53:45 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:01:51 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <string.h>
-// # include "utils/utils.h"
+# include "utils/utils.h"
 
 typedef struct s_env
 {
