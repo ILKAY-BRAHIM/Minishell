@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executer.c                                         :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/05 15:27:22 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/04/06 01:24:14 by rrasezin         ###   ########.fr       */
+/*   Created: 2022/10/07 13:10:41 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/04/06 00:50:17 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "utils.h" 
 
-void	execution(t_table *table, t_env env)
+int	ft_strncmp(char *s1, char *s2, size_t n)
 {
-	int	i;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
-	// if (table[i]->next == 0)
-	// 	simple_commande(table, env);
-	// else 
-	// {
-	// 	while (table[i]->next)
-	// 	{
-	// 		if (table[i]->next == 1)
-	// 			pipex(table, env);
-	// 		i++;
-	// 	}
-	// }
-	return ;
+	j = 0;
+	while (s1[i] != '\0' && s2[j] != '\0' && (s1[i] == s2[j]) && n != 0)
+	{
+		i++;
+		j++;
+		n--;
+	}
+	if (n == 0)
+		return (0);
+	return ((unsigned char)s1[i] - (unsigned char)s2[j]);
 }

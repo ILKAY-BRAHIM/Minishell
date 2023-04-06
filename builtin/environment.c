@@ -6,29 +6,32 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/04/05 14:45:07 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/04/06 01:23:35 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include "../utils/utils.h"
 
-t_env	*init_env(char **org_env)
+void	rm_env_var(t_env *env, char *env_var)
 {
-	t_env	*env;
-	int		i;
+	t_env	*tmp;
+	t_env	*befor;
 
-	i = 0;
-	env = new_list(org_env[i]);
-	if (!env)
-		return (NULL);
-	i++;
-	while (org_env[i])
+	tmp = env;
+	befor = tmp;
+	while (ft_strncmp(env_var, tmp->name, -1) != 0)
 	{
-		add_back(&env, new_list(org_env[i]));
-		i++;
+		befor = tmp;
+		if (tmp->next == NULL)
+			return ;
+		tmp = tmp->next;
 	}
-	return (env);
+	if (ft_strncmp(env_var, tmp->name, -1) == 0)
+	{
+		befor->next = tmp->next;
+		free_one_list(tmp);
+	}
+	return ;
 }
 
 void	new_env_var(t_env *env, char *env_var)
@@ -53,26 +56,48 @@ void	new_env_var(t_env *env, char *env_var)
 	return ;
 }
 
-void	rm_env_var(t_env *env, char *env_var)
+char	*search_and_return(t_env *env, char *env_var)
 {
 	t_env	*tmp;
 	t_env	*befor;
 
 	tmp = env;
-	befor = tmp;
 	while (ft_strncmp(env_var, tmp->name, -1) != 0)
 	{
-		befor = tmp;
 		if (tmp->next == NULL)
-			return ;
+			return (NULL);
 		tmp = tmp->next;
 	}
 	if (ft_strncmp(env_var, tmp->name, -1) == 0)
+		return (tmp->value);
+	return (NULL);
+}
+
+t_env	*init_env(char **org_env)
+{
+	t_env	*env;
+	char	*shell_val;
+	int		i;
+	int		shell_value;
+
+	i = 0;
+	env = new_list(org_env[i]);
+	if (!env)
+		return (NULL);
+	i++;
+	while (org_env[i])
 	{
-		befor->next = tmp->next;
-		free_one_list(tmp);
+		add_back(&env, new_list(org_env[i]));
+		i++;
 	}
-	return ;
+	rm_env_var(env, "OLDPWD");
+	if (search_and_return(env, "SHLVL"))
+	{
+		shell_value = ft_atoi(search_and_return(env, "SHLVL"));
+		shell_val = ft_strjoin("SHLVL=", ft_itoa(shell_value + 1));
+		new_env_var(env, shell_val);
+	}
+	return (env);
 }
 
 // #include <stdio.h>
@@ -84,11 +109,12 @@ void	rm_env_var(t_env *env, char *env_var)
 
 // 	ennv = init_env(envv);
 // 	env = ennv;
-// 	new_env_var(env, "SHLVL=3");
-// 	if (ac == 2)
-// 		rm_env_var(env, av[1]);
+// 	// new_env_var(env, "SHLVL=3");
+// 	// if (ac == 2)
+// 	// 	rm_env_var(env, av[1]);
 // 	i = 0;
-
+// 	if (ac == 2)
+// 		printf("%s\n\n", search_and_return(env, av[1]));
 // 	while (1)
 // 	{
 // 		printf("%s=", env->name);
@@ -99,5 +125,4 @@ void	rm_env_var(t_env *env, char *env_var)
 // 		env = env->next;
 // 	}
 // 	free_env(ennv);
-// 	while (1);
 // }

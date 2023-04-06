@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executer.c                                         :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/05 15:27:22 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/04/06 01:24:14 by rrasezin         ###   ########.fr       */
+/*   Created: 2022/09/29 11:41:59 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/04/06 01:03:19 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "utils.h"
 
-void	execution(t_table *table, t_env env)
+int	ft_isdigit(int src)
 {
-	int	i;
-
-	i = 0;
-	// if (table[i]->next == 0)
-	// 	simple_commande(table, env);
-	// else 
-	// {
-	// 	while (table[i]->next)
-	// 	{
-	// 		if (table[i]->next == 1)
-	// 			pipex(table, env);
-	// 		i++;
-	// 	}
-	// }
-	return ;
+	if (src >= 48 && src <= 57)
+		return (1);
+	return (0);
 }

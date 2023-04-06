@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 02:32:05 by bchifour          #+#    #+#             */
-/*   Updated: 2023/04/05 15:52:31 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/04/06 01:22:40 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,6 @@
 # include <readline/readline.h>
 # include <string.h>
 # include "utils/utils.h"
-
-typedef struct s_env
-{
-	char			*name;
-	char			*value;
-	struct s_env	*next;
-}			t_env;
 
 typedef struct s_var
 {
@@ -56,4 +49,14 @@ t_table		*lexer(char *line);
 char	*get_prompt(void);
 int		cont_sp(char *line);
 char	*parsing(char *line);
+void	execution(t_table *table, t_env env);
+t_env	*new_list(char *org_env);
+void	add_back(t_env **list, t_env *new);
+void	free_one_list(t_env *list);
+void	free_env(t_env *env);
+t_env	*init_env(char **org_env);
+char	*search_and_return(t_env *env, char *env_var);
+void	rm_env_var(t_env *env, char *env_var);
+void	new_env_var(t_env *env, char *env_var);
+
 #endif
