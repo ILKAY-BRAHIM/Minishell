@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 02:32:05 by bchifour          #+#    #+#             */
-/*   Updated: 2023/04/06 01:32:22 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:17:17 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ typedef struct s_table
 	char *stop;
 } 			t_table;
 
-t_table		*lexer(char *line);
+t_table	*lexer(char *line);
 char	*get_prompt(void);
 int		cont_sp(char *line);
-char	*parsing(char *line);
+t_table	*parsing(char *line);
 void	execution(t_table *table, t_env *env);
 t_env	*new_list(char *org_env);
 void	add_back(t_env **list, t_env *new);

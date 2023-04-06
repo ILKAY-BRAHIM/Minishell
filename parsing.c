@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 01:33:32 by bchifour          #+#    #+#             */
-/*   Updated: 2023/04/05 16:15:02 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:16:53 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,8 +251,9 @@ char *remouve_quote(char *line)
 	}
 	return (array);
 }
-char	*parsing(char *line)
+t_table	*parsing(char *line)
 {
+	t_table *table;
 	char *linee;
 	char **array;
 	int	tfo;
@@ -261,7 +262,8 @@ char	*parsing(char *line)
 	array = ft_split(linee, ' ', &tfo);
 	check_clean(array);
 	line = remouve_quote(linee);
-	return (line);
+	table = lexer(line);
+	return (table);
 	
 	
 }
