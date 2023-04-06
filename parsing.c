@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 01:33:32 by bchifour          #+#    #+#             */
-/*   Updated: 2023/04/05 14:35:12 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:15:02 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	is_valid_quate(char *array)
 	}
 	split = ft_split(array, ' ', &i);
 	if (strchr(split[0], '*'))
-		printf("syntax error (is valid qute)\n");
+		printf("\033[0;31msyntax error (is valid qute)\033[0;37m\n");
 	// printf("replace %s\n",array);
 }
 
@@ -100,7 +100,7 @@ void	check_quate(char *line)
 		}
 		if (error % 2 != 0)
 		{
-			printf("sayntax error (check_quate)\n");
+			printf("\033[0;31msayntax error (check_quate)\033[0;37m\n");
 			exit (1);
 			i = 0;
 		}
@@ -185,16 +185,16 @@ void	check_clean(char **array)
 	while(array[i])
 	{
 		if (check_op(array[i], "| >> << > <") && i == 0)
-			printf("sayntax error1\n");
+			printf("\033[0;31msayntax error1\033[0;37m\n");
 		if (check_op(array[i], "| >> << > <"))
 		{
 			if (array[i + 1] && check_op(array[i + 1], "| >> << > <"))
-				printf("sayntax error2\n");
+				printf("\033[0;31msayntax error2\033[0;37m\n");
 		}
 		i++;
 	}
 	if (check_op(array[i - 1], "| >> << > <"))
-		printf("sayntax error3\n");
+		printf("\033[0;31msayntax error3\033[0;37m\n");
 }
 int	skip(char *line)
 {
