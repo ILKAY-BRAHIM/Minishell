@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_prompt.c                                       :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/30 01:46:38 by bchifour          #+#    #+#             */
-/*   Updated: 2023/04/06 01:42:27 by bchifour         ###   ########.fr       */
+/*   Created: 2022/09/29 11:41:59 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/04/06 01:03:19 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "utils.h"
 
-char *get_prompt(void)
+int	ft_isdigit(int src)
 {
-	char *line;
-	line = readline("\033[1;35m minishell ~ \033[0;37m");
-	return (line);
+	if (src >= 48 && src <= 57)
+		return (1);
+	return (0);
 }

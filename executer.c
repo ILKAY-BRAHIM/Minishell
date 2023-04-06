@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_prompt.c                                       :+:      :+:    :+:   */
+/*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/30 01:46:38 by bchifour          #+#    #+#             */
-/*   Updated: 2023/04/06 01:42:27 by bchifour         ###   ########.fr       */
+/*   Created: 2023/04/05 15:27:22 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/04/06 01:32:11 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *get_prompt(void)
+void	execution(t_table *table, t_env *env)
 {
-	char *line;
-	line = readline("\033[1;35m minishell ~ \033[0;37m");
-	return (line);
+	int	i;
+
+	i = 0;
+	// if (table[i]->next == 0)
+	// 	simple_commande(table, env);
+	// else 
+	// {
+	// 	while (table[i]->next)
+	// 	{
+	// 		if (table[i]->next == 1)
+	// 			pipex(table, env);
+	// 		i++;
+	// 	}
+	// }
+	return ;
 }

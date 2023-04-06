@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_list.c                                         :+:      :+:    :+:   */
+/*   list_operation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 23:48:50 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/04/02 01:19:29 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/04/06 00:52:48 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	list_size(t_env *list)
 	return (i);
 }
 
-t_env	*last_list(t_env *list)
+static t_env	*last_list(t_env *list)
 {
 	int	i;
 
@@ -57,18 +57,6 @@ void	add_back(t_env **list, t_env *new)
 		*list = new;
 }
 
-void	add_front(t_env **list, t_env *new) //it's possible to use it
-{
-	if (new && list)
-	{
-		new->next = *list;
-		*list = new;
-	}
-	else if (new)
-		*list = new;
-	return ;
-}
-
 t_env	*new_list(char *org_env) // one of the env name
 {
 	t_env	*env;
@@ -92,4 +80,27 @@ t_env	*new_list(char *org_env) // one of the env name
 		env->value[size++] = org_env[j++];
 	env->next = NULL;
 	return (env);
+}
+
+void	free_one_list(t_env *list)
+{
+	free(list->name);
+	free(list->value);
+	free(list);
+	return ;
+}
+
+void	free_env(t_env *env)
+{
+	t_env *tmp;
+
+	tmp = env;
+	while (1)
+	{
+		free_one_list(tmp);
+		if (tmp->next == NULL)
+			break ;
+		tmp = tmp->next;
+	}
+	return ;
 }

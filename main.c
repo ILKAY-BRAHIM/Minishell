@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 03:05:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/04/05 23:15:07 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/04/06 01:44:28 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int main(int argc, char **argv, char **origin_env)
 
 	(void)argc; 
 	(void)argv;
-	env = init_env(origin_env);
+	// env = init_env(origin_env);
 	while (1)
 	{
 		i = 0;
 		line = get_prompt();
 		array = parsing(line);
 		table = lexer(array);
-		// execution(table);
+		// execution(table, env);
 		while(1)
 		{
 			printf ("comend :     %s\n", table[i].commend); // test
