@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 01:33:32 by bchifour          #+#    #+#             */
-/*   Updated: 2023/04/06 17:16:53 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/04/07 18:34:51 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ char *remouve_quote(char *line)
 	char *array;
 	int i;
 	int j;
-
+	// line = expanding(line);
 	array = calloc(strlen(line), sizeof(char));
 	i = 0;
 	j = 0;
@@ -263,6 +263,7 @@ t_table	*parsing(char *line)
 	check_clean(array);
 	line = remouve_quote(linee);
 	table = lexer(line);
+	// expanding(table);
 	return (table);
 	
 	

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 06:14:07 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/04/06 01:04:18 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/04/06 23:15:32 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ int		ft_strncmp(char *s1, char *s2, size_t n);
 int		ft_isdigit(int src);
 int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
+char	*ft_strnchr(char *s, char first, char end, int count);
 
 #endif
