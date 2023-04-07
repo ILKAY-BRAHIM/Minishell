@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 02:32:05 by bchifour          #+#    #+#             */
-/*   Updated: 2023/04/06 17:17:17 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/04/07 18:00:52 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include <string.h>
 # include "utils/utils.h"
 
@@ -58,5 +59,8 @@ t_env	*init_env(char **org_env);
 char	*search_and_return(t_env *env, char *env_var);
 void	rm_env_var(t_env *env, char *env_var);
 void	new_env_var(t_env *env, char *env_var);
+void	ft_echo(t_table *table, int i);
+void	ft_env(t_table *table, t_env *env, int i);
+void	print_help(t_table *table, int i);
 
 #endif

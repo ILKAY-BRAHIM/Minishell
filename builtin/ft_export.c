@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_prompt.c                                       :+:      :+:    :+:   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/30 01:46:38 by bchifour          #+#    #+#             */
-/*   Updated: 2023/04/06 21:19:41 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/04/07 18:27:00 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/04/07 18:38:53 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-char *get_prompt(void)
-{
-	char *line;
-	int		i;
+// void	ft_export(t_table *table, t_env *env, int i)
+// {
+// 	t_env	*tmp;
 
-	i = 0;
-	line = readline("\033[1;35mminishell ~ \033[0;37m");
-	while(line[i] == ' ')
-		i++;
-	if (line[i] == '\0')
-	{
-		free(line);
-		return(NULL);
-	}
-	else
-		add_history(line);
-	return (line);
-}
+// 	tmp = env;
+// 	if (table[i].option != NULL)
+// 	{
+// 		print_help(table, i);
+// 		return ;
+// 	}
+	
+// }
+
+/* 
