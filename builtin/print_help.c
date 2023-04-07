@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_prompt.c                                       :+:      :+:    :+:   */
+/*   print_help.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/30 01:46:38 by bchifour          #+#    #+#             */
-/*   Updated: 2023/04/06 21:19:41 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/04/07 17:55:16 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/04/07 18:29:37 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-char *get_prompt(void)
+void	print_help(t_table *table, int i)
 {
-	char *line;
-	int		i;
-
-	i = 0;
-	line = readline("\033[1;35mminishell ~ \033[0;37m");
-	while(line[i] == ' ')
-		i++;
-	if (line[i] == '\0')
+	if (table[i].option)
 	{
-		free(line);
-		return(NULL);
+		printf("%s: illegal option -- %c\n", table[i].commend, table[i].option[1]);
+		printf("usage: %s [no option]\n", table[i].commend);
 	}
-	else
-		add_history(line);
-	return (line);
+	return;
 }
