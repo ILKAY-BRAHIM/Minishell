@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/04/06 01:23:35 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/04/18 23:15:23 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	new_env_var(t_env *env, char *env_var)
 char	*search_and_return(t_env *env, char *env_var)
 {
 	t_env	*tmp;
-	t_env	*befor;
 
 	tmp = env;
 	while (ft_strncmp(env_var, tmp->name, -1) != 0)
@@ -69,7 +68,7 @@ char	*search_and_return(t_env *env, char *env_var)
 		tmp = tmp->next;
 	}
 	if (ft_strncmp(env_var, tmp->name, -1) == 0)
-		return (tmp->value);
+		return (ft_strdup(tmp->value));
 	return (NULL);
 }
 

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 15:12:12 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/04/07 16:55:39 by bchifour         ###   ########.fr       */
+/*   Created: 2023/04/07 18:47:47 by bchifour          #+#    #+#             */
+/*   Updated: 2023/04/18 21:50:53 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,37 +24,45 @@ char	*ft_strnchr(char *s, char first, char end, int count)
 	j = 0;
 	size = 0;
 	array = strchr(s, first);
-	while(count-- > 1)
-	{
-		array = strchr(array+1, first);
-	}
+	// while(count-- > 1)
+	// {
+	// 	printf("kkkkkk\n");
+	// 	array = strchr(array+1, first);
+	// }
 	if (array == NULL)
 		return(NULL);
-	s = ft_strdup(array);
+	s = strdup(array);
 	i = 0;
-	size = ft_strlen(array) - ft_strlen(strchr(array+1, end));
+	while(array[size] && array[size] != end)
+		size++;
+	while(array[size] && array[size] == end)
+		size++;
 	array = calloc(size+1, 1);
 	while(s[i])
 	{
 		if(s[i] == first )
 		{
-			i++;
+			array[j++] = s[i++];
 			while(s[i] && s[i] != end)
 				array[j++] = s[i++];
-			if (s[i] && s[i] == end && s[i] != ' ' && s[i] != '$')
+			if (s[i] && (first == end && count <= 1)) // dyall expand
+			{
 				array[j++] = s[i++];
+				while(s[i] && (s[i] == end && count == 1))
+					array[j++] = s[i++];
+			}
+			else if (s[i] && count == 2 && (first == end || count <= 2)) // dyall op
+			{
+				array[j++] = s[i++];
+				while(s[i] && (s[i] == end && count == 2))
+					array[j++] = s[i++];
+			}
 			free(s);
 			return (array);
 		}
 		i++;
 	}
+	free(array);
 	free(s);
 	return (NULL);
 }
-
-// #include <stdio.h>
-// int main()
-// {
-// 	char array[100] = "$asasdasdad";
-// 	printf("%s\n", ft_strnchr(array, '$', ' ', 1));
-// }

@@ -6,20 +6,20 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 06:17:11 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/04/06 23:07:08 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/04/26 00:16:48 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h" 
 
-size_t	ft_strlen(const char *src)
+size_t	ft_strlen(char *src)
 {
 	int	i;
 
 	i = 0;
-	while (src && src[i] != 0)
-	{
+	if (src == NULL)
+		return (i);
+	while (src[i])
 		i++;
-	}
 	return (i);
 }
