@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:13:24 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 18:06:49 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:59:19 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ char	*sp_strjoin(char *s1, char *s2, int att)
 	while (s2[j] != '\0' && len_s2-- > 0)
 		new[i++] = s2[j++];
 	new[i] = '\0';
-	if (att-- == 2)
+	if (att == 2)
 	{
 		free(s1);
+		att--;
 		s1 = NULL;
 	}
 	if (att == 1)

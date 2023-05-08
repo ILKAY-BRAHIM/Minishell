@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:22:58 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 18:06:49 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/08 23:02:27 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char **ft_strtok(char *strw, char *sp, int att)
 		}
 	}
 	tok[j] = NULL;
+	free(str);
 	return (tok);
 }
 // int main()

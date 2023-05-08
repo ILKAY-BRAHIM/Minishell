@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 21:54:40 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 18:06:49 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/03 13:29:02 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	check_sp(t_token *token)
 	t_token *tmp;
 	char	*part;
 	char	*tm;
+	int		i;
 
 	tmp = token;
 	tm = NULL;
@@ -61,6 +62,17 @@ int	check_sp(t_token *token)
 		else
 			tm = NULL;
 		token = token->next;
+		i = 0;
+		if (token != NULL && token->next == NULL)
+		{
+			while(token->token && token->token[i] == ' ')
+				i++;
+			if (token->token[i] == '\0')
+			{
+				printf("minishell: syntax error near unexpected token `newline'\n");
+				return(-1);
+			}
+		}
 		if (token == NULL)
 			break;
 	}

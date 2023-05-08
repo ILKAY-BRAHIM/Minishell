@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 02:15:45 by bchifour          #+#    #+#             */
-/*   Updated: 2023/04/29 15:39:51 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/03 12:50:35 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	**ft_split(char *s, char c)
 	i_word = 0;
 	if (!s)
 		return (NULL);
-	new_s = (char **)calloc((word_count(s, c) + 1), sizeof(char *));
+	new_s = (char **)calloc((word_count(s, c) + 2), sizeof(char *));
 	if (!new_s)
 		return (NULL);
 	while (s[i_word] != '\0')

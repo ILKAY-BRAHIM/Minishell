@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:44:34 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 19:15:06 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/08 23:45:34 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	print_tree(t_tree *tree)
 		else
 		{
 			printf("CMD : |%s|\n", tree->table->commend);
+			free(tree->table->commend);
 			while (tree->table->option[i])
 			{
 				printf("OPTION : |%s|\n", tree->table->option[i]);
@@ -90,6 +91,7 @@ int main(int argc, char **argv, char **origin_env)
 		if (line != NULL)
 		{
 			lst = parsing_v3(line, env);
+			// pause();
 			if (lst != NULL)
 			{
 				tree = lexer(lst);

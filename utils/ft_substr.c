@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 06:17:28 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/03/25 08:36:55 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/08 23:23:25 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 		m = len;
 	else
 		m = len_s;
-	substring = malloc(sizeof(char) * (m + 1));
-	if (!substring || !s[0])
+	if (!s[0])
+		return (NULL);
+	substring = calloc(sizeof(char) , (m + 2));
+	if (!substring)
 		return (NULL);
 	while (i < m && start <= len_s)
 		substring[i++] = s[start++];

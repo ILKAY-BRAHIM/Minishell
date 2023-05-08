@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:38:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 18:08:01 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/08 15:44:49 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@
 # include "utils/utils.h"
 #include <ctype.h>
 
+# define HERE_DOC_EX 1
 # define R_INPUT 2
 # define R_OUTPUT 3
 # define HERE_DOC 4
 # define O_APPEND 5
+
 
 
 typedef struct s_token
@@ -38,11 +40,12 @@ typedef struct s_token
 
 typedef struct s_table
 {
-	char *commend;
-	char **arg;
-	char **option;
-	int	 *next;
-	char **files;
+	char	*commend;
+	char	**arg;
+	int		*exp;
+	char	**option;
+	int		*next;
+	char	**files;
 } 			t_table;
 
 typedef struct s_tree
@@ -53,6 +56,7 @@ typedef struct s_tree
 	struct s_tree *right;
 }				t_tree;
 
+// void rl_replace_line(char *str, int i);
 t_token	*new_token(char *data);
 void lst_add_back(t_token *lst, t_token *new);
 t_token *parsing_v3(char *line, t_env *env);

@@ -36,3 +36,26 @@ check "ls -la"      >       ls
 
 
 "'ls -la'"
+
+
+
+echo '''"'"test"''test'"'"'"test"'"''"t ''test"
+awk '{print $1,$4}' README.md
+awk '{ if (length($0) > max) max = length($0) } END { print max }' geeksforgeeks.txt
+awk 'length($0) > 10' geeksforgeeks.txt 
+awk 'BEGIN { for(i=1;i<=6;i++) print "square of", i, "is",i*i; }' 
+echo "my name is $USER "
+`ls -i | grep "$1" | awk '{print $1}'`
+echo "String operations using "expr $string :" construct"
+
+
+"andscrambledittomakea"
+
+
+ echo -n      '         hello' kkkkkk
+
+ '""""""""ls'
+ export "ls ls "="ls ls"
+ echo $HH    / HH=ls"""""";
+
+ "ls "'$PWD'

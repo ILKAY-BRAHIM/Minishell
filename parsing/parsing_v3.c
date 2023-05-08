@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:02:43 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 18:06:49 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:29:30 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,41 @@ t_token *parsing_v3(char *line, t_env *env)
 			count = 1;
 		i++;
 	}
+	
 	count = 1;
+	i = 0;
+	while(line[i])
+	{
+		if (line[i] == '<' && line[i+1] == '<')
+		{
+			i = i+2;
+			while (line[i] == ' ' )
+				i++;
+			while(line[i] && line[i] != ' ')
+			{
+				if (line[i] == '$')
+					line[i] = '\5';
+				if (line[i] == '\"' || line[i] == '\'')
+				{
+					i++;
+					while(line[i] && !(line[i] == '\"' || line[i] == '\''))
+					{
+						if (line[i] == '$')
+							line[i] = '\5';
+						i++;
+					}
+					if (line[i] == '\"' || line[i] == '\'')
+						i++;
+				}
+				else 
+					i++;
+			}
+			break ;
+			
+			
+		}
+		i++;
+	}
 	i = 0;
 	while(line[i])
 	{
@@ -78,7 +112,6 @@ t_token *parsing_v3(char *line, t_env *env)
 		// 	lst_add_back(token, new_token(part));
 		// count++;
 		// free(part);
-
 
 		if (line[0] == '\"' || line[0] == '\'')
 		{
@@ -130,7 +163,7 @@ t_token *parsing_v3(char *line, t_env *env)
 				return (NULL);
 			}
 			lst_add_back(new, tmp_frr);
-			// free_lst(tmp_frr);
+			// free_lst(token);
 			// free linked list;
 		}
 	 	tmp = tmp->next;
@@ -144,7 +177,7 @@ t_token *parsing_v3(char *line, t_env *env)
 	new = join_tokens(new);
 	if (check_sp(new) == -1)
 		return (NULL);
-	new = r_qutes(new);
+	// new = r_qutes(new);
 	new = join_tokens2(new);
 	return (new);
 }
