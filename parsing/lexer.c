@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:39:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/08 23:53:13 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:09:33 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_table *saver(char *data)
 	if (data == NULL)
 		return (NULL);
 	table = calloc(1, sizeof(t_table));
-	tokons = calloc(4, sizeof(char *));
+	tokons = calloc(5, sizeof(char *));
 	i = 0;
 	while(i < 4)
 		tokons[i++] = calloc(1, 1);
@@ -35,16 +35,18 @@ t_table *saver(char *data)
 		_char = data[i];
 		if (data[i] == _char && index == 1)
 			index = -1;
-		i++;
+		if (data[i])
+			i++;
 		while(data[i] && data[i] != _char  && index == -1)
 		{
-			if (data[i] == ' ' && index == -1)
+			if (data[i] && data[i] == ' ' && index == -1)
 				data[i] = '\2';
 			i++;
 		}
 		if (data[i] == _char && index == -1)
 			index = 1;
-		i++;
+		if (data[i])
+			i++;
 	}
 	array = ft_split(data, ' ');
 	index = 1;
@@ -97,9 +99,9 @@ t_table *saver(char *data)
 	table->arg = ft_split(tokons[3], ' ');
 	table->option = ft_split(tokons[2], ' ');
 	table->files = ft_split(tokons[1], ' ');
+	free_array(tokons);
 	while(array[i])
 		i++;
-	// free_array(tokons);
 	table->next = calloc(i + 1, sizeof(int));
 	i = 0;
 	while(array[i])
@@ -151,7 +153,7 @@ t_tree *lexer(t_token *lst)
 	}
 	tree->table = saver(lst->token);
 	tree->type = 0;
-	free_lst(lst);
+	// free_lst(lst);
 	return (tree_tmp);
 }
 

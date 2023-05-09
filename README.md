@@ -59,3 +59,6 @@ echo "String operations using "expr $string :" construct"
  echo $HH    / HH=ls"""""";
 
  "ls "'$PWD'
+
+
+ ls | ls -la >> hi >> "" ls ' ' | #PWD << $PWD --------> leaks

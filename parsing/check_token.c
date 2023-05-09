@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:59:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/08 22:17:46 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:24:39 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,20 +144,27 @@ t_token *check_token(char *data, t_env *env)
 				// }
 				// j = 0;
 				// free(part);
-				part = expanding(split[i], env);
+				if (strchr(split[i], '$'))
+				{
+					part = expanding(split[i], env);
+					if (count == 1 && count++)
+						new = new_token(part);
+					else 
+						lst_add_back(new, new_token(part));
+					free(part);
+				}
+				else
+				{
+					if (count == 1 && count++)
+						new = new_token(split[i]);
+					else 
+						lst_add_back(new, new_token(split[i]));
+				}
 				// while(split[i][j] && split[i][j] == ' ')
 				// 	j++;
 				// if (split[i][j] != '\0')
 				// 	ttmp = strdup(split[i]);
 				// printf ("TTMP . |%s|\n", ttmp);
-				if (count == 1 && count++)
-				{
-					new = new_token(part);
-				}
-				else 
-				{
-					lst_add_back(new, new_token(part));
-				}
 			}
 			i++;
 			

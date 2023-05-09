@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:20:59 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/06 12:39:57 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:18:04 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ char	*expanding(char *str, t_env *env)
 		free(begin);
 	i = 0;
 	while(array[i])
-		result = sp_strjoin(result, array[i++], 2);
-	free(array);
+		result = sp_strjoin(result, array[i++], 0);
+	free_array(array);
 	// free(str);
 	return (result);
 }

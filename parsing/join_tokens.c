@@ -126,7 +126,6 @@ t_token		*join_tokens(t_token *tokens)
 			}
 			break;
 		}
-		printf("%s\n", tmp);
 	}
 	free_lst(tmp_lst);
 	return (new);

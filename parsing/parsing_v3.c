@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:02:43 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/08 22:29:30 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:48:22 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ t_token *parsing_v3(char *line, t_env *env)
 			{
 				free_lst(token);
 				// free(tmp_frr);
+				free_lst(new);
 				return (NULL);
 			}
 			lst_add_back(new, tmp_frr);
@@ -173,10 +174,13 @@ t_token *parsing_v3(char *line, t_env *env)
 		count++;
 	}
 		// printf("OK\n");
-	// free_lst(token);
+	free_lst(token);
 	new = join_tokens(new);
 	if (check_sp(new) == -1)
+	{
+		free_lst(new);
 		return (NULL);
+	}
 	// new = r_qutes(new);
 	new = join_tokens2(new);
 	return (new);

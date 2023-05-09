@@ -15,7 +15,8 @@ FLAGE =  -g
 	$(CC) -c $< -o $@
 
 $(NAME) : $(OBJ) 
-	$(CC) $(FLAGE) $(SRC) -lreadline -L /goinfre/bchifour/homebrew/opt/readline/lib -I /goinfre/bchifour/homebrew/opt/readline/include -o $(NAME) 
+	$(CC) $(FLAGE) $(SRC) -lreadline  -o $(NAME) 
+# -L /goinfre/bchifour/homebrew/opt/readline/lib -I /goinfre/bchifour/homebrew/opt/readline/include
 
 all: $(NAME)
 
