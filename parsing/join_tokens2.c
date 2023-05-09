@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 09:28:39 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 18:06:49 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:57:19 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ t_token *join_tokens2(t_token *lst)
 			else
 				lst_add_back(new, new_token(tmp));
 			free(tmp);
+			tmp = NULL;
 			break ;
 		}
 	}
+	free(tmp);
 	free_lst(lst_tmp);
 	return(new);
 }

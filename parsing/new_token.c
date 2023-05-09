@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 21:55:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 18:06:49 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/08 23:48:27 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_token	*new_token(char *data)
 {
 	t_token *token;
 	token = calloc(1, sizeof(t_token));
-	token->token = ft_strdup(data);
+	token->token = strdup(data);
 	token->next = NULL;
 	return (token);
 }

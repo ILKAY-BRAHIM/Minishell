@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:39:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/05 18:18:23 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:38:10 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ t_table *saver(char *data)
 	int 	_char;
 	char	**array;
 	char	**tokons;
+	if (data == NULL)
+		return (NULL);
 	table = calloc(1, sizeof(t_table));
-	tokons = calloc(4, sizeof(char *));
+	tokons = calloc(5, sizeof(char *));
 	i = 0;
 	while(i < 4)
 		tokons[i++] = calloc(1, 1);
@@ -33,16 +35,18 @@ t_table *saver(char *data)
 		_char = data[i];
 		if (data[i] == _char && index == 1)
 			index = -1;
-		i++;
+		if (data[i])
+			i++;
 		while(data[i] && data[i] != _char  && index == -1)
 		{
-			if (data[i] == ' ' && index == -1)
+			if (data[i] && data[i] == ' ' && index == -1)
 				data[i] = '\2';
 			i++;
 		}
 		if (data[i] == _char && index == -1)
 			index = 1;
-		i++;
+		if (data[i])
+			i++;
 	}
 	array = ft_split(data, ' ');
 	index = 1;
@@ -71,11 +75,11 @@ t_table *saver(char *data)
 		}
 		else if (index == 1 && index++)
 		{
-			table->commend = ft_strdup(array[i]);
+			table->commend = strdup(array[i]);
 			// commend = array[i];
 			// x = 2;
 		}
-		else if (array[i][0] == '-')
+		else if (array[i][0] == '-' ||(( array[i][0] == '\"' || array[i][0] == '\'') && array[i][1] == '-'))
 		{
 			tokons[2] = sp_strjoin(tokons[2], array[i], 0);
 			tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
@@ -95,10 +99,9 @@ t_table *saver(char *data)
 	table->arg = ft_split(tokons[3], ' ');
 	table->option = ft_split(tokons[2], ' ');
 	table->files = ft_split(tokons[1], ' ');
+	free_array(tokons);
 	while(array[i])
 		i++;
-	// free_array(tokons);
-	free(tokons);
 	table->next = calloc(i + 1, sizeof(int));
 	i = 0;
 	while(array[i])
@@ -110,7 +113,7 @@ t_table *saver(char *data)
 		else if (ft_strncmp(array[i],  ">>", -1) == 0)
 			table->next[i] = 5;
 		else if (ft_strncmp(array[i],  "<<", -1) == 0)
-			table->next[i] = 4;
+			table->next[i] = 1;
 		i++;
 	}
 	free_array(array);
@@ -150,7 +153,7 @@ t_tree *lexer(t_token *lst)
 	}
 	tree->table = saver(lst->token);
 	tree->type = 0;
-	free_lst(lst);
+	// free_lst(lst);
 	return (tree_tmp);
 }
 

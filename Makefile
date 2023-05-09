@@ -11,13 +11,14 @@ NAME = minishell
 
 OBJ = $(SRC:.c=.o)
 CC = gcc
-FLAGE = -Wall -Wextra -Werror 
+FLAGE =  -g
 # -fsanitize=address -g
 %.o: %.c $(HEADER)
 	$(CC) -c $< -o $@
 
 $(NAME) : $(OBJ) 
-	$(CC) $(FLAGE) $(SRC) -lreadline -o $(NAME) 
+	$(CC) $(FLAGE) $(SRC) -lreadline  -o $(NAME) 
+# -L /goinfre/bchifour/homebrew/opt/readline/lib -I /goinfre/bchifour/homebrew/opt/readline/include
 
 all: $(NAME)
 

@@ -6,11 +6,66 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:44:34 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/04 22:37:07 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:59:56 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+
+
+void	free_tree(t_tree *tree)
+{
+	int i;
+	int x = 0;
+	while (1 )
+	{
+		i = 0;
+		if (tree->type == 1)
+		{
+			free(tree->left->table->commend);
+			while (tree->left->table->option[i])
+				free(tree->left->table->option[i++]);
+			free (tree->left->table->option);
+			i = 0;
+			while (tree->left->table->arg[i])
+				free(tree->left->table->arg[i++]);
+			free(tree->left->table->arg);
+			i = 0;
+			while (tree->left->table->files[i])
+				free(tree->left->table->files[i++]);
+			free(tree->left->table->files);
+			free(tree->left->table->next);
+			free(tree->left->table);
+			free(tree->left);
+		}
+		else
+		{
+			free(tree->table->commend);
+			while (tree->table->option[i])
+				free(tree->table->option[i++]);
+			free(tree->table->option);
+			i = 0;
+			while (tree->table->arg[i])
+				free(tree->table->arg[i++]);
+			free(tree->table->arg);
+			i = 0;
+			while (tree->table->files[i])
+				free(tree->table->files[i++]);
+			free(tree->table->files);
+			free(tree->table->next);
+			free(tree->table);
+		}
+		tree = tree->right;
+		if (tree == NULL)
+			break ;
+		x++;
+	}
+	free(tree);
+}
+
+
+
 
 void	print_tree(t_tree *tree)
 {
@@ -90,11 +145,14 @@ int main(int argc, char **argv, char **origin_env)
 		if (line != NULL)
 		{
 			lst = parsing_v3(line, env);
+			// pause();
 			if (lst != NULL)
 			{
 				tree = lexer(lst);
+				free_lst(lst);
 				print_tree(tree);
 				execution(tree, env);
+				free_tree(tree);
 			}
 			// if (lst != NULL)
 			// {
