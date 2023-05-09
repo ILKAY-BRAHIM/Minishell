@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:38:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 18:08:01 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:58:35 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@
 # define R_INPUT 2
 # define R_OUTPUT 3
 # define HERE_DOC 4
-# define O_APPEND 5
+# define R_APPEND 5
 
+int	exit_status;
 
 typedef struct s_token
 {
@@ -58,14 +59,14 @@ void lst_add_back(t_token *lst, t_token *new);
 t_token *parsing_v3(char *line, t_env *env);
 char	*ft_strnchr(char *s, char first, char end, int flage);
 char	*get_prompt(void);
-t_env	*new_list(char *org_env);
+t_env	*new_list(char *org_env, int type);
 void	add_back(t_env **list, t_env *new);
 void	free_one_list(t_env *list);
 void	free_env(t_env *env);
 t_env	*init_env(char **org_env);
 char	*search_and_return(t_env *env, char *env_var);
 void	rm_env_var(t_env *env, char *env_var);
-void	new_env_var(t_env *env, char *env_var);
+void	new_env_var(t_env *env, char *env_var, int type);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 int count_sp(char *line);
 t_token *check_token(char *data, t_env *env);
@@ -82,7 +83,8 @@ t_token *join_tokens2(t_token *lst);
 void	free_array(char **array);
 char	*ft_itoa(int n);
 t_table *back_space(t_table *table);
-// void	ft_echo(t_table *table, int i);
-// void	ft_env(t_table *table, t_env *env, int i);
+void	execution(t_tree *tree, t_env *env);
+// void	execute_commande(t_table *table, t_env *env);
+
 // void	print_help(t_table *table, int i);
 #endif

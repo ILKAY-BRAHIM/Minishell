@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:44:34 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 19:15:06 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/04 22:37:07 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int main(int argc, char **argv, char **origin_env)
 			{
 				tree = lexer(lst);
 				print_tree(tree);
+				execution(tree, env);
 			}
 			// if (lst != NULL)
 			// {

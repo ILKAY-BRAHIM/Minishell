@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:39:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 18:06:49 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/05 18:18:23 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,18 @@ t_table *saver(char *data)
 			
 			// rediraction = array[i];
 			// file = array[i]
-			if (ft_strncmp("<<", array[i], -1) != 0)
-			{
+			// if (ft_strncmp("<<", array[i], -1) != 0)
+			// {
 				i++;
 				tokons[1] = sp_strjoin(tokons[1], array[i], 0);
 				tokons[1] = sp_strjoin(tokons[1], strdup(" "), 2);
-			}
-			else 
-			{
-				i++;
-				tokons[3] = sp_strjoin(tokons[3], array[i], 0);
-				tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
-			}
+			// }
+			// else 
+			// {
+			// 	i++;
+			// 	tokons[3] = sp_strjoin(tokons[3], array[i], 0);
+			// 	tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
+			// }
 		}
 		else if (index == 1 && index++)
 		{

@@ -6,24 +6,50 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 09:26:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/04/07 18:25:45 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:01:07 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_echo(t_table *table, int i)
+// changed
+
+int	ft_echo(t_table *table, t_env *env)
 {
+	int	i;
 	int	j;
 
-	j = 0;
-	if (table[i].o_file == NULL)
+	i = 0;
+	j = 1;
+	if (table->option[i] != NULL)
 	{
-		if (table[i].arg != NULL)
-			printf("%s", table[i].arg);
-		if (table[i].option == NULL || ft_strncmp(table[i].option, "-n", -1) != 0)
-			printf("\n");
+		if (ft_strncmp(table->option[0], "-n", 2) == 0)
+		{
+			while (table->option[0][j] == 'n')
+				j++;
+			if (table->option[0][j] == '\0')
+				i++;
+		}
+		while (table->option[i])
+		{
+			printf("%s", table->option[i]);
+			i++;
+			if (table->arg[0] != NULL)
+				printf(" ");
+		}			
 	}
-	//need to add the part when i have deffrent o_file in the pipe and rederection case 
-	return ;
+	i = 0;
+	while (table->arg && table->arg[i])
+	{
+		printf("%s", table->arg[i]);
+		i++;
+		if (table->arg[i] != NULL)
+			printf(" ");
+	}
+	if (table->option[0] == NULL || ft_strncmp(table->option[0], "-n", 2) != 0)
+		printf("\n");
+	rm_env_var(env, "_");
+	new_env_var(env, ft_strjoin("_=", ft_strdup("echo")), 0);
+	return (0);
 }
+

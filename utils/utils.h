@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 06:14:07 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/04/29 15:40:14 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:53:25 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_env
 {
 	char			*name;
 	char			*value;
+	int				type;
 	struct s_env	*next;
 }			t_env;
 
@@ -36,9 +37,12 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
 int		ft_strncmp(char *s1, char *s2, size_t n);
 int		ft_isdigit(int src);
-int		ft_atoi(const char *str);
+long long	ft_atoi(const char *str);
 char	*ft_itoa(int n);
 char	*ft_strnchr(char *s, char first, char end, int count);
 int		word_count(const char *s, char c);
+int		list_size(t_env *list);
+int		ft_isalpha(int src);
+void	fd_putstr(char *s, int fd);
 
 #endif

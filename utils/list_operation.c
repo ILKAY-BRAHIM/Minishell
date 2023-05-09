@@ -6,13 +6,13 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 23:48:50 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/04/06 00:52:48 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:57:00 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-static int	list_size(t_env *list)
+int	list_size(t_env *list)
 {
 	int	i;
 
@@ -57,7 +57,7 @@ void	add_back(t_env **list, t_env *new)
 		*list = new;
 }
 
-t_env	*new_list(char *org_env) // one of the env name
+t_env	*new_list(char *org_env, int type) // one of the env name
 {
 	t_env	*env;
 	int		size;
@@ -68,6 +68,7 @@ t_env	*new_list(char *org_env) // one of the env name
 	size = ft_strlen(ft_strchr(org_env, '='));
 	env->name = ft_calloc(ft_strlen(org_env) - size + 1, sizeof(char));
 	env->value = ft_calloc(size, sizeof(char));
+	env->type = type;
 	while (org_env[j] && org_env[j] != '=')
 	{
 		env->name[j] = org_env[j];

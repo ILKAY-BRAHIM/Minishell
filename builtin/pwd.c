@@ -1,43 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/06 23:19:21 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/09 16:01:32 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/04/10 01:35:01 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/05/09 16:02:04 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builting.h"
 
-// changed
-
-int	ft_env(t_table *table, t_env *env)
+int	ft_pwd(t_table *table, t_env *env)
 {
-	t_env	*tmp;
+	char	cd[1024];
 
-	tmp = env;
-	(void) table;
 	rm_env_var(env, "_");
-	new_env_var(env, ft_strjoin("_=", ft_strdup("env")), 0);
-	if (table->option[0] != NULL || table->arg[0] != NULL )
+	new_env_var(env, ft_strjoin("_=", ft_strdup("pwd")), 0);
+	if (table->option[0] != NULL)
 	{
 		print_help(table, 0);
 		return (1);
 	}
-	while (1)
+	else 
 	{
-		if (tmp->type == 0)
-		{
-			printf("%s=", tmp->name);
-			printf("%s\n", tmp->value);
-		}
-		if (tmp->next == NULL)
-			break ;
-		tmp = tmp->next;
+		if (getcwd(cd, sizeof(cd)) == NULL)
+			perror("getcwd() error");
+		else
+			printf("%s\n", cd);
 	}
 	return (0);
 }
