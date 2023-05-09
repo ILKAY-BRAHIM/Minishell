@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 09:58:13 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/09 15:07:15 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:00:01 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,10 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i]  && str[i] == '\2')
-			i++;
-		if (str[i])
+		if (str[i]  && str[i] != '\2')
 			new[j++] = str[i++];
+		else
+			i++;
 	}
 	free(str);
 	return(new);
