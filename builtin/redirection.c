@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 23:14:58 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/10 13:28:14 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:35:15 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	int_search(int *symbols, int s, int *index)
 	return (-1);
 }
 
-void	out_r(t_table *table, int out, int index)
+void	out_r(t_table *table, int index)
 {
 	int	fd;
 
@@ -55,7 +55,7 @@ void	out_r(t_table *table, int out, int index)
 	}
 }
 
-void	in_r(t_table *table, int out, int index)
+void	in_r(t_table *table, int index)
 {
 	int	fd;
 
@@ -73,7 +73,7 @@ void	in_r(t_table *table, int out, int index)
 		write (2, "No such file or directory\n", 26);
 }
 
-void	app_r(t_table *table, int out, int index)
+void	app_r(t_table *table, int index)
 {
 	int	fd;
 
@@ -96,37 +96,19 @@ void	app_r(t_table *table, int out, int index)
 	}
 }
 
-void	redirection(t_table *table, t_env *env)
+void	redirection(t_table *table)
 {
-	int	herdoc;
 	int	i;
 
-	// i = 0;
-	// while(table->next[i] != 0)
-	// {
-	// 	if (table->next[i] == HERE_DOC || table->next[i] == HERE_DOC_EX)
-	// 	{
-	// 		id = fork();
-	// 		if (id == 0)
-	// 		{
-	// 			herdoc = open("/tmp/heardoc_", O_CREAT | O_TRUNC | O_RDWR, 0644);
-	// 			here_doc(env, herdoc, table->files[i], table->next[i]);
-	// 			exit(0);	
-	// 		}
-	// 		pause();
-	// 		waitpid(id, &status, 0);
-	// 	}
-	// 	i++;
-	// }
 	i = 0;
 	while(table->next[i] != 0)
 	{
 		if (table->next[i] == R_OUTPUT)
-			out_r(table, 1, i);
+			out_r(table, i);
 		if (table->next[i] ==  R_INPUT || table->next[i] == HERE_DOC_EX || table->next[i] == HERE_DOC)
-			in_r(table, 1, i);
+			in_r(table, i);
 		else if (table->next[i] == R_APPEND)
-			app_r(table, 1, i);
+			app_r(table, i);
 		i++;
 	}
 }

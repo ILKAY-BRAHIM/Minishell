@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:10:04 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/10 12:38:24 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:33:19 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		ft_exit(t_table *table, t_env *env);
 int		ft_unset(t_table *table, t_env *env);
 void	ft_execute(t_table *table, t_env *env);
 int		check_valid_name(char *name);
-void	redirection(t_table *table, t_env *env);
+void	redirection(t_table *table);
 int		execute_commande(t_table *table, t_env *env, int i);
 int		pipex(t_tree *tree, t_env *env);
 void	get_here_docs(t_tree *tree, t_env *env);

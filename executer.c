@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:27:22 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/10 14:29:06 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:33:30 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@
 
 int	execute_commande(t_table *table, t_env *env, int i)
 {
-	int	id;
-	int status;
 	int	err;
 
+	(void)i;
 	err = 0;
 	if (ft_strncmp("echo", table->commend, -1) == 0)
 		err = ft_echo(table, env);
@@ -64,7 +63,7 @@ void	execution(t_tree *tree, t_env *env)
 			else
 			{
 				get_here_docs(tree, env);
-				redirection(tree->table, env); // not yet
+				redirection(tree->table); // not yet
 				exit_status = execute_commande(tree->table, env, 1);//most close the file descriptor
 				exit(exit_status);
 			}
