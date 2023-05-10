@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 17:55:16 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/07 19:24:43 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 21:57:57 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,22 @@ void	not_valid(char *cmd, char *arg, int type)
 	if (cmd)
 	{
 		fd_putstr(cmd, 2);
-		fd_putchar(':', 2);
+		fd_putstr(": ", 2);
 	}
 	if (type == 0 && arg)
 	{
-		fd_putstr(" [", 2);
 		fd_putstr(arg, 2);
-		fd_putstr("] : No such file or directory\n", 2);
+		fd_putstr(": No such file or directory\n", 2);
+	}
+	if (type == 2 && arg)
+	{
+		fd_putstr(arg, 2);
+		fd_putstr(" : Permission denied\n", 2);	
+	}
+	if (type == 3 && arg)
+	{
+		fd_putstr(arg, 2);
+		fd_putstr(" : Not a directory\n", 2);	
 	}
 	else if (type == 1 && arg)
 	{

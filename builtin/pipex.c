@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 11:56:04 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/10 14:34:14 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:37:50 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	count_pipe(t_tree *tree)
 	return (size);
 }
 
-int	pipex(t_tree *tree, t_env *env)
+int	pipex(t_tree *tree, t_env **env)
 {
 	int	p_1[2];
 	int	p_2[2];

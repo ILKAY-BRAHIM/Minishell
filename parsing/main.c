@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:44:34 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/10 22:07:46 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/10 22:26:51 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int main(int argc, char **argv, char **origin_env)
 	env = init_env(origin_env);
 	while (1)
 	{
-		handell_sig();
+		// handell_sig();
 		i = 0;
 		line = get_prompt();
 		if (line != NULL)
@@ -156,7 +156,7 @@ int main(int argc, char **argv, char **origin_env)
 				tree = lexer(lst);
 				free_lst(lst);
 				// print_tree(tree);
-				execution(tree, env);
+				execution(tree, &env);
 				free_tree(tree);
 			}
 			// if (lst != NULL)

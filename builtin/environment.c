@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/09 17:22:22 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:33:29 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	rm_env_var(t_env *env, char *env_var)
+void	rm_env_var(t_env **env, char *env_var)
 {
 	t_env	*tmp;
 	t_env	*befor;
 
-	tmp = env;
+	tmp = *env;
 	befor = tmp;
 	while (ft_strncmp(env_var, tmp->name, -1) != 0)
 	{
@@ -28,8 +28,13 @@ void	rm_env_var(t_env *env, char *env_var)
 	}
 	if (ft_strncmp(env_var, tmp->name, -1) == 0)
 	{
-		befor->next = tmp->next;
-		free_one_list(tmp);
+		if (befor == *env)
+		{
+			*env = (*env)->next;
+			free_one_list (befor);
+		}
+		else
+			befor->next = tmp->next;
 	}
 	return ;
 }
@@ -90,7 +95,7 @@ t_env	*init_env(char **org_env)
 		add_back(&env, new_list(org_env[i], 0));
 		i++;
 	}
-	rm_env_var(env, "OLDPWD");
+	rm_env_var(&env, "OLDPWD");
 	if (search_and_return(env, "SHLVL"))
 	{
 		shell_value = ft_atoi(search_and_return(env, "SHLVL"));

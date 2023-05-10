@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:38:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/10 19:56:15 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/10 23:26:41 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
-# include <signal.h>
+// # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
@@ -58,8 +58,8 @@ typedef struct s_tree
 	struct s_tree *right;
 }				t_tree;
 
-void rl_replace_line(const char *str, int i);
-int rl_on_new_line();
+// void rl_replace_line(const char *str, int i);
+// int rl_on_new_line();
 t_token	*new_token(char *data);
 void lst_add_back(t_token *lst, t_token *new);
 t_token *parsing_v3(char *line, t_env *env);
@@ -71,7 +71,7 @@ void	free_one_list(t_env *list);
 void	free_env(t_env *env);
 t_env	*init_env(char **org_env);
 char	*search_and_return(t_env *env, char *env_var);
-void	rm_env_var(t_env *env, char *env_var);
+void	rm_env_var(t_env **env, char *env_var);
 void	new_env_var(t_env *env, char *env_var, int type);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 int count_sp(char *line);
@@ -89,8 +89,8 @@ t_token *join_tokens2(t_token *lst);
 void	free_array(char **array);
 char	*ft_itoa(int n);
 t_table *back_space(t_table *table);
-void	execution(t_tree *tree, t_env *env);
-void handell_sig();
+// void handell_sig();
+void	execution(t_tree *tree, t_env **env);
 // void	execute_commande(t_table *table, t_env *env);
 
 // void	print_help(t_table *table, int i);

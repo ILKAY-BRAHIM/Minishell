@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:43:21 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/09 16:01:51 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:54:43 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_exit(t_table *table, t_env *env)
 
 	(void)env;
 	(void)table;
-	rm_env_var(env, "_");
+	rm_env_var(&env, "_");
 	new_env_var(env, ft_strjoin("_=", ft_strdup("exit")), 0);
 	write(1, "exit\n", 5);
 	if (table->arg[0] != NULL)

@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 23:14:58 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/10 14:35:15 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:06:47 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	int_search(int *symbols, int s, int *index)
 	return (-1);
 }
 
-void	out_r(t_table *table, int index)
+int	out_r(t_table *table, int index)
 {
 	int	fd;
 
@@ -44,7 +44,12 @@ void	out_r(t_table *table, int index)
 			dup2(fd, 1);
 		}
 		else
-			write (2, "permission denide\n", 18);
+		{
+			fd_putstr("minishell: ", 2);
+			fd_putstr(table->files[index], 2);
+			fd_putstr(": Permission denied\n", 2);
+			exit (1);
+		}
 	}
 	else
 	{
@@ -53,9 +58,10 @@ void	out_r(t_table *table, int index)
 			write(2, "failed\n", 7);
 		dup2(fd, 1);
 	}
+	return(0);
 }
 
-void	in_r(t_table *table, int index)
+int	in_r(t_table *table, int index)
 {
 	int	fd;
 
@@ -67,13 +73,24 @@ void	in_r(t_table *table, int index)
 			dup2(fd, 0);
 		}
 		else
-			write (2, "Permission denied\n", 18);
+		{
+			fd_putstr("minishell: ", 2);
+			fd_putstr(table->files[index], 2);
+			fd_putstr(": Permission denied\n", 2);
+			exit (1);
+		}
 	}
 	else
-		write (2, "No such file or directory\n", 26);
+	{
+		fd_putstr("minishell: ", 2);
+		fd_putstr(table->files[index], 2);
+		fd_putstr(": No such file or directory\n", 2);
+		exit(1);
+	}
+	return(0);
 }
 
-void	app_r(t_table *table, int index)
+int	app_r(t_table *table, int index)
 {
 	int	fd;
 
@@ -85,7 +102,12 @@ void	app_r(t_table *table, int index)
 			dup2(fd, 1);
 		}
 		else
-			write (2, "permission denide\n", 18);
+		{
+			fd_putstr("minishell: ", 2);
+			fd_putstr(table->files[index], 2);
+			fd_putstr(": Permission denied\n", 2);
+			exit (1);
+		}
 	}
 	else
 	{
@@ -94,21 +116,27 @@ void	app_r(t_table *table, int index)
 			write(2, "failed\n", 7);
 		dup2(fd, 1);
 	}
+	return(0);
 }
 
-void	redirection(t_table *table)
+int	redirection(t_table *table)
 {
 	int	i;
+	int	err;
 
 	i = 0;
+	err = 0;
 	while(table->next[i] != 0)
 	{
 		if (table->next[i] == R_OUTPUT)
-			out_r(table, i);
-		if (table->next[i] ==  R_INPUT || table->next[i] == HERE_DOC_EX || table->next[i] == HERE_DOC)
-			in_r(table, i);
+			err = out_r(table, i);
+		else if (table->next[i] ==  R_INPUT || table->next[i] == HERE_DOC_EX || table->next[i] == HERE_DOC)
+			err = in_r(table, i);
 		else if (table->next[i] == R_APPEND)
-			app_r(table, i);
+			err = app_r(table, i);
+		if (err != 0)
+			exit(err);
 		i++;
 	}
+	return (err);
 }
