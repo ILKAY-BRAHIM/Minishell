@@ -6,48 +6,108 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:27:22 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/02 18:07:09 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/10 00:54:21 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	simple_commande(t_table *table, t_env *env, int i)
+#include "builtin/builting.h"
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+int	execute_commande(t_table *table, t_env *env, int i)
 {
-	if (ft_strncmp("echo", table[i].commend, -1) == 0)
-		ft_echo(table, i);
-	else if (ft_strncmp("env", table[i].commend, -1) == 0)
-		ft_env(table, env, i);
-	// else if (ft_strncmp("export", table[i].commend, -1) == 0)
-	// 	ft_export(table, env, i);
-	// else if (ft_strncmp("unset", table[i].commend, -1) == 0)
-	// 	ft_unset(table, env, i);
-	// else if (ft_strncmp("cd", table[i].commend, -1) == 0)
-	// 	ft_cd(table, i);
-	// else if (ft_strncmp("pwd", table[i].commend, -1) == 0)
-	// 	ft_pwd(table, i);
-	// else if (ft_strncmp("exit", table[i].commend, -1) == 0)
-	// 	ft_exit(table, i);
-	// else
-	// 	ft_execute(table, env);
-	return ;
+	int	id;
+	int status;
+	int	err;
+
+	err = 0;
+	if (ft_strncmp("echo", table->commend, -1) == 0)
+		err = ft_echo(table, env);
+	else if (ft_strncmp("env", table->commend, -1) == 0)
+		err = ft_env(table, env);
+	else if (ft_strncmp("cd", table->commend, -1) == 0)
+		err = ft_cd(table, env);
+	else if (ft_strncmp("export", table->commend, -1) == 0)
+		err = ft_export(table, env);
+	else if (ft_strncmp("pwd", table->commend, -1) == 0)
+		err = ft_pwd(table, env);
+	else if (ft_strncmp("unset", table->commend, -1) == 0)
+		err = ft_unset(table, env);
+	else if (ft_strncmp("exit", table->commend, -1) == 0)
+		err = ft_exit(table, env);
+	else
+	{
+		if (i == 0)
+		{
+			id = fork();
+			if (id == 0)
+				ft_execute(table, env);
+			waitpid(id, &status, 0);
+			err = WEXITSTATUS(status);
+		}
+		else
+			ft_execute(table, env);
+	}
+	return (err);
 }
 
-void	execution(t_table *table, t_env *env)
+
+void	execution(t_tree *tree, t_env *env)
 {
 	int	i;
+	int	id;
+	int	status;
 
 	i = 0;
-	if (table[i].next == 0)
-		simple_commande(table, env, 0);
-	// else 
-	// {
-	// 	while (table[i]->next)
-	// 	{
-	// 		if (table[i]->next == 1)
-	// 			pipex(table, env);
-	// 		i++;
-	// 	}
-	// }
+	id = 0;
+	if (tree->type == 0)
+	{
+		if (tree->table->next[0] == 0)
+			exit_status = execute_commande(tree->table, env, 0);
+		// else
+		// {
+		// 	redirection(tree->table, env); // not yet
+		// }
+	}
+	else 
+	{
+		id = fork(); 
+		if (id == 0)
+		{
+			exit_status = pipex(tree, env);
+			exit(exit_status);
+		}
+		waitpid(id, &status, 0);
+		exit_status = WEXITSTATUS(status);
+		if (exit_status == 105)
+		{
+			write (2, "minishell: fork: Resource temporarily unavailable\n", 50);
+			exit_status = 1;
+		}
+
+	}
+	new_env_var(env, ft_strjoin("?=", ft_itoa(exit_status)), 2);
+	// write (2, ft_itoa(exit_status), ft_strlen(ft_itoa(exit_status)));
+	// write (2, "\n", 1);
+	// free_tree(tree); need to code it     ("_")      !!!
 	return ;
 }
+
+// int main()
+// {
+// 	t_tree *tree;
+// 	t_table *table;
+// 	t_env	*env;
+
+// 	tree = calloc(sizeof(t_tree), 1);
+// 	tree->type = 0;
+// 	table = calloc(1, sizeof(t_table));
+// 	table->commend = ft_strdup("echo");
+// 	table->option = ft_split("-n -k", ' ');
+// 	table->arg = ft_split("hello world", ' ');
+// 	table->next = calloc(1, sizeof (int));
+// 	tree->table = table;
+	
+// 	execution(tree, env);
+// }

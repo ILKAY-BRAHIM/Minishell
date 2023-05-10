@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:59:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/09 15:24:39 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:24:00 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_token *check_token(char *data, t_env *env)
 					if(strchr(part, '$'))
 					{
 						// printf("PART %s\n", part);
-						free(part);
+						// free(part);
 						part = expanding(part, env);
 					}
 					if (count == 1 && count++)

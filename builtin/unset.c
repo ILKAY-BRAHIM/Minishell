@@ -1,43 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/06 23:19:21 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/09 16:01:32 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/04/08 17:55:05 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/05/09 16:02:39 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builting.h"
 
-// changed
-
-int	ft_env(t_table *table, t_env *env)
+int	ft_unset(t_table *table, t_env *env)
 {
-	t_env	*tmp;
+	int	i;
+	int	err;
 
-	tmp = env;
-	(void) table;
+	i = 0;
+	err = 0;
 	rm_env_var(env, "_");
-	new_env_var(env, ft_strjoin("_=", ft_strdup("env")), 0);
-	if (table->option[0] != NULL || table->arg[0] != NULL )
+	new_env_var(env, ft_strjoin("_=", ft_strdup("unset")), 0);
+	if (table->option[0] != NULL)
 	{
-		print_help(table, 0);
-		return (1);
+		print_help(table, 1);
+		return (2);
 	}
-	while (1)
+	while (table->arg[i])
 	{
-		if (tmp->type == 0)
+		if (check_valid_name(table->arg[i]) != 0)
 		{
-			printf("%s=", tmp->name);
-			printf("%s\n", tmp->value);
+			not_valid(table->commend, table->arg[i], 1);
+			err = 1;
 		}
-		if (tmp->next == NULL)
-			break ;
-		tmp = tmp->next;
+		else
+			rm_env_var(env, table->arg[i]);
+		i++;
 	}
-	return (0);
+	return (err);
 }
+
+/* $? return	*/

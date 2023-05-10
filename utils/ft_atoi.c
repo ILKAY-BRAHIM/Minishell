@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:13:11 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/04/06 22:01:52 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:59:59 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
-	long	result;
+	size_t	result;
 	int		negative;
 
 	negative = 1;
@@ -34,6 +34,8 @@ int	ft_atoi(const char *str)
 		while (ft_isdigit(*str) == 1)
 		{
 			result = (result * 10) + (*str - '0');
+			if (result > 9223372036854775807)
+				return (-1);
 			str++;
 		}	
 		return (result * negative);

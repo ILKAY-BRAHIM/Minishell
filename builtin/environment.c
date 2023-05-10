@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/04/18 23:15:23 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:22:22 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	rm_env_var(t_env *env, char *env_var)
 	return ;
 }
 
-void	new_env_var(t_env *env, char *env_var)
+void	new_env_var(t_env *env, char *env_var, int type)
 {
 	t_env	*tmp;
 	t_env	*new;
 
-	new = new_list(env_var);
+	new = new_list(env_var, type);
 	tmp = env;
 	while (ft_strncmp(new->name, tmp->name, -1) != 0)
 	{
@@ -75,18 +75,19 @@ char	*search_and_return(t_env *env, char *env_var)
 t_env	*init_env(char **org_env)
 {
 	t_env	*env;
+	char	n_pwd[100];
 	char	*shell_val;
 	int		i;
 	int		shell_value;
 
 	i = 0;
-	env = new_list(org_env[i]);
+	env = new_list(org_env[i], 0);
 	if (!env)
 		return (NULL);
 	i++;
 	while (org_env[i])
 	{
-		add_back(&env, new_list(org_env[i]));
+		add_back(&env, new_list(org_env[i], 0));
 		i++;
 	}
 	rm_env_var(env, "OLDPWD");
@@ -94,8 +95,19 @@ t_env	*init_env(char **org_env)
 	{
 		shell_value = ft_atoi(search_and_return(env, "SHLVL"));
 		shell_val = ft_strjoin("SHLVL=", ft_itoa(shell_value + 1));
-		new_env_var(env, shell_val);
+		new_env_var(env, shell_val, 0);
 	}
+	else
+	{
+		shell_val = ft_strjoin("SHLVL=", ft_itoa(1));
+		new_env_var(env, shell_val, 0);
+	}
+	if (search_and_return(env, "PWD") == NULL)
+	{
+		getcwd(n_pwd, sizeof(n_pwd));
+		new_env_var(env, ft_strjoin("PWD=", ft_strdup(n_pwd)), 0);
+	}
+	new_env_var(env, ft_strjoin("?=", ft_strdup("0")), 2);
 	return (env);
 }
 
