@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:38:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/09 16:39:07 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:56:15 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
@@ -57,7 +58,8 @@ typedef struct s_tree
 	struct s_tree *right;
 }				t_tree;
 
-// void rl_replace_line(char *str, int i);
+void rl_replace_line(const char *str, int i);
+int rl_on_new_line();
 t_token	*new_token(char *data);
 void lst_add_back(t_token *lst, t_token *new);
 t_token *parsing_v3(char *line, t_env *env);
@@ -88,6 +90,7 @@ void	free_array(char **array);
 char	*ft_itoa(int n);
 t_table *back_space(t_table *table);
 void	execution(t_tree *tree, t_env *env);
+void handell_sig();
 // void	execute_commande(t_table *table, t_env *env);
 
 // void	print_help(t_table *table, int i);

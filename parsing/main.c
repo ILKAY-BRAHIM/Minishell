@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:44:34 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/10 14:37:09 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 22:07:46 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 void	free_tree(t_tree *tree)
 {
 	int i;
+	t_tree *tmp;
 	int x = 0;
 	while (1 )
 	{
@@ -56,7 +57,10 @@ void	free_tree(t_tree *tree)
 			free(tree->table->next);
 			free(tree->table);
 		}
+		// free(tree);
+		tmp = tree;
 		tree = tree->right;
+		free(tmp);
 		if (tree == NULL)
 			break ;
 		x++;
@@ -140,6 +144,7 @@ int main(int argc, char **argv, char **origin_env)
 	env = init_env(origin_env);
 	while (1)
 	{
+		handell_sig();
 		i = 0;
 		line = get_prompt();
 		if (line != NULL)
@@ -150,7 +155,7 @@ int main(int argc, char **argv, char **origin_env)
 			{
 				tree = lexer(lst);
 				free_lst(lst);
-				print_tree(tree);
+				// print_tree(tree);
 				execution(tree, env);
 				free_tree(tree);
 			}

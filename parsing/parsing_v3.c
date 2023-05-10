@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:02:43 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/09 15:48:22 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/10 22:12:53 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ t_token *parsing_v3(char *line, t_env *env)
 			if (new == NULL)
 			{
 				free_lst(token);
+				exit_status = 127;
 				return(NULL);	
 			}
 		}
@@ -159,6 +160,7 @@ t_token *parsing_v3(char *line, t_env *env)
 			if (tmp_frr == NULL)
 			{
 				free_lst(token);
+				exit_status = 127;
 				// free(tmp_frr);
 				free_lst(new);
 				return (NULL);
@@ -179,6 +181,7 @@ t_token *parsing_v3(char *line, t_env *env)
 	if (check_sp(new) == -1)
 	{
 		free_lst(new);
+		exit_status = 127;
 		return (NULL);
 	}
 	// new = r_qutes(new);

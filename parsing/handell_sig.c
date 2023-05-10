@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_prompt.c                                       :+:      :+:    :+:   */
+/*   handell_sig.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/18 22:47:36 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/10 22:16:16 by bchifour         ###   ########.fr       */
+/*   Created: 2023/05/10 19:14:43 by bchifour          #+#    #+#             */
+/*   Updated: 2023/05/10 21:43:01 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *get_prompt(void)
-{
-	char *line;
-	int		i;
 
-	i = 0;
-	line = readline("\033[1;35mminishell ~ \033[0;37m");
-	// line = readline("~ ");
-	while(line && line[i] && line[i] == ' ')
-		i++;
-	if(!line)
+void handler(int sig)
+{
+	if (sig == SIGINT)
 	{
-		exit(0);
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 1);
+		rl_redisplay();
 	}
-	if (line[i] == '\0')
+	if (sig == SIGQUIT)
 	{
-		free(line);
-		return(NULL);
+		rl_on_new_line();
+		rl_replace_line("", 1);
+		rl_redisplay();
 	}
-	else
-		add_history(line);
-	return (line);
+		
+}
+
+void handell_sig()
+{
+	signal(SIGINT, &handler);
+	signal(SIGQUIT, &handler);
 }

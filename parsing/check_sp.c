@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 21:54:40 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/10 13:48:55 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/10 22:12:15 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	check_sp(t_token *token)
 				if (!(((token->token[0] == '<' && token->token[1] == '<' )||( token->token[0] == '>' && token->token[1] == '>') || token->token[0] == '>' || token->token[0] == '<') && tm[0] == '|'))
 				{
 					printf("minishell: syntax error near unexpected token `%c'\n", token->token[0]);
-					printf("hi\n");
 					return (-1);
 				}
 			}
