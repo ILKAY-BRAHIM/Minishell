@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 11:56:04 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/09 13:46:33 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:12:59 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,28 @@ int	pipex(t_tree *tree, t_env *env)
 			usleep(150 * size);
 			if (i == 0)
 			{
-				dup2(p_1[1], STDOUT_FILENO); //write
 				close(p_1[0]);
+				dup2(p_1[1], STDOUT_FILENO); //write
+				if (tree->left->table->next[0] != 0)
+					redirection(tree->left->table, env);
 			}
 			else if (i % 2 != 0)
 			{
-				dup2(p_1[0], STDIN_FILENO); //read
-				dup2(p_2[1], STDOUT_FILENO); //write
 				close(p_2[0]);
 				close(p_1[1]);
+				dup2(p_1[0], STDIN_FILENO); //read
+				dup2(p_2[1], STDOUT_FILENO); //write
+				if (tree->left->table->next[0] != 0)
+					redirection(tree->left->table, env);
 			}
 			else if (i % 2 == 0)
 			{
-				dup2(p_2[0], STDIN_FILENO); //read
-				dup2(p_1[1], STDOUT_FILENO); //write
 				close(p_2[1]);
 				close(p_1[0]);
+					dup2(p_2[0], STDIN_FILENO); //read
+					dup2(p_1[1], STDOUT_FILENO); //write
+				if (tree->left->table->next[0] != 0)
+					redirection(tree->left->table, env);
 			}
 			exit (execute_commande(tree->left->table, env, 1));
 		}
@@ -101,18 +107,22 @@ int	pipex(t_tree *tree, t_env *env)
 		{
 			if (i % 2 != 0)
 			{
-				dup2(p_1[0], STDIN_FILENO);
 				close(p_2[0]);
 				close(p_2[1]);
 				close(p_1[1]);
+				dup2(p_1[0], STDIN_FILENO);
+				if (tree->table->next[0] != 0)
+					redirection(tree->table, env);
 				execute_commande(tree->table, env, 1);
 			}
 			else if(i % 2 == 0)
 			{
-				dup2(p_2[0], STDIN_FILENO);
 				close(p_1[0]);
 				close(p_1[1]);
 				close(p_2[1]);
+				dup2(p_2[0], STDIN_FILENO);
+				if (tree->table->next[0] != 0)
+					redirection(tree->table, env);
 				execute_commande(tree->table, env, 1);
 			}
 		}

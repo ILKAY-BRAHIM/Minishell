@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:27:00 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/09 16:24:20 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:37:45 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ char **export_val(t_env *env)
 	export = ft_calloc(size + 1, sizeof(char *));
 	while (i < size)
 	{
-		export[i] = sp_strjoin("declare -x ", tmp->name, -1);
+		if (tmp->type == 1)
+			export[i] = sp_strjoin("declare -x ", tmp->name, -1);
 		if (tmp->type == 0)
 		{
 			export[i] = sp_strjoin(export[i], "=", 0);

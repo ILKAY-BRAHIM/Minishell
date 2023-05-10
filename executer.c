@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:27:22 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/09 13:47:30 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:36:10 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
+
 int	execute_commande(t_table *table, t_env *env, int i)
 {
 	int	id;
@@ -37,18 +38,7 @@ int	execute_commande(t_table *table, t_env *env, int i)
 	else if (ft_strncmp("exit", table->commend, -1) == 0)
 		err = ft_exit(table, env);
 	else
-	{
-		if (i == 0)
-		{
-			id = fork();
-			if (id == 0)
-				ft_execute(table, env);
-			waitpid(id, &status, 0);
-			err = WEXITSTATUS(status);
-		}
-		else
-			ft_execute(table, env);
-	}
+		ft_execute(table, env);
 	return (err);
 }
 
@@ -63,18 +53,31 @@ void	execution(t_tree *tree, t_env *env)
 	id = 0;
 	if (tree->type == 0)
 	{
-		if (tree->table->next[0] == 0)
-			exit_status = execute_commande(tree->table, env, 0);
-		// else
-		// {
-		// 	redirection(tree->table, env); // not yet
-		// }
+		id = fork();
+		if (id == 0)
+		{
+			if (tree->table->next[0] == 0)
+			{
+				exit_status = execute_commande(tree->table, env, 1);
+				exit (exit_status);
+			}
+			else
+			{
+				get_here_docs(tree, env);
+				redirection(tree->table, env); // not yet
+				exit_status = execute_commande(tree->table, env, 1);//most close the file descriptor
+				exit(exit_status);
+			}
+		}
+		waitpid(id, &status, 0);
+		exit_status = WEXITSTATUS(status);
 	}
 	else 
 	{
 		id = fork(); 
 		if (id == 0)
 		{
+			get_here_docs(tree, env);
 			exit_status = pipex(tree, env);
 			exit(exit_status);
 		}
@@ -89,7 +92,6 @@ void	execution(t_tree *tree, t_env *env)
 	}
 	write (2, ft_itoa(exit_status), ft_strlen(ft_itoa(exit_status)));
 	write (2, "\n", 1);
-	// free_tree(tree); need to code it     ("_")      !!!
 	return ;
 }
 

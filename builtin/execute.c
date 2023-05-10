@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 02:45:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/09 16:27:45 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:52:38 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	ft_execute(t_table *table, t_env *env)
 
 	i = 0;
 	path = ft_get_path(env);
-	// usleep(20000);
 	if (path != NULL)
 	{
 		while (path[i])
@@ -126,5 +125,4 @@ void	ft_execute(t_table *table, t_env *env)
 			call_execve(table, table->commend, char_env);
 		}
 	}
-	// return 0;
 }
