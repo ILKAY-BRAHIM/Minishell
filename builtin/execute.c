@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 02:45:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/10 15:54:37 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 23:20:01 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	ft_execute(t_table *table, t_env *env)
 		}
 		if (path[i] == NULL)
 		{
+			if ()
 			rm_env_var(&env, "_");
 			new_env_var(env, sp_strjoin("_=", table->commend, -1), 0);
 			char_env = ft_get_env(env);

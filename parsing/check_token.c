@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:59:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/09 18:24:00 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/10 23:13:13 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ t_token *check_token(char *data, t_env *env)
 		}
 		else
 		{
-			printf("minishell: syntax error near unexpected close `\"`\n");
+			write(2, "minishell: unexpected EOF while looking for matching\n", 53); 
+			// printf("minishell: syntax error near unexpected close `\"`\n");
 			// free(data);
 			return(NULL);
 		}
@@ -69,7 +70,8 @@ t_token *check_token(char *data, t_env *env)
 	{
 		if (data[ft_strlen(data) - 1] != '\'' || data[1] == '\0')
 		{
-				printf("minishell: syntax error near unexpected close `\'` \n");
+				write(2, "minishell: unexpected EOF while looking for matching\n", 53);
+				// printf("minishell: syntax error near unexpected close `\'` \n");
 				return (NULL);
 		}
 		else

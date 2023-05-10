@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 23:19:21 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/10 19:01:52 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 22:37:14 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ int	ft_env(t_table *table, t_env *env)
 			printf("%s=", tmp->name);
 			printf("%s\n", tmp->value);
 		}
-		if (tmp->type == 2)// most delete it
-		{
-			printf("------------- %s=", tmp->name); 
-			printf("%s\n", tmp->value);
-		}
+		// if (tmp->type == 2)// most delete it
+		// {
+		// 	printf("------------- %s=", tmp->name); 
+		// 	printf("%s\n", tmp->value);
+		// }
 		if (tmp->next == NULL)
 			break ;
 		tmp = tmp->next;
