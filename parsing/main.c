@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:44:34 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/10 14:37:09 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:39:09 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int main(int argc, char **argv, char **origin_env)
 				tree = lexer(lst);
 				free_lst(lst);
 				print_tree(tree);
-				execution(tree, env);
+				execution(tree, &env);
 				free_tree(tree);
 			}
 			// if (lst != NULL)
