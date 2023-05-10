@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:38:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/10 23:26:41 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/10 23:38:57 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ char	*ft_itoa(int n);
 t_table *back_space(t_table *table);
 // void handell_sig();
 void	execution(t_tree *tree, t_env **env);
+void	fd_putchar(char c, int fd);
 // void	execute_commande(t_table *table, t_env *env);
 
 // void	print_help(t_table *table, int i);

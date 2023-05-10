@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:36 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/10 23:32:24 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/10 23:37:40 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char *get_prompt(void)
 	while(line && line[i] && line[i] == ' ')
 		i++;
 	if(!line)
-		exit(0);
+		exit(exit_status);
 	if (line[i] == '\0')
 	{
 		free(line);

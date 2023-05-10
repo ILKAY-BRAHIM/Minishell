@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:39:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/09 16:38:10 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/11 00:10:07 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_table *saver(char *data)
 	array = ft_split(data, ' ');
 	index = 1;
 	i = 0;
+	_char = 0;
 	while(array[i])
 	{
 		if (strchr("<>", array[i][0]) )
@@ -79,7 +80,7 @@ t_table *saver(char *data)
 			// commend = array[i];
 			// x = 2;
 		}
-		else if (array[i][0] == '-' ||(( array[i][0] == '\"' || array[i][0] == '\'') && array[i][1] == '-'))
+		else if (_char == 0 && (array[i][0] == '-' ||(( array[i][0] == '\"' || array[i][0] == '\'') && array[i][1] == '-')))
 		{
 			tokons[2] = sp_strjoin(tokons[2], array[i], 0);
 			tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
@@ -87,6 +88,7 @@ t_table *saver(char *data)
 		}
 		else
 		{
+			_char = 1;
 			tokons[3] = sp_strjoin(tokons[3], array[i], 0);
 			tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
 			// arg = array[i];

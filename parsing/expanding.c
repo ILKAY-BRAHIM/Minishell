@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:20:59 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/09 17:37:39 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/11 00:41:25 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*expand(char *str, t_env *env)
 	int		i;
 
 	array = strchr(str, '$');
-	if (strlen(str) <= 1 || str[1] == ' ' || str[1] == '\"' || (!isalpha(str[1]) && str[1] != '_' && str[1] != '?') )
+	if (strlen(str) <= 1 || str[1] == ' ' || str[1] == '\"' || (!isalpha(str[1]) && !isdigit(str[1]) && str[1] != '_' && str[1] != '?' && str[1] != '@') )
 		return (str);
 	if (array != NULL)
 	{
@@ -27,7 +27,7 @@ char	*expand(char *str, t_env *env)
 		if (array != NULL)
 			return (str);
 		i = 1;
-		while (str[i] && (isdigit(str[i]) || isalpha(str[i]) || str[i] == '_' || str[i] == '?'))
+		while (str[i] && (isdigit(str[i]) || isalpha(str[i]) || str[i] == '_' || str[i] == '?' || str[i] == '@'))
 			i++;
 		if (str[i] == '$')
 			array = get_part(str, '$', str[i], 2);
@@ -39,12 +39,18 @@ char	*expand(char *str, t_env *env)
 			new = search_and_return (env, "?");
 			new = sp_strjoin(new, array+2, 0);
 		}
+		else if((*(array+1) >= '0' && *(array+1) <= '9' )|| *(array+1) == '@')
+		{
+			// new = search_and_return (env, *(array+1));
+			// new = sp_strjoin("", array+2, 0);
+			new = strdup(array+2);
+		}
 		else
 			new = search_and_return (env, array + 1);
 		free (array);
 		array = new;
 		if (array == NULL)
-			array = strdup("\3");
+			array = strdup("");
 		else
 		{
 			new = strdup("`");
