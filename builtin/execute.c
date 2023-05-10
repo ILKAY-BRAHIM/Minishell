@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 02:45:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/09 17:52:38 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:27:04 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	call_execve(t_table *table, char *path, char **env)
 		//free argv & path
 		exit (127);
 	}
-	exit (0);
+	exit (1);
 }
 
 void	ft_execute(t_table *table, t_env *env)

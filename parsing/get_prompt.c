@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:47:36 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 18:06:49 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:20:59 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ char *get_prompt(void)
 
 	i = 0;
 	line = readline("\033[1;35mminishell ~ \033[0;37m");
-	while(line[i] == ' ')
+	while(line && line[i] && line[i] == ' ')
 		i++;
+	if(!line)
+		exit(0);
 	if (line[i] == '\0')
 	{
 		free(line);

@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:27:22 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/10 13:36:10 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:29:06 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,10 @@ void	execution(t_tree *tree, t_env *env)
 		}
 
 	}
-	write (2, ft_itoa(exit_status), ft_strlen(ft_itoa(exit_status)));
-	write (2, "\n", 1);
+	new_env_var(env, ft_strjoin("?=", ft_itoa(exit_status)), 2);
+	// write (2, ft_itoa(exit_status), ft_strlen(ft_itoa(exit_status)));
+	// write (2, "\n", 1);
+	// free_tree(tree); need to code it     ("_")      !!!
 	return ;
 }
 
