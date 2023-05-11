@@ -6,13 +6,42 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:04:46 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/10 13:14:21 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:55:00 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builting.h"
 #include <fcntl.h>
+
+char	*remouve_char(char *str, char c)
+{
+	int		size;
+	int		i;
+	char	*result;
+
+	i = 0;
+	size = 0;
+	if (!str)
+		return (NULL);
+	while (str[i] != '\0')
+	{
+		if (str[i] != c)
+			size++;
+		i++;
+	}
+	result = ft_calloc(size + 1, sizeof(char));
+	i = 0;
+	size = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] != c)
+			result[size++] = str[i];
+		i++;
+	}
+	free(str);
+	return (result);
+}
 
 void	here_doc(t_env *env, int output, char *end, int expand)
 {
@@ -35,6 +64,7 @@ void	here_doc(t_env *env, int output, char *end, int expand)
 			exp = ft_strdup(read);
 			free(read);
 			read = expanding(exp, env);
+			read = remouve_char(read, '`');
 			free(exp);
 		}
 		result = sp_strjoin(result, read, 2);

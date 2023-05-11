@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:39:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/11 15:52:25 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/11 16:13:57 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_table *saver(char *data)
 	i = 0;
 	while(data[i])
 	{
-		while(data[i] && !(data[i] == '\"' || data[i] == '\''))
+		while(data[i] && !(data[i] == '\"' || data[i] == '\'' || data[i] == '`'))
 			i++;
 		_char = data[i];
 		if (data[i] == _char && index == 1)
@@ -56,6 +56,7 @@ t_table *saver(char *data)
 	{
 		if (strchr("<>", array[i][0]) )
 		{
+			
 			tokons[0] = sp_strjoin(tokons[0], array[i], 0);
 			tokons[0] = sp_strjoin(tokons[0], strdup(" "),  2);
 			
