@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:24:47 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/10 22:04:19 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:15:53 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_cd(t_table *table, t_env *env)
 		if (chdir(home) != 0)
 		{
 			free(home);
-			write(2, "minishell: cd: HOME not set\n", 23);
+			write(2, "minishell: cd: HOME not set\n", 28);
 			return (1);
 		}
 		free(home);

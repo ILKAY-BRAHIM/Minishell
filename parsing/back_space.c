@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 09:58:13 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/09 17:02:50 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:55:59 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,13 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 				str[i] = ' ';
 			i++;
 		}
+	}
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] == '`')
+			str[i] = '\2';
+		i++;
 	}
 	i = 0;
 	char c;
