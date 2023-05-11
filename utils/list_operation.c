@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 23:48:50 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/10 16:35:20 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/11 23:31:51 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ t_env	*new_list(char *org_env, int type) // one of the env name
 	j = 0;
 	env = ft_calloc(sizeof(t_env), 1);
 	size = ft_strlen(ft_strchr(org_env, '='));
+	if (size == 0)
+		size = 1;
 	env->name = ft_calloc(ft_strlen(org_env) - size + 1, sizeof(char));
 	env->value = ft_calloc(size, sizeof(char));
 	env->type = type;
