@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 09:58:13 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/11 16:09:40 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/11 23:33:48 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,13 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i]  && str[i] != '\2')
+		if (str[i]  && !(str[i] == '\2' || str[i] == '*'))
 			new[j++] = str[i++];
+		else if(str[i] && str[i] == '*')
+		{
+			new[j++] = '\6';
+			i++;
+		}
 		else
 			i++;
 	}
@@ -130,9 +135,13 @@ t_table *back_space(t_table *table)
 	int i;
 
 	i = -1;
+	table->commend= remouve_char(table->commend, '\6');
 	table->commend = hanty_7ada_wlat_wa7da_khera(table->commend);
 	while(table->arg[++i])
+	{
+		table->arg[i]= remouve_char(table->arg[i], '\6');
 		table->arg[i] = hanty_7ada_wlat_wa7da_khera(table->arg[i]);
+	}
 	i = -1;
 	while(table->files[++i])
 	{
@@ -141,12 +150,15 @@ t_table *back_space(t_table *table)
 			if (strchr(table->files[i], '\'') || strchr(table->files[i], '\"'))
 				table->next[i] = 4;
 		}
-		else if(strchr(table->files[i], '\'') || strchr(table->files[i], '\"'))
-			table->next[i] = 4;
+		// else if(strchr(table->files[i], '\'') || strchr(table->files[i], '\"'))
+		// 	table->next[i] = 4;
 		table->files[i] = hanty_7ada_wlat_wa7da_khera(table->files[i]);
 	}
 	i = -1;
 	while(table->option[++i])
+	{
+		table->option[i]= remouve_char(table->option[i], '\6');
 		table->option[i] = hanty_7ada_wlat_wa7da_khera(table->option[i]);
+	}
 	return(table);
 }
