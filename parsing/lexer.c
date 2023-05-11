@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:39:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/11 21:47:48 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/11 23:13:28 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,25 +55,25 @@ t_table *saver(char *data)
 			i++;
 	}
 	array = ft_split(data, ' ');
-	i = 0;
-	while(array[i])
-	{
-		if (strchr(array[i], '`'))
-		{
-			array[i] = sp_strjoin(array[i], "`", 0);
-			i++;
-			while(array[i] && !(strchr(array[i], '`')))
-			{
-				array[i] = sp_strjoin("`", array[i], 1);
-				array[i] = sp_strjoin(array[i], "`", 0);
-				i++;
-			}
-			array[i] = sp_strjoin("`", array[i], 1);
-			i++;
-		}
-		else if (array[i])
-			i++;
-	}
+	// i = 0;
+	// while(array[i])
+	// {
+	// 	if (strchr(array[i], '`'))
+	// 	{
+	// 		array[i] = sp_strjoin(array[i], "`", 0);
+	// 		i++;
+	// 		while(array[i] && !(strchr(array[i], '`')))
+	// 		{
+	// 			array[i] = sp_strjoin("`", array[i], 1);
+	// 			array[i] = sp_strjoin(array[i], "`", 0);
+	// 			i++;
+	// 		}
+	// 		array[i] = sp_strjoin("`", array[i], 1);
+	// 		i++;
+	// 	}
+	// 	else if (array[i])
+	// 		i++;
+	// }
 	// i = 0;
 	// while(array[i])
 	// {
@@ -138,16 +138,26 @@ t_table *saver(char *data)
 			{
 				while (www[u] && (www[u][1] == '-'))
 				{
-					tokons[2] = sp_strjoin(tokons[2], www[u], 0);
-					tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
-					u++;
+					if (ft_strlen(www[u]) == 2 && www[u][0] == '`' && www[u][1] == '`')
+						u++;
+					else
+					{
+						tokons[2] = sp_strjoin(tokons[2], www[u], 0);
+						tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
+						u++;
+					}
 				}
 				while(www[u])
 				{
-					_char = 1;
-					tokons[3] = sp_strjoin(tokons[3], www[u], 0);
-					tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
-					u++;
+					if (ft_strlen(www[u]) == 2 && www[u][0] == '`' && www[u][1] == '`')
+						u++;
+					else
+					{
+						_char = 1;
+						tokons[3] = sp_strjoin(tokons[3], www[u], 0);
+						tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
+						u++;
+					}
 				}
 			}
 			
@@ -188,16 +198,26 @@ t_table *saver(char *data)
 				y = 0;
 				while(tfo[y] && tfo[y][1] == '-' && _char == 0)
 				{
-					tokons[2] = sp_strjoin(tokons[2], tfo[y], 0);
-					tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
-					y++;
+					if (ft_strlen(tfo[y]) == 2 && tfo[y][0] == '`' && tfo[y][1] == '`')
+						y++;
+					else
+					{
+						tokons[2] = sp_strjoin(tokons[2], tfo[y], 0);
+						tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
+						y++;
+					}
 				}
 				while(tfo[y])
 				{
-					tokons[3] = sp_strjoin(tokons[3], tfo[y], 0);
-					tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
-					_char = 1;
-					y++;
+					if (ft_strlen(tfo[y]) == 2 && tfo[y][0] == '`' && tfo[y][1] == '`')
+						y++;
+					else
+					{
+						tokons[3] = sp_strjoin(tokons[3], tfo[y], 0);
+						tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
+						_char = 1;
+						y++;
+					}
 				}
 			}
 			else

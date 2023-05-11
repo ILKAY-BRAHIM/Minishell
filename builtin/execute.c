@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 02:45:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/11 15:02:17 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:34:49 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	ft_execute(t_table *table, t_env *env)
 		{
 			if (ft_strchr(table->commend, '/') == NULL)
 			{
-				not_valid( NULL, table->commend,4);
+				not_valid( table->commend, table->commend,4);
 				exit (127);
 			}
 			if (access(table->commend, F_OK) != 0)

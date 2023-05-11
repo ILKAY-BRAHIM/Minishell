@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 17:55:16 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/11 00:30:24 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:34:29 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	not_valid(char *cmd, char *arg, int type)
 		fd_putstr("': not a valid identifier\n", 2);
 	}
 	if (type == 4 && arg)
-		fd_putstr(": command not found\n", 2);
+		fd_putstr("command not found\n", 2);
 	return ;
 }
 
