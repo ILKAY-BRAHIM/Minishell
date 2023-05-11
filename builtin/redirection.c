@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 23:14:58 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/10 20:06:47 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/12 00:29:42 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	out_r(t_table *table, int index)
 {
 	int	fd;
 
+	table->files[index] = remouve_char(table->files[index], '\6');
 	if (access(table->files[index], F_OK) != -1)
 	{
 		if (access(table->files[index], W_OK) != -1)
@@ -65,6 +66,7 @@ int	in_r(t_table *table, int index)
 {
 	int	fd;
 
+	table->files[index] = remouve_char(table->files[index], '\6');
 	if (access(table->files[index], F_OK) != -1)
 	{
 		if (access(table->files[index], R_OK) != -1)
@@ -94,6 +96,7 @@ int	app_r(t_table *table, int index)
 {
 	int	fd;
 
+	table->files[index] = remouve_char(table->files[index], '\6');
 	if (access(table->files[index], F_OK) != -1)
 	{
 		if (access(table->files[index], W_OK) != -1)

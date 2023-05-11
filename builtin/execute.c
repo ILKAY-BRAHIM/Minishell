@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 02:45:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/11 23:48:47 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/12 00:23:43 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,10 @@ void	ft_execute(t_table *table, t_env *env)
 	{
 		if (ft_strchr(table->commend, '/') == NULL)
 		{
-			not_valid( NULL, table->commend,4);
+			if (path == NULL)
+				not_valid( NULL, table->commend,0);
+			else
+				not_valid( NULL, table->commend,4);
 			exit (127);
 		}
 		if (access(table->commend, F_OK) != 0)
