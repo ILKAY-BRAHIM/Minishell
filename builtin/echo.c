@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 09:26:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/11 14:56:44 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:28:43 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,25 @@ int	ft_echo(t_table *table, t_env *env)
 	new_line = 2;
 	if (table->option[i] != NULL)
 	{
-		if (ft_strncmp(table->option[0], "-n", 2) == 0)
+		while (table->option[i] && ft_strncmp(table->option[i], "-n", 2) == 0)
 		{
-			while (table->option[0][j] == 'n')
+			j = 1;
+			while (table->option[i][j] == 'n')
 				j++;
-			if (table->option[0][j] == '\0')
+			if (table->option[i][j] == '\0')
 			{
 				new_line = 0;
 				i++;
 			}
+			else 
+				break;
+			// i++;
 		}
 		while (table->option[i])
 		{
 			printf("%s", table->option[i]);
 			i++;
-			if (table->arg[0] != NULL)
+			// if (table->arg[0] != NULL)
 				printf(" ");
 		}			
 	}
