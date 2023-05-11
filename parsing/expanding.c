@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:20:59 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/11 00:41:25 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/11 22:12:15 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ char	*expand(char *str, t_env *env)
 		free (array);
 		array = new;
 		if (array == NULL)
-			array = strdup("");
+		{
+			// array = sp_strjoin("\6", array, -1);
+			// array = sp_strjoin(array, "\6", 0);
+			array = strdup("\6");
+		}
 		else
 		{
 			new = strdup("`");
