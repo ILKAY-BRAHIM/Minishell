@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:27:22 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/11 15:16:07 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:51:08 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,20 +71,23 @@ void	execution(t_tree *tree, t_env **env)
 		else
 		{
 			get_here_docs(tree, *env);
-			if (ft_strcmp(tree->table->commend, "unset") == 0)
-				exit_status = execute_commande(tree->table, env, 0);
-			else if (ft_strcmp(tree->table->commend, "cd") == 0)
-				exit_status = execute_commande(tree->table, env, 0);
-			else if (ft_strcmp(tree->table->commend, "export") == 0 && tree->table->arg[0] != NULL)
-			{
-				ok = 1;
-				exit_status = execute_commande(tree->table, env, 0);
+			if (tree->table->commend)
+			{	
+				if (ft_strcmp(tree->table->commend, "unset") == 0)
+					exit_status = execute_commande(tree->table, env, 0);
+				else if (ft_strcmp(tree->table->commend, "cd") == 0)
+					exit_status = execute_commande(tree->table, env, 0);
+				else if (ft_strcmp(tree->table->commend, "export") == 0 && tree->table->arg[0] != NULL)
+				{
+					ok = 1;
+					exit_status = execute_commande(tree->table, env, 0);
+				}
 			}
 			id = fork();
 			if (id == 0)
 			{
 				redirection(tree->table);
-				if (ok == 0)
+				if (ok == 0 && tree->table->commend)
 				{
 					status = execute_commande(tree->table, env, 1);
 					exit(status);
