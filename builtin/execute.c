@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 02:45:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/11 00:43:48 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:38:52 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,21 @@ void	call_execve(t_table *table, char *path, char **env)
 	int		i;
 
 	i = 0;
-	cmd = sp_strjoin(path, " ", -1);
+	cmd = sp_strjoin(path, "~", -1);
 	while (table->option[i] != NULL)
 	{
 		cmd = sp_strjoin(cmd, table->option[i], 0);
-		cmd = sp_strjoin(cmd, " ", 0);
+		cmd = sp_strjoin(cmd, "~", 0);
 		i++;
 	}
 	i = 0;
 	while (table->arg[i] != NULL)
 	{
 		cmd = sp_strjoin(cmd, table->arg[i], 0);
-		cmd = sp_strjoin(cmd, " ", 0);
+		cmd = sp_strjoin(cmd, "~", 0);
 		i++;
 	}
-	argv = ft_split(cmd, ' ');
+	argv = ft_split(cmd, '~');
 	// free(cmd);
 	exit_status = 0;
 	if (execve(path, argv, env) == -1)
