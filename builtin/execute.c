@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 02:45:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/11 18:34:49 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/12 00:23:43 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,28 @@ char	**ft_get_env(t_env *list_env)
 	int		i;
 	int		size;
 
-	size = list_size(list_env);
-	if (size == 0)
-		return NULL;
 	i = 0;
 	tmp = list_env;
-	env = ft_calloc(size + 1, sizeof(char *));
-	while (i < size)
+	size = 0;
+	while (tmp)
 	{
-		env[i] = sp_strjoin(tmp->name, "=", -1);
-		env[i] = sp_strjoin(env[i], tmp->value, -1);
+		tmp = tmp->next;
+		size++;
+	}
+	if (size == 0)
+		return NULL;
+	env = ft_calloc(size + 1, sizeof(char *));
+	tmp = list_env;
+	while (tmp)
+	{
+		if (tmp->type == 0)
+		{
+			env[i] = sp_strjoin(tmp->name, "=", -1);
+			if (tmp->value[0] != '\0')
+			{
+				env[i] = sp_strjoin(env[i], tmp->value, -1);
+			}
+		}
 		tmp = tmp->next;
 		i++;
 	}
@@ -146,7 +158,10 @@ void	ft_execute(t_table *table, t_env *env)
 	{
 		if (ft_strchr(table->commend, '/') == NULL)
 		{
-			not_valid( NULL, table->commend,4);
+			if (path == NULL)
+				not_valid( NULL, table->commend,0);
+			else
+				not_valid( NULL, table->commend,4);
 			exit (127);
 		}
 		if (access(table->commend, F_OK) != 0)
