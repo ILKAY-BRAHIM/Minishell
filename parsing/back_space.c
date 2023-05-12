@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 09:58:13 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/11 23:33:48 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/12 00:38:26 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,17 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 		while(str[i] && !(str[i] == '\"' || str[i] == '\'' || str[i] == '`'))
 			i++;
 		if (i == 0 && str[i] && str[i+1] && str[i] == str[i + 1] && ( str[i + 2] == '\0' || str[i + 2] == ' '))
+		{
+			str[i] = '~';
 			i++; 
+			str[i] = '~';
+		}
 		else if (str[i] && str[i+1] &&  str[i] == str[i + 1] && ( str[i + 2] == '\0' || str[i + 2] == ' ') && i > 0 && str[i - 1] == ' ')
+		{
+			str[i] = '~';
 			i++; 
+			str[i] = '~';
+		}
 		else
 		{	
 			c = str[i];

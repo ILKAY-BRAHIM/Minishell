@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:44:34 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/11 23:36:18 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/12 00:32:56 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ int main(int argc, char **argv, char **origin_env)
 			{
 				tree = lexer(lst);
 				free_lst(lst);
-				// print_tree(tree);
+				print_tree(tree);
 				execution(tree, &env);
 				free_tree(tree);
 			}
