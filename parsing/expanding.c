@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:20:59 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/12 17:29:28 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/12 23:43:07 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ char	*expand(char *str, t_env *env)
 			new = search_and_return (env, array + 1);
 		free (array);
 		array = new;
-		if (array == NULL)
+		if (array == NULL || array[0] == 0)
 		{
 			// array = sp_strjoin("\6", array, -1);
 			// array = sp_strjoin(array, "\6", 0);
-			array = strdup("\6");
+			array = strdup("\7");
 		}
 		else
 		{

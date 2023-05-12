@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:44:34 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/12 19:41:15 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/13 00:44:50 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,20 @@ void	print_tree(t_tree *tree)
 				i++;
 			}
 			i = 0;
+			int j = 0;
 			while (tree->table->files[i])
 			{
 				printf("FILES : |%s|\n", tree->table->files[i]);
+				while (tree->table->files[i][j])
+				{
+					if (tree->table->files[i][j] == '\7')
+						printf("---- : 7\n");
+					if (tree->table->files[i][j] == '\6')
+						printf("---- : 6\n");
+					if (tree->table->files[i][j] == '\1')
+						printf("---- : 1\n");
+						j++;
+				}
 				if (tree->table->next[i] != 0)
 					printf("REDIRECTION : |%d|\n", tree->table->next[i]);
 				i++;

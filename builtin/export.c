@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:27:00 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/12 17:45:00 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/12 20:10:21 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int	ft_export(t_table *table, t_env *env)
 		}
 		else
 		{
-			printf("dkhalt\n");
 			if (check_valid_name(table->arg[i]) == 0)
 				new_env_var(env, table->arg[i], 1);
 			else
