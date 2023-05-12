@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 09:58:13 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/12 17:30:20 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:41:30 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,47 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 	// }
 	i = 0;
 	char c;
+	int start = 0;
+	int end = 0;
+	// printf("STR   %s\n", str);
+	while(str[i])
+	{
+	
+		while(str[i] && (str[i] == '\6' || str[i] == '*'))
+		{
+			end++;
+			i++;
+		}
+		start = i - end-1;
+		if (end != 0)
+		{
+			if (start >= 0 && str[start] &&  (str[start] == '\"' || str[start] == '\''))
+			{
+				char __char = str[start];
+				while(start >= 0 && str[start] &&  str[start] == __char)
+				{
+					str[start] = '\1';
+					start--;
+				}
+			}
+			end = i;
+			if (str[end] &&( str[end] == '\"' || str[end] == '\''))
+			{
+				char ___char = str[end];
+				while(str[end] &&str[end] == ___char)
+				{
+					str[end] = '\1';
+					end++;
+				}
+			}
+		
+		}
+		end = 0;
+		start = 0;
+		i++;
+		
+	}
+	i = 0;
 	while(str[i])
 	{
 		while(str[i] && !(str[i] == '\"' || str[i] == '\'' || str[i] == '`'))
