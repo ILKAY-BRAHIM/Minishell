@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 06:14:07 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/11 22:19:08 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:40:29 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ int		list_size(t_env *list);
 int		ft_isalpha(int src);
 void	fd_putstr(char *s, int fd);
 char	*remouve_char(char *str, char c);
+char	*ft_strtrim(char *s1, char *set);
 
 #endif

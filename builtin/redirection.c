@@ -6,13 +6,30 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 23:14:58 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/12 00:29:42 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:51:23 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builting.h"
 #include <fcntl.h>
+
+// char *check_file(char *files)
+// {
+// 	files = ft_strtrim(files, "\6");
+// 	if (files[0] == '\0' || ft_strchr(files, '\6') != NULL)
+// 	{
+// 		fd_putstr("minishell: ", 2);
+// 		fd_putstr(": ambiguous redirect\n", 2);
+// 		exit(1);
+// 	}
+// 	if (ft_strchr(files, '\1') != NULL)
+// 	{
+// 		fd_putstr("minishell: ", 2);
+// 		fd_putstr(": No such file or directory\n", 2);
+// 		exit(1);
+// 	}
+// }
 
 int	int_search(int *symbols, int s, int *index)
 {
@@ -36,7 +53,21 @@ int	out_r(t_table *table, int index)
 {
 	int	fd;
 
-	table->files[index] = remouve_char(table->files[index], '\6');
+	// check_file(table->files[index]);
+	table->files[index] = ft_strtrim(table->files[index], "\6");
+	if (table->files[index][0] == '\0' || ft_strchr(table->files[index], '\6') != NULL)
+	{
+		fd_putstr("minishell: ", 2);
+		fd_putstr(": ambiguous redirect\n", 2);
+		exit(1);
+	}
+	if (ft_strchr(table->files[index], '\1') != NULL)
+	{
+		fd_putstr("minishell: ", 2);
+		fd_putstr(": No such file or directory\n", 2);
+		exit(1);
+	}
+	// table->files[index] = remouve_char(table->files[index], '\6');
 	if (access(table->files[index], F_OK) != -1)
 	{
 		if (access(table->files[index], W_OK) != -1)
@@ -55,8 +86,12 @@ int	out_r(t_table *table, int index)
 	else
 	{
 		fd = open(table->files[index], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd == -1)
-			write(2, "failed\n", 7);
+		if (fd == -1) // failled
+		{
+			fd_putstr("minishell: ", 2);
+			fd_putstr(": No such file or directory\n", 2);
+			exit (1);
+		}
 		dup2(fd, 1);
 	}
 	return(0);
@@ -66,7 +101,21 @@ int	in_r(t_table *table, int index)
 {
 	int	fd;
 
-	table->files[index] = remouve_char(table->files[index], '\6');
+	table->files[index] = ft_strtrim(table->files[index], "\6");
+	if (table->files[index][0] == '\0' || ft_strchr(table->files[index], '\6') != NULL)
+	{
+		fd_putstr("minishell: ", 2);
+		fd_putstr(": ambiguous redirect\n", 2);
+		exit(1);
+	}
+	if (ft_strchr(table->files[index], '\1') != NULL)
+	{
+		fd_putstr("minishell: ", 2);
+		fd_putstr(": No such file or directory\n", 2);
+		exit(1);
+	}
+	// table->files[index] = remouve_char(table->files[index], '\6');
+	// check_file(table->files[index]);
 	if (access(table->files[index], F_OK) != -1)
 	{
 		if (access(table->files[index], R_OK) != -1)
@@ -96,7 +145,22 @@ int	app_r(t_table *table, int index)
 {
 	int	fd;
 
-	table->files[index] = remouve_char(table->files[index], '\6');
+	// int i = 0;
+	table->files[index] = ft_strtrim(table->files[index], "\6");
+	if (table->files[index][0] == '\0' || ft_strchr(table->files[index], '\6') != NULL)
+	{
+		fd_putstr("minishell: ", 2);
+		fd_putstr(": ambiguous redirect\n", 2);
+		exit(1);
+	}
+	if (ft_strchr(table->files[index], '\1') != NULL)
+	{
+		fd_putstr("minishell: ", 2);
+		fd_putstr(": No such file or directory\n", 2);
+		exit(1);
+	}
+	// check_file(table->files[index]);
+	// table->files[index] = remouve_char(table->files[index], '\6');
 	if (access(table->files[index], F_OK) != -1)
 	{
 		if (access(table->files[index], W_OK) != -1)
@@ -115,8 +179,12 @@ int	app_r(t_table *table, int index)
 	else
 	{
 		fd = open(table->files[index], O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (fd == -1)
-			write(2, "failed\n", 7);
+		if (fd == -1) // failed
+		{
+			fd_putstr("minishell: ", 2);
+			fd_putstr(": No such file or directory\n", 2);
+			exit(1);
+		}
 		dup2(fd, 1);
 	}
 	return(0);
