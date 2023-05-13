@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 09:58:13 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/13 00:07:12 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:06:46 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 	while(str[i])
 	{
 	
-		while(str[i] && (str[i] == '\6' || str[i] == '*'))
+		while(str[i] && (str[i] == '\6' || str[i] == '*' || str[i] == '\7'))
 		{
 			end++;
 			i++;
@@ -93,13 +93,20 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 		start = i - end-1;
 		if (end != 0)
 		{
-			if (start >= 0 && str[start] &&  (str[start] == '\"' || str[start] == '\''))
+			if (start > 0 && str[start] &&  (str[start] == '\"' || str[start] == '\'') )
 			{
 				char __char = str[start];
 				while(start >= 0 && str[start] &&  str[start] == __char)
 				{
-					str[start] = '\1';
-					start--;
+					if(start > 0 && str[start-1] == __char)
+					{
+						str[start] = '\1';
+						str[start-1] = '\1';
+						start--;
+						
+					}
+					if (start >= 0)
+						start--;
 				}
 			}
 			end = i;
@@ -108,8 +115,14 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 				char ___char = str[end];
 				while(str[end] &&str[end] == ___char)
 				{
-					str[end] = '\1';
-					end++;
+					if (str[end + 1] && str[end + 1] == ___char)
+					{
+						str[end + 1] = '\1';
+						str[end] = '\1';
+						end++;
+					}
+					if (str[end])
+						end++;
 				}
 			}
 		
@@ -120,6 +133,8 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 		
 	}
 	i = 0;
+	if(ft_strlen(str) == 3 && (str[0] == '\"' || str[0] == '\'') && str[1] == '\7' && (str[2] == '\"' || str[i] == '\''))
+		str[1] = '\1';
 	while(str[i])
 	{
 		while(str[i] && !(str[i] == '\"' || str[i] == '\'' || str[i] == '`'))
@@ -184,29 +199,29 @@ t_table *back_space(t_table *table)
 	int i;
 
 	i = -1;
-	table->commend= remouve_char(table->commend, '\6');
+	table->commend= remouve_char(table->commend, '\7');
 	table->commend = hanty_7ada_wlat_wa7da_khera(table->commend);
 	while(table->arg[++i])
 	{
-		table->arg[i]= remouve_char(table->arg[i], '\6');
+		table->arg[i]= remouve_char(table->arg[i], '\7');
 		table->arg[i] = hanty_7ada_wlat_wa7da_khera(table->arg[i]);
 	}
 	i = -1;
 	while(table->files[++i])
 	{
-		if (strchr(table->files[i], '\5'))
+		if (strchr(table->files[i], '\5') || table->next[i] == 1)
 		{
 			if (strchr(table->files[i], '\'') || strchr(table->files[i], '\"'))
 				table->next[i] = 4;
+			// else if(strchr(table->files[i], '\'') || strchr(table->files[i], '\"'))
+			// 	table->next[i] = 4;
 		}
-		// else if(strchr(table->files[i], '\'') || strchr(table->files[i], '\"'))
-		// 	table->next[i] = 4;
 		table->files[i] = hanty_7ada_wlat_wa7da_khera(table->files[i]);
 	}
 	i = -1;
 	while(table->option[++i])
 	{
-		table->option[i]= remouve_char(table->option[i], '\6');
+		table->option[i]= remouve_char(table->option[i], '\7');
 		table->option[i] = hanty_7ada_wlat_wa7da_khera(table->option[i]);
 	}
 	return(table);

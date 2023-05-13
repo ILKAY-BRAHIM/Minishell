@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_here_docs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:04:46 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/11 15:55:00 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:23:31 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	here_doc(t_env *env, int output, char *end, int expand)
 	while (1)
 	{
 		read = readline("> ");
+		if (!read)
+			break;
 		add_history(read);
 		if (ft_strcmp(read , end) == 0)
 		{

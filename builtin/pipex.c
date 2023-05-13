@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 11:56:04 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/10 16:37:50 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:28:10 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	pipex(t_tree *tree, t_env **env)
 		}
 		if (id[i] == 0)
 		{
-			usleep(150 * size);
+			// usleep(150 * size);
 			if (i == 0)
 			{
 				close(p_1[0]);

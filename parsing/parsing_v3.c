@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:02:43 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/11 23:30:43 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/13 13:05:12 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ t_token *parsing_v3(char *line, t_env *env)
 		}
 		i++;
 	}
-	if (strchr(line, '\5'))
-		printf("HI\n");
 	i = 0;
 	while(line[i])
 	{
