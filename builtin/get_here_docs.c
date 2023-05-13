@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:04:46 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/13 13:23:31 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/13 18:49:32 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	here_doc(t_env *env, int output, char *end, int expand)
 	while (1)
 	{
 		read = readline("> ");
-		if (!read)
+		if (!read || (read[0] == '\0' && strlen(end) == 2 &&  end[0] == '\1' && end[1] == '\1'))
 			break;
 		add_history(read);
 		if (ft_strcmp(read , end) == 0)
