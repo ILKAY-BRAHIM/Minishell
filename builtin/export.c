@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:27:00 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/12 20:10:21 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:01:27 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,38 @@
 #include "builting.h"
 
 // changed --------------------
+char *add_quote_slash(char *value)
+{
+	char	*result;
+	int	size;
+	int	i;
 
+	i = 0;
+	size = 0;
+	while(value[i])
+	{
+		if (value[i] == '\"' || value[i] == '$')
+			size++;
+		i++;
+		size++;
+	}
+	result = ft_calloc(size + 1, sizeof(char));
+	i = 0;
+	size = 0;
+	while (value[i])
+	{
+		if (value[i] == '\"' || value[i] == '$')
+		{
+			result[size] = '\\';
+			size++;
+		}
+		result[size] = value[i];
+		i++;
+		size++;
+	}
+	free(value);
+	return(result);
+}
 char **export_val(t_env *env)
 {
 	t_env	*tmp;
@@ -39,6 +70,8 @@ char **export_val(t_env *env)
 			export[i] = sp_strjoin("declare -x ", tmp->name, -1);
 			export[i] = sp_strjoin(export[i], "=", 0);
 			export[i] = sp_strjoin(export[i], "\"", 0);
+			if (ft_strchr(tmp->value, '$') || ft_strchr(tmp->value, '"'))
+				tmp->value = add_quote_slash(tmp->value);
 			export[i] = sp_strjoin(export[i], tmp->value, 0);
 			export[i] = sp_strjoin(export[i], "\"", 0);
 		}
@@ -75,11 +108,6 @@ int	ft_export(t_table *table, t_env *env)
 		}
 		return (0);
 	}
-	if (ft_isdigit(table->arg[0][0]) != 0)
-	{
-		not_valid(table->commend, table->arg[0], 1);
-		return (1);
-	}
 	while (table->arg[i])
 	{
 		if (ft_strchr(table->arg[i], '=') != NULL)
@@ -97,7 +125,10 @@ int	ft_export(t_table *table, t_env *env)
 		else
 		{
 			if (check_valid_name(table->arg[i]) == 0)
-				new_env_var(env, table->arg[i], 1);
+			{
+				if (search_and_return(env, table->arg[i]) == NULL)
+					new_env_var(env, table->arg[i], 1);
+			}
 			else
 			{
 				not_valid(table->commend, table->arg[i], 1);

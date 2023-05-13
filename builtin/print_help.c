@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_help.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 17:55:16 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/11 18:34:29 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:15:57 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ void	not_valid(char *cmd, char *arg, int type)
 	{
 		fd_putstr(arg, 2);
 		fd_putstr(" : Permission denied\n", 2);	
+	}
+	if (type == 5 && arg)
+	{
+		fd_putstr(arg, 2);
+		fd_putstr(": is a directory\n", 2);	
 	}
 	if (type == 3 && arg)
 	{

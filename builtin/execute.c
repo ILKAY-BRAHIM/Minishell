@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 02:45:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/12 00:23:43 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:38:47 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,18 @@ void	call_execve(t_table *table, char *path, char **env)
 	i = 0;
 	while (table->arg[i] != NULL)
 	{
+		if (strchr(table->arg[i], '\1'))
+		{
+			table->arg[i] = remouve_char(table->arg[i], '\1');
+			if (table->arg[i][0] == '\0')
+			{
+				// fd_putstr("minishell: ", 2);
+				fd_putstr(table->commend, 2);
+				fd_putstr(": No such file or directory\n", 2);
+				exit(1);
+			}
+		}
+		table->arg[i] = remouve_char(table->arg[i], '\7');
 		cmd = sp_strjoin(cmd, table->arg[i], 0);
 		cmd = sp_strjoin(cmd, "~", 0);
 		i++;

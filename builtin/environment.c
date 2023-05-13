@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/10 16:33:29 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:04:37 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,11 @@ t_env	*init_env(char **org_env)
 	{
 		getcwd(n_pwd, sizeof(n_pwd));
 		new_env_var(env, ft_strjoin("PWD=", ft_strdup(n_pwd)), 0);
+	}
+	if (search_and_return(env, "OLDPWD") == NULL)
+	{
+		getcwd(n_pwd, sizeof(n_pwd));
+		new_env_var(env, "OLDPWD=", 1);
 	}
 	new_env_var(env, ft_strjoin("?=", ft_strdup("0")), 2);
 	return (env);
