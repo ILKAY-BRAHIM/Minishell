@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   back_space.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 09:58:13 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/12 19:41:30 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/13 00:07:12 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 			i++; 
 			str[i] = '\1';
 		}
-		else if (str[i] && str[i+1] &&  str[i] == str[i + 1] && ( str[i + 2] == '\0' || str[i + 2] == ' ') && i > 0 && str[i - 1] == ' ')
+		else if (str[i] && str[i+1] &&  str[i] == str[i + 1] && ( str[i + 2] == '\0' || str[i + 2] == ' ' ) && i > 0 && str[i - 1] == ' ')
 		{
 			str[i] = '\1';
 			i++; 
