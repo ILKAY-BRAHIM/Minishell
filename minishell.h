@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:38:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/13 13:16:08 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/14 22:24:04 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	add_back(t_env **list, t_env *new);
 void	free_one_list(t_env *list);
 void	free_env(t_env *env);
 t_env	*init_env(char **org_env);
-char	*search_and_return(t_env *env, char *env_var);
+char	*search_and_return(t_env *env, char *env_var, int type);
 void	rm_env_var(t_env **env, char *env_var);
 void	new_env_var(t_env *env, char *env_var, int type);
 void	*ft_memmove(void *dst, const void *src, size_t len);

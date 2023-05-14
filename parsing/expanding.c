@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:20:59 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/14 14:29:22 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/14 22:31:49 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ char	*expand(char *str, t_env *env)
 		ft_memmove(str, str + strlen(array), strlen(str + strlen(array)) + 1);
 		if (*(array+1) == '?')
 		{
-			new = search_and_return (env, "?");
+			new = search_and_return (env, "?", 1);
 			new = sp_strjoin(new, array+2, 0);
 		}
 		else if((*(array+1) >= '0' && *(array+1) <= '9' )|| *(array+1) == '@')
 		{
-			// new = search_and_return (env, *(array+1));
+			// new = search_and_return (env, *(array+1), 1);
 			// new = sp_strjoin("", array+2, 0);
 			new = strdup(array+2);
 		}
 		else
-			new = search_and_return (env, array + 1);
+			new = search_and_return (env, array + 1, 1);
 		free (array);
 		array = new;
 		if (array == NULL || array[0] == 0)

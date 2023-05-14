@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 15:08:48 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/14 22:32:48 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,12 @@ void	new_env_var(t_env *env, char *env_var, int type)
 	}
 	free(tmp->value);
 	tmp->value = ft_strdup(new->value);
+	tmp->type = type;
 	free_one_list(new);
 	return ;
 }
 
-char	*search_and_return(t_env *env, char *env_var)
+char	*search_and_return(t_env *env, char *env_var, int type)
 {
 	t_env	*tmp;
 
@@ -75,6 +76,9 @@ char	*search_and_return(t_env *env, char *env_var)
 			tmp = tmp->next;
 		}
 		if (tmp->name && ft_strncmp(env_var, tmp->name, -1) == 0)
+		if (type == 0)
+			return (tmp->value);
+		if (type == 1)
 			return (ft_strdup(tmp->value));
 	}
 	return (NULL);
@@ -99,9 +103,9 @@ t_env	*init_env(char **org_env)
 		i++;
 	}
 	rm_env_var(&env, "OLDPWD");
-	if (search_and_return(env, "SHLVL"))
+	if (search_and_return(env, "SHLVL", 0))
 	{
-		shell_value = ft_atoi(search_and_return(env, "SHLVL"));
+		shell_value = ft_atoi(search_and_return(env, "SHLVL", 0));
 		shell_val = ft_strjoin("SHLVL=", ft_itoa(shell_value + 1));
 		new_env_var(env, shell_val, 0);
 	}
@@ -110,41 +114,13 @@ t_env	*init_env(char **org_env)
 		shell_val = ft_strjoin("SHLVL=", ft_itoa(1));
 		new_env_var(env, shell_val, 0);
 	}
-	if (search_and_return(env, "PWD") == NULL)
+	if (search_and_return(env, "PWD", 0) == NULL)
 	{
 		getcwd(n_pwd, sizeof(n_pwd));
 		new_env_var(env, ft_strjoin("PWD=", ft_strdup(n_pwd)), 0);
 	}
-	if (search_and_return(env, "OLDPWD") == NULL)
+	if (search_and_return(env, "OLDPWD", 0) == NULL)
 		new_env_var(env, "OLDPWD=", 1);
 	new_env_var(env, ft_strjoin("?=", ft_strdup("0")), 2);
 	return (env);
 }
-
-
-// #include <stdio.h>
-// int	main(int ac, char **av, char **envv)
-// {
-// 	t_env	*env;
-// 	t_env	*ennv;
-// 	int		i;
-
-// 	ennv = init_env(envv);
-// 	env = ennv;
-// 	// new_env_var(env, "SHLVL=3");
-// 	// if (ac == 2)
-// 	// 	rm_env_var(env, av[1]);
-// 	i = 0;
-// 	if (ac == 2)
-// 		printf("%s\n\n", search_and_return(env, av[1]));
-// 	while (1)
-// 	{
-// 		printf("%s=", env->name);
-// 		printf("%s\n", env->value);
-// 		// printf("%s\n", envv[i++]);
-// 		if (!env->next)
-// 			break ;
-// 		env = env->next;
-// 	}
-// 	free_env(ennv);
-// }

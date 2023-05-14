@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:24:47 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 15:21:17 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/14 22:28:00 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	ft_cd(t_table *table, t_env *env)
 {
 	char	n_pwd[100];
 	char	c_pwd[100];
-	char	*home;
 	struct stat path_stat;
 
 	if (table->option[0] != NULL)
@@ -28,21 +27,17 @@ int	ft_cd(t_table *table, t_env *env)
 		print_help(table, 1);
 		return (1);
 	}
-	if (env)
+	if (env && search_and_return(env, "_", 0))
 		rm_env_var(&env, "_");
-	if (search_and_return(env, "_"))
-		new_env_var(env, ft_strjoin("_=", ft_strdup("cd")), 0);
+	new_env_var(env, ft_strjoin("_=", ft_strdup("cd")), 0);
 	getcwd(c_pwd, sizeof(c_pwd));
 	if (table->arg[0] == NULL)
 	{
-		home = search_and_return(env, "HOME");
-		if (chdir(home) != 0)
+		if (chdir(search_and_return(env, "HOME", 0)) != 0)
 		{
-			free(home);
 			write(2, "minishell: cd: HOME not set\n", 28);
 			return (1);
 		}
-		free(home);
 	}
 	else if (stat(table->arg[0], &path_stat) == 0)
 	{
@@ -67,9 +62,13 @@ int	ft_cd(t_table *table, t_env *env)
 		not_valid(table->commend, table->arg[0], 0);
 		return (1);
 	}
-	new_env_var(env, ft_strjoin("OLDPWD=", ft_strdup(c_pwd)), 0);
-	getcwd(n_pwd, sizeof(n_pwd));
-	new_env_var(env, ft_strjoin("PWD=", ft_strdup(n_pwd)), 0);
+	if (env && search_and_return(env, "OLDPWD", 0))
+		new_env_var(env, ft_strjoin("OLDPWD=", ft_strdup(c_pwd)), 0);
+	if (env && search_and_return(env, "PWD", 0))
+	{
+		getcwd(n_pwd, sizeof(n_pwd));
+		new_env_var(env, ft_strjoin("PWD=", ft_strdup(n_pwd)), 0);	
+	}
 	return (0);
 }
 
