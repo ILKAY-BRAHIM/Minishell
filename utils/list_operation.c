@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 23:48:50 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/13 23:52:48 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:20:24 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,20 @@ void	free_one_list(t_env *list)
 	if (list)
 	{
 		if (list->name)
+		{
 			free(list->name);
+			list->name = NULL;
+		}
 		if (list->value)
+		{
 			free(list->value);
+			list->value = NULL;
+		}
 		if (list)
+		{
 			free(list);	
+			list = NULL;
+		}
 	}
 	return ;
 }

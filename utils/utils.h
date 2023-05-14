@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 06:14:07 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/12 15:40:29 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:22:24 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
-
 typedef struct s_env
 {
 	char			*name;
@@ -46,5 +45,6 @@ int		ft_isalpha(int src);
 void	fd_putstr(char *s, int fd);
 char	*remouve_char(char *str, char c);
 char	*ft_strtrim(char *s1, char *set);
+char	*ft_tolower(char *str);
 
 #endif
