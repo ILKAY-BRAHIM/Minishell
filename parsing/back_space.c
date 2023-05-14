@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 09:58:13 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/13 13:06:46 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/13 19:42:36 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 	while(str[i])
 	{
 	
-		while(str[i] && (str[i] == '\6' || str[i] == '*' || str[i] == '\7'))
+		while(str[i] && (str[i] == '\6' || str[i] == '\4' || str[i] == '\7'))
 		{
 			end++;
 			i++;
@@ -181,9 +181,9 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i]  && !(str[i] == '\2' || str[i] == '*'))
+		if (str[i]  && !(str[i] == '\2' || str[i] == '\4'))
 			new[j++] = str[i++];
-		else if(str[i] && str[i] == '*')
+		else if(str[i] && str[i] == '\4')
 		{
 			new[j++] = '\6';
 			i++;

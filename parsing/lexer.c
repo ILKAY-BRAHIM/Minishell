@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:39:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/12 17:29:38 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/13 19:35:48 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_table *saver(char *data)
 			if (data[i] && data[i] == ' ' && index == -1)
 			{
 				if (_char == '`')
-					data[i] = '*';
+					data[i] = '\4';
 				else
 					data[i] = '\2';
 				
@@ -111,7 +111,7 @@ t_table *saver(char *data)
 		{
 			int u = 1;
 			table->commend = strdup(array[i]);
-			char **www =ft_split(table->commend, '*');
+			char **www =ft_split(table->commend, '\4');
 			u = 0;
 			while(www[u])
 			{
@@ -172,10 +172,10 @@ t_table *saver(char *data)
 		}
 		else
 		{
-			if (strchr(array[i], '*'))
+			if (strchr(array[i], '\4'))
 			{
 				int y = 0;
-				char **tfo = ft_split(array[i], '*');
+				char **tfo = ft_split(array[i], '\4');
 
 				while(tfo[y])
 				{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:20:59 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/12 23:43:07 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/13 22:34:49 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*expand(char *str, t_env *env)
 	int		i;
 
 	array = strchr(str, '$');
-	if (strlen(str) <= 1 || str[1] == ' ' || str[1] == '\"' || (!isalpha(str[1]) && !isdigit(str[1]) && str[1] != '_' && str[1] != '?' && str[1] != '@') )
+	if (strlen(str) <= 1 || str[1] == ' ' || str[1] == '\"' || (!isalpha(str[1]) && !isdigit(str[1]) && str[1] != '_' && str[1] != '?' && str[1] != '@'))
 		return (str);
 	if (array != NULL)
 	{
