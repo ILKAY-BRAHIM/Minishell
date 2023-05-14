@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/13 17:04:37 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/13 23:55:48 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	rm_env_var(t_env **env, char *env_var)
 
 	tmp = *env;
 	befor = tmp;
-	while (ft_strncmp(env_var, tmp->name, -1) != 0)
+	while (env && ft_strncmp(env_var, tmp->name, -1) != 0)
 	{
 		befor = tmp;
 		if (tmp->next == NULL)
 			return ;
 		tmp = tmp->next;
 	}
-	if (ft_strncmp(env_var, tmp->name, -1) == 0)
+	if (env && ft_strncmp(env_var, tmp->name, -1) == 0)
 	{
 		if (befor == *env)
 		{
@@ -46,7 +46,7 @@ void	new_env_var(t_env *env, char *env_var, int type)
 
 	new = new_list(env_var, type);
 	tmp = env;
-	while (ft_strncmp(new->name, tmp->name, -1) != 0)
+	while (tmp->name && ft_strncmp(new->name, tmp->name, -1) != 0)
 	{
 		if (tmp->next == NULL)
 		{
@@ -65,22 +65,25 @@ char	*search_and_return(t_env *env, char *env_var)
 {
 	t_env	*tmp;
 
-	tmp = env;
-	while (ft_strncmp(env_var, tmp->name, -1) != 0)
+	if (env)
 	{
-		if (tmp->next == NULL)
-			return (NULL);
-		tmp = tmp->next;
+		tmp = env;
+		while (tmp->name && ft_strncmp(env_var, tmp->name, -1) != 0)
+		{
+			if (tmp->next == NULL)
+				return (NULL);
+			tmp = tmp->next;
+		}
+		if (tmp->name && ft_strncmp(env_var, tmp->name, -1) == 0)
+			return (ft_strdup(tmp->value));
 	}
-	if (ft_strncmp(env_var, tmp->name, -1) == 0)
-		return (ft_strdup(tmp->value));
 	return (NULL);
 }
 
 t_env	*init_env(char **org_env)
 {
 	t_env	*env;
-	char	n_pwd[100];
+	char	n_pwd[1024];
 	char	*shell_val;
 	int		i;
 	int		shell_value;
@@ -113,13 +116,11 @@ t_env	*init_env(char **org_env)
 		new_env_var(env, ft_strjoin("PWD=", ft_strdup(n_pwd)), 0);
 	}
 	if (search_and_return(env, "OLDPWD") == NULL)
-	{
-		getcwd(n_pwd, sizeof(n_pwd));
 		new_env_var(env, "OLDPWD=", 1);
-	}
 	new_env_var(env, ft_strjoin("?=", ft_strdup("0")), 2);
 	return (env);
 }
+
 
 // #include <stdio.h>
 // int	main(int ac, char **av, char **envv)

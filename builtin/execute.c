@@ -3,25 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 02:45:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/13 17:38:47 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/13 22:42:03 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builting.h"
+#include <sys/stat.h>
 
 char	**ft_get_path(t_env *env)
 {
 	char	*env_path;
+	char	*new;
 	char	**path;
+	int		i;
+	int		size;
 
 	env_path = search_and_return(env, "PATH");
+	if (env_path == NULL)
+		return (NULL);
+	new = ft_calloc(ft_strlen(env_path) + 2, sizeof(char));
+	i = 0;
+	size = 0;
+	while (env_path[i])
+	{
+		if (i == 0 && env_path[i] == ':')
+		{
+			new[size] = '.';
+			size++;
+		}
+		else if (size == i && env_path[i + 1] && env_path[i] == ':' && env_path[i + 1] == ':')
+		{
+			new[size++] = env_path[i++];
+			new[size] = '.';
+			size++;
+		}
+		new[size++] = env_path[i++];
+	}
+	if (size != i)
+	{
+		free(env_path);
+		env_path = new;
+	}
 	if (env_path)
 	{
 		path = ft_split(env_path, ':');
+		free(env_path);
 		return (path);
 	}
 	else
@@ -74,11 +104,11 @@ void	call_execve(t_table *table, char *path, char **env)
 	int		i;
 
 	i = 0;
-	cmd = sp_strjoin(path, "~", -1);
+	cmd = sp_strjoin(path, "\4", -1);
 	while (table->option[i] != NULL)
 	{
 		cmd = sp_strjoin(cmd, table->option[i], 0);
-		cmd = sp_strjoin(cmd, "~", 0);
+		cmd = sp_strjoin(cmd, "\4", 0);
 		i++;
 	}
 	i = 0;
@@ -97,10 +127,10 @@ void	call_execve(t_table *table, char *path, char **env)
 		}
 		table->arg[i] = remouve_char(table->arg[i], '\7');
 		cmd = sp_strjoin(cmd, table->arg[i], 0);
-		cmd = sp_strjoin(cmd, "~", 0);
+		cmd = sp_strjoin(cmd, "\4", 0);
 		i++;
 	}
-	argv = ft_split(cmd, '~');
+	argv = ft_split(cmd, '\4');
 	// free(cmd);
 	exit_status = 0;
 	if (execve(path, argv, env) == -1)
@@ -120,6 +150,7 @@ void	ft_execute(t_table *table, t_env *env)
 	char	**char_env;
 	char	*cmd;
 	int		i;
+	struct stat path_stat;
 
 	i = 0;
 	if (table->commend == NULL)
@@ -149,6 +180,14 @@ void	ft_execute(t_table *table, t_env *env)
 			{
 				not_valid( table->commend, table->commend,4);
 				exit (127);
+			}
+			else if (stat(table->commend, &path_stat) == 0)
+			{
+				if (S_ISDIR(path_stat.st_mode))
+				{
+					not_valid(NULL, table->commend, 5);
+					exit (126);
+				}
 			}
 			if (access(table->commend, F_OK) != 0)
 			{

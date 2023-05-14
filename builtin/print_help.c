@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_help.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 17:55:16 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/13 17:15:57 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/13 19:51:46 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	check_valid_name(char *name)
 			return (1);
 		i++;
 	}
+	if (ft_strchr(name, '+') != NULL && ft_strlen(ft_strchr(name, '+')) > 1)
+		return (1);
 	return (0);
 }
 

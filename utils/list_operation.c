@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 23:48:50 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/11 23:31:51 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/13 23:52:48 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,15 @@ t_env	*new_list(char *org_env, int type) // one of the env name
 
 void	free_one_list(t_env *list)
 {
-	free(list->name);
-	free(list->value);
-	free(list);
+	if (list)
+	{
+		if (list->name)
+			free(list->name);
+		if (list->value)
+			free(list->value);
+		if (list)
+			free(list);	
+	}
 	return ;
 }
 

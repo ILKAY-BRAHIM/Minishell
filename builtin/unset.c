@@ -6,12 +6,14 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 17:55:05 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/10 16:27:56 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/13 20:08:42 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builting.h"
+
+// less than 25 line /\/\/\/\/\/\/\/
 
 int	ft_unset(t_table *table, t_env **env)
 {
@@ -29,7 +31,7 @@ int	ft_unset(t_table *table, t_env **env)
 	}
 	while (table->arg[i])
 	{
-		if (check_valid_name(table->arg[i]) != 0)
+		if (check_valid_name(table->arg[i]) != 0 || ft_strchr(table->arg[i], '+'))
 		{
 			not_valid(table->commend, table->arg[i], 1);
 			err = 1;
@@ -40,5 +42,3 @@ int	ft_unset(t_table *table, t_env **env)
 	}
 	return (err);
 }
-
-/* $? return	*/
