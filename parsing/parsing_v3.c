@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:02:43 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/14 14:23:55 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/14 22:48:06 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,34 @@ t_token *parsing_v3(char *line, t_env *env)
 			line[i] = ' ';
 		i++;
 	}
-	count = 0;
+	count = 1;
 	i = 0;
 	while(line[i])
 	{
-		if (line[i] == '$' && (line[i + 1] == '\"' || line[i + 1] == '\'') && count == 0)
+		if (line[i] && (line[i] == '\"' || line[i] == '\''))
 		{
-			line[i] = '\2';
-			count = 1;
+			char _p = line[i];
+			i++;
+			while(line[i] && line[i] != _p)
+				i++;
 		}
-		if (line[i] == '$' && (line[i + 1] == '\"' || line[i + 1] == '\'') && count != 0)
-			count = 0;
-		if (line[i] == '\"' || line[i] == '\'')
-			count = 1;
+		if (line[i] == '$' && (line[i + 1] == '\"' || line[i + 1] == '\''))
+			line[i] = '\7';
 		i++;
 	}
+	// i = 0;
+	// count = 0;
+	// while(line[i])
+	// {
+	// 	if (line[i] == '$' && (line[i + 1] == '\"' || line[i + 1] == '\'') && count == 0)
+	// 	{
+	// 		line[i] = '\7';
+	// 		count = 1;
+	// 	}
+	// 	if (line[i] == '$' && (line[i + 1] == '\"' || line[i + 1] == '\'') && count != 0)
+	// 		count = 0;
+			
+	// }
 	
 	count = 1;
 	i = 0;

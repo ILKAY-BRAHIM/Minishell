@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:27:00 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/13 19:54:47 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:21:02 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,10 @@ int	ft_export(t_table *table, t_env *env)
 
 	err = 0;
 	i = 0;
-	rm_env_var(&env, "_");
-	new_env_var(env, ft_strjoin("_=", ft_strdup("export")), 0);
+	if (env)
+		rm_env_var(&env, "_");
+	if (search_and_return(env, "_"))
+		new_env_var(env, ft_strjoin("_=", ft_strdup("export")), 0);
 	if (table->option[0] != NULL)
 	{
 		print_help(table, 1);

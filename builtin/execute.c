@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 02:45:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/13 22:42:03 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/14 17:27:30 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,37 @@ char	**ft_get_env(t_env *list_env)
 // split them in char** 
 // creat the first arg for execve
 // the caracter that i split with them i need to change it [!] ------ ********** [!]
+
+void	replac_char(char **str, char old, char new)
+{
+	int		i;
+	int		j;
+
+	j = 0;
+	i = 0;
+	while (str[i])
+	{
+		while (str[i][j])
+		{
+			if (str[i][j] == old)
+				str[i][j] = new;
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	return;
+}
+
 void	call_execve(t_table *table, char *path, char **env)
 {
 	char	**argv;
 	char	*cmd;
+	char	*cmd_lwr;
 	int		i;
 
 	i = 0;
+	cmd_lwr = (ft_tolower(table->commend));
 	cmd = sp_strjoin(path, "\4", -1);
 	while (table->option[i] != NULL)
 	{
@@ -116,7 +140,8 @@ void	call_execve(t_table *table, char *path, char **env)
 	{
 		if (strchr(table->arg[i], '\1'))
 		{
-			table->arg[i] = remouve_char(table->arg[i], '\1');
+			if (ft_strcmp(cmd_lwr, "echo") != 0)
+				table->arg[i] = remouve_char(table->arg[i], '\1');
 			if (table->arg[i][0] == '\0')
 			{
 				// fd_putstr("minishell: ", 2);
@@ -130,8 +155,9 @@ void	call_execve(t_table *table, char *path, char **env)
 		cmd = sp_strjoin(cmd, "\4", 0);
 		i++;
 	}
+	free(cmd_lwr);
 	argv = ft_split(cmd, '\4');
-	// free(cmd);
+	replac_char(argv, '\1', '\0');
 	exit_status = 0;
 	if (execve(path, argv, env) == -1)
 	{
@@ -164,8 +190,10 @@ void	ft_execute(t_table *table, t_env *env)
 			cmd = sp_strjoin(cmd , table->commend, 0);
 			if (access(cmd, X_OK) == 0)
 			{
-				rm_env_var(&env, "_");
-				new_env_var(env, sp_strjoin("_=", cmd, -1), 0);
+				if (env)
+					rm_env_var(&env, "_");
+				if (search_and_return(env, "_"))
+					new_env_var(env, sp_strjoin("_=", cmd, -1), 0);
 				char_env = ft_get_env(env);
 				call_execve(table, cmd, char_env);
 				break;
@@ -199,8 +227,10 @@ void	ft_execute(t_table *table, t_env *env)
 				not_valid( NULL, table->commend,2);
 				exit (126);
 			}
-			rm_env_var(&env, "_");
-			new_env_var(env, sp_strjoin("_=", table->commend, -1), 0);
+			if (env)
+				rm_env_var(&env, "_");
+			if (search_and_return(env, "_"))
+				new_env_var(env, sp_strjoin("_=", table->commend, -1), 0);
 			char_env = ft_get_env(env);
 			call_execve(table, table->commend, char_env);
 		}
@@ -225,8 +255,10 @@ void	ft_execute(t_table *table, t_env *env)
 			not_valid( NULL, table->commend,2);
 			exit (126);
 		}
-		rm_env_var(&env, "_");
-		new_env_var(env, sp_strjoin("_=", table->commend, -1), 0);
+		if (env)
+			rm_env_var(&env, "_");
+		if (search_and_return(env, "_"))
+			new_env_var(env, sp_strjoin("_=", table->commend, -1), 0);
 		char_env = ft_get_env(env);
 		call_execve(table, table->commend, char_env);
 	}

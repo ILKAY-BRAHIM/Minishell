@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 11:41:59 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 18:22:39 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/05/14 16:03:18 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/05/14 16:10:48 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "utils.h" 
 
-int	ft_isdigit(int src)
+char	*ft_tolower(char *str)
 {
-	if (src >= 48 && src <= 57)
-		return (1);
-	return (0);
+	char	*result;
+	int		i;
+	
+	i = 0;
+	result = ft_calloc(ft_strlen(str) + 1, sizeof(char));
+	while (str[i])
+	{
+		if (str[i] >= 'A' && str[i] <= 'Z')
+			result[i] = str[i] + 32;
+		else
+			result[i] = str[i];
+		i++;
+	}
+	return (result);
 }
-
-// int	main()
-// {
-// 	printf ("%d\n", ft_isdigit('5'));
-// }

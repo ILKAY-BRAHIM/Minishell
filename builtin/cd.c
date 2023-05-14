@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:24:47 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/11 15:15:53 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:21:17 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ int	ft_cd(t_table *table, t_env *env)
 		print_help(table, 1);
 		return (1);
 	}
-	rm_env_var(&env, "_");
-	new_env_var(env, ft_strjoin("_=", ft_strdup("cd")), 0);
+	if (env)
+		rm_env_var(&env, "_");
+	if (search_and_return(env, "_"))
+		new_env_var(env, ft_strjoin("_=", ft_strdup("cd")), 0);
 	getcwd(c_pwd, sizeof(c_pwd));
 	if (table->arg[0] == NULL)
 	{
