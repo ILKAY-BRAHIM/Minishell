@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:39:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/13 19:35:48 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:21:40 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,7 @@ t_table *saver(char *data)
 		i++;
 	}
 	free_array(array);
+	
 	i = 0;
 	array = ft_split(tokons[0], ' ');
 	table->arg = ft_split(tokons[3], ' ');

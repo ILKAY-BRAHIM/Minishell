@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:02:43 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/13 13:05:12 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:23:55 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ t_token *parsing_v3(char *line, t_env *env)
 	char *part;
 	int count;
 
+	i = 0;
+	while(line[i])
+	{
+		if (line[i] == '\t')
+			line[i] = ' ';
+		i++;
+	}
 	count = 0;
 	i = 0;
 	while(line[i])
