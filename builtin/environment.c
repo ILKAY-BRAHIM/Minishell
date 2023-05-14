@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 22:32:48 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/14 22:44:11 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*search_and_return(t_env *env, char *env_var, int type)
 t_env	*init_env(char **org_env)
 {
 	t_env	*env;
-	char	n_pwd[1024];
+	char	*n_pwd;
 	char	*shell_val;
 	int		i;
 	int		shell_value;
@@ -116,8 +116,8 @@ t_env	*init_env(char **org_env)
 	}
 	if (search_and_return(env, "PWD", 0) == NULL)
 	{
-		getcwd(n_pwd, sizeof(n_pwd));
-		new_env_var(env, ft_strjoin("PWD=", ft_strdup(n_pwd)), 0);
+		n_pwd = getcwd(NULL, 0);
+		new_env_var(env, ft_strjoin("PWD=", n_pwd), 0);
 	}
 	if (search_and_return(env, "OLDPWD", 0) == NULL)
 		new_env_var(env, "OLDPWD=", 1);

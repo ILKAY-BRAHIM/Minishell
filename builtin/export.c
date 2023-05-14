@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:27:00 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 22:31:13 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/14 22:54:42 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char **export_val(t_env *env)
 	if (size == 0)
 		return NULL;
 	i = 0;
-	tmp = env; // sort or no [!] -----------------------
+	tmp = env;
 	export = ft_calloc(size + 1, sizeof(char *));
 	while (i < size - 1)
 	{
@@ -104,7 +104,8 @@ int	ft_export(t_table *table, t_env *env)
 		sorted = export_val(env);
 		while (sorted  && sorted[i] != NULL)
 		{
-			printf("%s\n", sorted[i]);
+			fd_putstr(sorted[i], 1);
+			fd_putchar('\n', 1);
 			i++;
 		}
 		return (0);
