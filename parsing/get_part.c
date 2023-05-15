@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 23:42:42 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 18:06:49 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/15 22:57:48 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 
 char	*get_part(char *str, char first, char end, int flag)
 {
-	char	*array;
+	char				*array;
 	unsigned long		i;
-	int		j;
+	int					j;
 
 	i = 0;
 	str = strchr(str, first);
@@ -31,16 +31,11 @@ char	*get_part(char *str, char first, char end, int flag)
 		return (NULL);
 	if (first == end)
 		i++;
-	while(str[i] && str[i] != end )
+	while (str[i] && str[i] != end)
 		i++;
-	while(str[i] && str[i] == end )
+	while (str[i] && str[i] == end)
 		i++;
 	array = calloc(i + 1, 1);
-	// if (i == strlen(str) && (str[1] != '<' || str[1] != '>'))
-	// {
-	// 	array[0] = str[0];
-	// 	return (array);
-	// }
 	i = 0;
 	j = 0;
 	if (first == end && flag == 1 && str[0] != str[1])
@@ -52,7 +47,7 @@ char	*get_part(char *str, char first, char end, int flag)
 		array[j++] = str[i++];
 	else
 		i++;
-	while(str[i] && str[i] != end)
+	while (str[i] && str[i] != end)
 		array[j++] = str[i++];
 	if (str[i] && (flag == 2 || flag == 3))
 		return (array);
@@ -62,8 +57,3 @@ char	*get_part(char *str, char first, char end, int flag)
 		array[j++] = str[i++];
 	return (array);
 }
-// int main ()
-// {
-// 	char s[50] = "\"hhhhhh\" ls";
-// 	printf("%s\n", get_part(s, '\"', '\"', 0));
-// }

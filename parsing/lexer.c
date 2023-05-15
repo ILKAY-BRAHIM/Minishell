@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:39:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/15 13:17:44 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/15 23:53:50 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,26 @@ t_table *saver(char *data)
 	int 	_char;
 	char	**array;
 	char	**tokons;
+
 	if (data == NULL)
 		return (NULL);
 	table = calloc(1, sizeof(t_table));
 	tokons = calloc(5, sizeof(char *));
 	i = 0;
-	while(i < 4)
+	while (i < 4)
 		tokons[i++] = calloc(1, 1);
 	i = 0;
-	while(data[i])
+	while (data[i])
 	{
-		while(data[i] && !(data[i] == '\"' || data[i] == '\'' || data[i] == '`'))
+		while (data[i] && !(data[i] == '\"'
+				|| data[i] == '\'' || data[i] == '`'))
 			i++;
 		_char = data[i];
 		if (data[i] == _char && index == 1)
 			index = -1;
 		if (data[i])
 			i++;
-		while(data[i] && data[i] != _char  && index == -1)
+		while (data[i] && data[i] != _char && index == -1)
 		{
 			if (data[i] && data[i] == ' ' && index == -1)
 			{
@@ -45,7 +47,6 @@ t_table *saver(char *data)
 					data[i] = '\4';
 				else
 					data[i] = '\2';
-				
 			}
 			i++;
 		}
@@ -58,13 +59,12 @@ t_table *saver(char *data)
 	index = 1;
 	i = 0;
 	_char = 0;
-	while(array[i])
+	while (array[i])
 	{
-		if (strchr("<>", array[i][0]) )
+		if (strchr("<>", array[i][0]))
 		{
-			
 			tokons[0] = sp_strjoin(tokons[0], array[i], 0);
-			tokons[0] = sp_strjoin(tokons[0], strdup(" "),  2);
+			tokons[0] = sp_strjoin(tokons[0], strdup(" "), 2);
 				i++;
 				tokons[1] = sp_strjoin(tokons[1], array[i], 0);
 				tokons[1] = sp_strjoin(tokons[1], strdup(" "), 2);
@@ -73,15 +73,15 @@ t_table *saver(char *data)
 		{
 			int u = 1;
 			table->commend = strdup(array[i]);
-			char **www =ft_split(table->commend, '\4');
+			char **www = ft_split(table->commend, '\4');
 			u = 0;
-			while(www[u])
+			while (www[u])
 			{
 				if (strchr(www[u], '`'))
 				{
 					www[u] = sp_strjoin(www[u], "`", 0);
 					u++;
-					while(www[u] && !(strchr(www[u], '`')))
+					while (www[u] && !(strchr(www[u], '`')))
 					{
 						www[u] = sp_strjoin("`", www[u], 1);
 						www[u] = sp_strjoin(www[u], "`", 0);
@@ -95,12 +95,12 @@ t_table *saver(char *data)
 			}
 			u = 1;
 			table->commend = strdup(www[0]);
-
 			if (www[u])
 			{
 				while (www[u] && (www[u][1] == '-'))
 				{
-					if (ft_strlen(www[u]) == 2 && www[u][0] == '`' && www[u][1] == '`')
+					if (ft_strlen(www[u]) == 2
+						&& www[u][0] == '`' && www[u][1] == '`')
 						u++;
 					else
 					{
@@ -109,9 +109,10 @@ t_table *saver(char *data)
 						u++;
 					}
 				}
-				while(www[u])
+				while (www[u])
 				{
-					if (ft_strlen(www[u]) == 2 && www[u][0] == '`' && www[u][1] == '`')
+					if (ft_strlen(www[u]) == 2
+						&& www[u][0] == '`' && www[u][1] == '`')
 						u++;
 					else
 					{
@@ -124,7 +125,9 @@ t_table *saver(char *data)
 			}
 			free_array(www);
 		}
-		else if (_char == 0 && (array[i][0] == '-' ||(( array[i][0] == '\"' || array[i][0] == '\'') && array[i][1] == '-')))
+		else if (_char == 0 && (array[i][0] == '-'
+			|| ((array[i][0] == '\"'
+				|| array[i][0] == '\'') && array[i][1] == '-')))
 		{
 			tokons[2] = sp_strjoin(tokons[2], array[i], 0);
 			tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
@@ -136,13 +139,13 @@ t_table *saver(char *data)
 				int y = 0;
 				char **tfo = ft_split(array[i], '\4');
 
-				while(tfo[y])
+				while (tfo[y])
 				{
 					if (strchr(tfo[y], '`'))
 					{
 						tfo[y] = sp_strjoin(tfo[y], "`", 0);
 						y++;
-						while(tfo[y] && !(strchr(tfo[y], '`')))
+						while (tfo[y] && !(strchr(tfo[y], '`')))
 						{
 							tfo[y] = sp_strjoin("`", tfo[y], 1);
 							tfo[y] = sp_strjoin(tfo[y], "`", 0);
@@ -155,9 +158,10 @@ t_table *saver(char *data)
 						y++;
 				}
 				y = 0;
-				while(tfo[y] && tfo[y][1] == '-' && _char == 0)
+				while (tfo[y] && tfo[y][1] == '-' && _char == 0)
 				{
-					if (ft_strlen(tfo[y]) == 2 && tfo[y][0] == '`' && tfo[y][1] == '`')
+					if (ft_strlen(tfo[y]) == 2
+						&& tfo[y][0] == '`' && tfo[y][1] == '`')
 						y++;
 					else
 					{
@@ -166,9 +170,10 @@ t_table *saver(char *data)
 						y++;
 					}
 				}
-				while(tfo[y])
+				while (tfo[y])
 				{
-					if (ft_strlen(tfo[y]) == 2 && tfo[y][0] == '`' && tfo[y][1] == '`')
+					if (ft_strlen(tfo[y]) == 2
+						&& tfo[y][0] == '`' && tfo[y][1] == '`')
 						y++;
 					else
 					{
@@ -190,26 +195,25 @@ t_table *saver(char *data)
 		i++;
 	}
 	free_array(array);
-	
 	i = 0;
 	array = ft_split(tokons[0], ' ');
 	table->arg = ft_split(tokons[3], ' ');
 	table->option = ft_split(tokons[2], ' ');
 	table->files = ft_split(tokons[1], ' ');
 	free_array(tokons);
-	while(array[i])
+	while (array[i])
 		i++;
 	table->next = calloc(i + 1, sizeof(int));
 	i = 0;
-	while(array[i])
+	while (array[i])
 	{
-		if (ft_strncmp(array[i],  ">", -1) == 0)
+		if (ft_strncmp(array[i], ">", -1) == 0)
 			table->next[i] = 3;
-		else if (ft_strncmp(array[i],  "<", -1) == 0)
+		else if (ft_strncmp(array[i], "<", -1) == 0)
 			table->next[i] = 2;
-		else if (ft_strncmp(array[i],  ">>", -1) == 0)
+		else if (ft_strncmp(array[i], ">>", -1) == 0)
 			table->next[i] = 5;
-		else if (ft_strncmp(array[i],  "<<", -1) == 0)
+		else if (ft_strncmp(array[i], "<<", -1) == 0)
 			table->next[i] = 1;
 		i++;
 	}
@@ -217,31 +221,31 @@ t_table *saver(char *data)
 	return (back_space(table));
 }
 
-t_tree *lexer(t_token *lst)
+t_tree	*lexer(t_token *lst)
 {
-	t_token *tmp;
+	t_token	*tmp;
 	t_tree	*tree;
 	t_tree	*tree_tmp;
 	int		count;
 
 	count = 0;
 	tmp = lst;
-	while(1)
+	while (1)
 	{
 		count++;
 		tmp = tmp->next;
 		if (tmp == NULL)
-			break;
+			break ;
 	}
 	tree = calloc(1, sizeof(t_tree));
 	tree_tmp = tree;
-	while(count > 1)
+	while (count > 1)
 	{
 		tree->type = 1;
 		tree->left = calloc(1, sizeof(t_tree));
 		tree->left->type = 0;
 		tree->left->table = saver(lst->token);
-		tree->right = calloc(1, sizeof(t_tree)); 
+		tree->right = calloc(1, sizeof(t_tree));
 		tree = tree->right;
 		lst = lst->next;
 		lst = lst->next;
@@ -251,4 +255,3 @@ t_tree *lexer(t_token *lst)
 	tree->type = 0;
 	return (tree_tmp);
 }
-

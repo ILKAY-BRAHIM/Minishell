@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:44:34 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/14 17:39:11 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/15 23:54:16 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-
 
 void	free_tree(t_tree *tree)
 {
@@ -142,15 +140,16 @@ void	print_tree(t_tree *tree)
 		x++;
 	}
 }
+
 int main(int argc, char **argv, char **origin_env)
 {
-	t_tree *tree;
+	t_tree	*tree;
 	t_env	*env;
-	t_token *lst;
-	char *line;
-	int i;
+	t_token	*lst;
+	char	*line;
+	int		i;
 
-	(void)argc; 
+	(void)argc;
 	(void)argv;
 	env = init_env(origin_env);
 	while (1)
@@ -161,7 +160,6 @@ int main(int argc, char **argv, char **origin_env)
 		if (line != NULL)
 		{
 			lst = parsing_v3(line, env);
-			// pause();
 			if (lst != NULL)
 			{
 				tree = lexer(lst);
@@ -170,32 +168,8 @@ int main(int argc, char **argv, char **origin_env)
 				execution(tree, &env);
 				free_tree(tree);
 			}
-			// if (lst != NULL)
-			// {
-			// 	fre = lst;
-			// 	while(1)
-			// 	{
-			// 		if (lst == NULL)
-			// 			break;
-			// 		printf("%s\n", lst->token);
-			// 		lst = lst->next;
-			// 	}
-			// 	lst = fre;
-			// }
-			// while(fre && fre->next != NULL)
-			// {
-			// 	fre = fre->next;
-			// 	free(lst->token);
-			// 	free(lst);
-			// 	lst = fre;
-			// }
-			// if (fre)
-			// {
-			// 	free(lst->token);
-			// 	free(lst);	
-			// }
 		}
-		if(line)
+		if (line)
 			free (line);
 	}
 }

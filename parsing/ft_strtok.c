@@ -6,20 +6,20 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:22:58 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/08 23:02:27 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/15 23:50:15 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int count(char *str)
+int	count(char *str)
 {
-	int i;
-	int count;
+	int		i;
+	int		count;
 
 	i = 0;
 	count = 1;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == '$')
 			count++;
@@ -28,22 +28,15 @@ int count(char *str)
 	return (count);
 }
 
-char **ft_strtok(char *strw, char *sp, int att)
+void	_tok(char *str, char **tok, int att, char *sp)
 {
-	int i;
-	int j;
-	char *token;
-	char **tok;
-	char *str;
+	int		i;
+	int		j;
+	char	*token;
 
 	i = 0;
 	j = 0;
-	str = strdup (strw);
-	if (att == 1)
-		tok = ft_calloc(count_sp(str)+1, sizeof(char *));
-	else if (att == 2)
-		tok = ft_calloc(count(str)+1, sizeof(char *));
-	while(1)
+	while (1)
 	{
 		if (str[i])
 			token = strchr(sp, str[i]);
@@ -51,7 +44,7 @@ char **ft_strtok(char *strw, char *sp, int att)
 		{
 			token = get_part(str, str[0], token[0], att);
 			tok[j++] = ft_strdup(token);
-			ft_memmove(str, str+strlen(token), strlen(str+strlen(token)) + 1);
+			ft_memmove(str, str + strlen(token), strlen(str + strlen(token)) + 1);
 			free(token);
 			i = 0;
 		}
@@ -61,26 +54,27 @@ char **ft_strtok(char *strw, char *sp, int att)
 		{
 			if (*str != '\0')
 				tok[j++] = strdup(str);
-			break;
+			break ;
 		}
 	}
 	tok[j] = NULL;
+}
+
+char	**ft_strtok(char *strw, char *sp, int att)
+{
+	int		i;
+	int		j;
+	char	**tok;
+	char	*str;
+
+	i = 0;
+	j = 0;
+	str = strdup (strw);
+	if (att == 1)
+		tok = ft_calloc(count_sp(str) + 1, sizeof(char *));
+	else if (att == 2)
+		tok = ft_calloc(count(str) + 1, sizeof(char *));
+	_tok(str, tok, att, sp);
 	free(str);
 	return (tok);
 }
-// int main()
-// {
-// 	int i = 0;
-// 	char *new;
-// 	char str[200] = "ls | grep .c >>>>>>> txt<< .   ||| .     || .  >>>>>>>> >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>";
-// 	char **strr;
-// 	new = strdup(str);
-// 	strr = ft_strtok(new, "<>|", 2);
-// 	free(new);
-// 	while(strr[i])
-// 	{
-// 		printf("%s\n", strr[i]);
-// 		i++;
-// 	}
-// 	while(1);
-// }

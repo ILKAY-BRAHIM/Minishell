@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 21:35:12 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 18:06:49 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:08:17 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*ft_strnchr(char *s, char first, char end, int flag)
 		size++;
 	while(s[size] && s[size] == end)
 		size++;
-	// printf("%d\n", size);
 	array = ft_calloc(size + 1, 1);
 	while(s[i])
 	{
@@ -44,8 +43,7 @@ char	*ft_strnchr(char *s, char first, char end, int flag)
 					array[j++] = s[i++];
 				return(array);
 			}
-			// if (flag == 2)
-			// 	return (array);
+
 			while(s[i] && s[i] != end)
 				array[j++] = s[i++];
 			if (s[i] && (first == end && flag <= 1)) // dyall expand | include first and end in part

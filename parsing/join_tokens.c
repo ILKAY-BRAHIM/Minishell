@@ -12,56 +12,9 @@
 
 #include "../minishell.h"
 
-// t_token		*join_tokens(t_token *tokens)
-// {
-// 	t_token *new;
-// 	char	*array;
-// 	int		i;
-// 	int		count;
-// 	char	*tmp;
-// 	t_token	*tmp_frr;
-// 	count = 1;
-// 	tmp_frr = tokens;
-// 	while(1)
-// 	{
-// 		i = strlen(tokens->token);
-// 		array = strchr("<>|", tokens->token[i - 1]);
-// 		if (array != NULL)
-// 		{
-			
-// 			if (count == 1)
-// 			{
-// 				new = new_token(tokens->token);
-// 				count = 2;
-// 			}
-// 			else
-// 				lst_add_back(new, new_token(tokens->token));
-// 		}
-// 		else
-// 			tmp = ft_strdup(tokens->token);
-// 		tokens = tokens->next;
-// 		if (tokens == NULL)
-// 		{
-// 			if (count == 1)
-// 			{
-// 				new = new_token(tmp);
-// 				count = 2;
-// 			}
-// 			else if (tmp != NULL)
-// 				lst_add_back(new, new_token(tmp));
-// 			free(tmp);
-// 			break;
-// 		}
-// 		if (array == NULL)
-// 			tokens->token = sp_strjoin(tmp, tokens->token, 1);
-// 	}
-// 	free_lst(tmp_frr);
-// 	return (new);
-// }
-
-t_token		*join_tokens(t_token *tokens)
+t_token	*join_tokens(t_token *tokens)
 {
-	t_token *new;
+	t_token	*new;
 	char	*array;
 	int		count;
 	char	*tmp;
@@ -70,7 +23,7 @@ t_token		*join_tokens(t_token *tokens)
 	tmp_lst = tokens;
 	count = 1;
 	tmp = NULL;
-	while(1)
+	while (1)
 	{
 		array = strchr("<>|", tokens->token[0]);
 		if (array == NULL)
@@ -124,7 +77,7 @@ t_token		*join_tokens(t_token *tokens)
 					free(tmp);
 				}
 			}
-			break;
+			break ;
 		}
 	}
 	free_lst(tmp_lst);

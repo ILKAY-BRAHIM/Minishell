@@ -6,23 +6,23 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 09:28:39 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/08 22:57:19 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/15 23:02:32 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_token *join_tokens2(t_token *lst)
+t_token	*join_tokens2(t_token *lst)
 {
-	t_token *new;
-	t_token *lst_tmp;
+	t_token	*new;
+	t_token	*lst_tmp;
 	char	*tmp;
 	int		count;
 
 	tmp = calloc(1, 1);
 	count = 1;
 	lst_tmp = lst;
-	while(1)
+	while (1)
 	{
 		if (lst->token[0] == '|')
 		{
@@ -37,7 +37,7 @@ t_token *join_tokens2(t_token *lst)
 			free(tmp);
 			tmp = calloc(1, 1);
 		}
-		else 
+		else
 		{
 			tmp = sp_strjoin(tmp, " ", 0);
 			tmp = sp_strjoin(tmp, lst->token, 0);
@@ -56,5 +56,5 @@ t_token *join_tokens2(t_token *lst)
 	}
 	free(tmp);
 	free_lst(lst_tmp);
-	return(new);
+	return (new);
 }
