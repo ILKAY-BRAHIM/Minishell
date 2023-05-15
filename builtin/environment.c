@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/15 16:09:07 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:30:06 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	new_env_var(t_env *env, char *env_var, int type)
 	tmp->value = ft_strdup(new->value);
 	tmp->type = type;
 	free_one_list(new);
+	free(env_var);
 	return ;
 }
 
@@ -102,7 +103,7 @@ void	if_not_exist(t_env **env)
 		shell_var = sp_strjoin("SHLVL=", ft_itoa(1), 1);
 		new_env_var(*env, shell_var, 0);
 	}
-	free(shell_var);
+	// free(shell_var);
 	if (search_and_return(*env, "PWD", 0) == NULL)
 	{
 		n_pwd = getcwd(NULL, 0);
@@ -110,7 +111,7 @@ void	if_not_exist(t_env **env)
 		{
 			shell_var = sp_strjoin("PWD=", n_pwd, 1);
 			new_env_var(*env, shell_var, 0);
-			free(shell_var);
+			// free(shell_var);
 		}
 	}
 	return ;
@@ -135,9 +136,9 @@ t_env	*init_env(char **org_env)
 	if (search_and_return(env, "OLDPWD", 0) != NULL)
 		rm_env_var(&env, "OLDPWD");
 	if (search_and_return(env, "OLDPWD", 0) == NULL)
-		new_env_var(env, "OLDPWD", 1);
+		new_env_var(env, ft_strdup("OLDPWD"), 1);
 	shell_var = sp_strjoin("?=", "0", -1);
 	new_env_var(env, shell_var, 2);
-	free(shell_var);
+	// free(shell_var);
 	return (env);
 }

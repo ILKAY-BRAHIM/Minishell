@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:27:22 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/15 16:13:19 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:33:04 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	execution(t_tree *tree, t_env **env)
 	}
 	exit_val = sp_strjoin("?=", ft_itoa(exit_status), 1);
 	new_env_var(*env, exit_val, 2);
-	free(exit_val);
+	// free(exit_val);
 	return ;
 }
 

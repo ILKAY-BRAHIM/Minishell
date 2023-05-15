@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:27:00 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 22:54:42 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:35:37 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	ft_export(t_table *table, t_env *env)
 			if (check_valid_name(check_name) == 0)
 			{
 				table->arg[i] = remouve_char(table->arg[i], '+');
-				new_env_var(env, table->arg[i], 0);
+				new_env_var(env, ft_strdup(table->arg[i]), 0);
 			}
 			else
 			{
@@ -133,7 +133,7 @@ int	ft_export(t_table *table, t_env *env)
 			{
 				table->arg[i] = remouve_char(table->arg[i], '+');
 				if (search_and_return(env, table->arg[i], 0) == NULL)
-					new_env_var(env, table->arg[i], 1);
+					new_env_var(env, ft_strdup(table->arg[i]), 1);
 			}
 			else
 			{
