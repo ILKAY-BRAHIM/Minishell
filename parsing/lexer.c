@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:39:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/14 14:21:40 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:17:44 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,32 +55,6 @@ t_table *saver(char *data)
 			i++;
 	}
 	array = ft_split(data, ' ');
-	// i = 0;
-	// while(array[i])
-	// {
-	// 	if (strchr(array[i], '`'))
-	// 	{
-	// 		array[i] = sp_strjoin(array[i], "`", 0);
-	// 		i++;
-	// 		while(array[i] && !(strchr(array[i], '`')))
-	// 		{
-	// 			array[i] = sp_strjoin("`", array[i], 1);
-	// 			array[i] = sp_strjoin(array[i], "`", 0);
-	// 			i++;
-	// 		}
-	// 		array[i] = sp_strjoin("`", array[i], 1);
-	// 		i++;
-	// 	}
-	// 	else if (array[i])
-	// 		i++;
-	// }
-	// i = 0;
-	// while(array[i])
-	// {
-	// 	printf("%s\n", array[i]);
-	// 	i++;
-	// }
-	// pause();
 	index = 1;
 	i = 0;
 	_char = 0;
@@ -91,21 +65,9 @@ t_table *saver(char *data)
 			
 			tokons[0] = sp_strjoin(tokons[0], array[i], 0);
 			tokons[0] = sp_strjoin(tokons[0], strdup(" "),  2);
-			
-			// rediraction = array[i];
-			// file = array[i]
-			// if (ft_strncmp("<<", array[i], -1) != 0)
-			// {
 				i++;
 				tokons[1] = sp_strjoin(tokons[1], array[i], 0);
 				tokons[1] = sp_strjoin(tokons[1], strdup(" "), 2);
-			// }
-			// else 
-			// {
-			// 	i++;
-			// 	tokons[3] = sp_strjoin(tokons[3], array[i], 0);
-			// 	tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
-			// }
 		}
 		else if (index == 1 && index++)
 		{
@@ -160,15 +122,12 @@ t_table *saver(char *data)
 					}
 				}
 			}
-			
-			// commend = array[i];
-			// x = 2;
+			free_array(www);
 		}
 		else if (_char == 0 && (array[i][0] == '-' ||(( array[i][0] == '\"' || array[i][0] == '\'') && array[i][1] == '-')))
 		{
 			tokons[2] = sp_strjoin(tokons[2], array[i], 0);
 			tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
-			// option = array[i];
 		}
 		else
 		{
@@ -219,6 +178,7 @@ t_table *saver(char *data)
 						y++;
 					}
 				}
+				free_array(tfo);
 			}
 			else
 			{
@@ -226,7 +186,6 @@ t_table *saver(char *data)
 				tokons[3] = sp_strjoin(tokons[3], array[i], 0);
 				tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
 			}
-			// arg = array[i];
 		}
 		i++;
 	}
@@ -255,7 +214,6 @@ t_table *saver(char *data)
 		i++;
 	}
 	free_array(array);
-	// back_space(table);
 	return (back_space(table));
 }
 
@@ -283,7 +241,7 @@ t_tree *lexer(t_token *lst)
 		tree->left = calloc(1, sizeof(t_tree));
 		tree->left->type = 0;
 		tree->left->table = saver(lst->token);
-		tree->right = calloc(1, sizeof(t_tree));
+		tree->right = calloc(1, sizeof(t_tree)); 
 		tree = tree->right;
 		lst = lst->next;
 		lst = lst->next;
@@ -291,7 +249,6 @@ t_tree *lexer(t_token *lst)
 	}
 	tree->table = saver(lst->token);
 	tree->type = 0;
-	// free_lst(lst);
 	return (tree_tmp);
 }
 

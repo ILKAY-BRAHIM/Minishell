@@ -6,46 +6,17 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 09:58:13 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/13 19:42:36 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:05:12 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *hanty_7ada_wlat_wa7da_khera(char *str)
+void back_origin(char *str)
 {
-	int		i;
-	// int		j;
-	// int		count;
-	// char	*new;
+	int i;
+
 	i = 0;
-	// j = 0;
-	if (str == NULL)
-		return(NULL);
-	// count = strlen(str);
-	// new = calloc((count * 2), sizeof(char));
-	// i = 0;
-	// if (strchr(str, '\2') && (str[i] == '\'' || str[i] == '\"'))
-	// {
-	// 	str[count - 1] = '\2';
-	// 	str[i] = '\2';
-	// }
-	// while(str[i])
-	// {
-	// 	if (str[i] == '\2' && (i == 0 || i == count - 1))
-	// 		i++;
-	// 	else if (str[i] == '\2')
-	// 		new[j++] = ' ';
-	// 	if (i != 0 && i != count - 1 && (str[i] == '\"' || str[i] == '\'') && (str[i + 1] == '\'' || str[i + 1] == '\"'))
-	// 	{
-	// 		i++;
-	// 		i++;
-	// 		new[j++] = ' ';
-	// 		// i++;
-	// 	}
-	// 	new[j++] = str[i++];
-	// }
-	// free(str);
 	while(str[i])
 	{
 		if(str[i] == '\5')
@@ -55,12 +26,6 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 		i++;
 	}
 	i = 0;
-	int j;
-	j = 0;
-	char *new;
-	if (str == NULL)
-		return(NULL);
-	new = calloc((ft_strlen(str) + 1), sizeof(char));
 	if (strchr(str, '\2'))
 	{
 		while(str[i])
@@ -70,68 +35,13 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 			i++;
 		}
 	}
-	// i = 0;
-	// while(str[i])
-	// {
-	// 	if (str[i] == '`')
-	// 		str[i] = '\2';
-	// 	i++;
-	// }
-	i = 0;
-	char c;
-	int start = 0;
-	int end = 0;
-	// printf("STR   %s\n", str);
-	while(str[i])
-	{
-	
-		while(str[i] && (str[i] == '\6' || str[i] == '\4' || str[i] == '\7'))
-		{
-			end++;
-			i++;
-		}
-		start = i - end-1;
-		if (end != 0)
-		{
-			if (start > 0 && str[start] &&  (str[start] == '\"' || str[start] == '\'') )
-			{
-				char __char = str[start];
-				while(start >= 0 && str[start] &&  str[start] == __char)
-				{
-					if(start > 0 && str[start-1] == __char)
-					{
-						str[start] = '\1';
-						str[start-1] = '\1';
-						start--;
-						
-					}
-					if (start >= 0)
-						start--;
-				}
-			}
-			end = i;
-			if (str[end] &&( str[end] == '\"' || str[end] == '\''))
-			{
-				char ___char = str[end];
-				while(str[end] &&str[end] == ___char)
-				{
-					if (str[end + 1] && str[end + 1] == ___char)
-					{
-						str[end + 1] = '\1';
-						str[end] = '\1';
-						end++;
-					}
-					if (str[end])
-						end++;
-				}
-			}
-		
-		}
-		end = 0;
-		start = 0;
-		i++;
-		
-	}
+}
+
+void flaying_qutes(char *str)
+{
+	int i;
+	char	c;
+
 	i = 0;
 	if(ft_strlen(str) == 3 && (str[0] == '\"' || str[0] == '\'') && str[1] == '\7' && (str[2] == '\"' || str[i] == '\''))
 		str[1] = '\1';
@@ -164,7 +74,16 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 		if (str[i])
 			i++;
 	}
+}
+char *cleang(char *str)
+{
+	int i;
+	int j;
+	char *new;
+	
 	i = 0;
+	j = 0;
+	new = calloc((ft_strlen(str) + 1), sizeof(char));
 	while(str[i])
 	{
 		while(str[i] && !(str[i] == '`'))
@@ -175,8 +94,6 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 			i++;
 		if (str[i])
 			str[i] = '\2';
-		// if (str[i])
-		// 	i++;
 	}
 	i = 0;
 	while (str[i])
@@ -193,6 +110,66 @@ char *hanty_7ada_wlat_wa7da_khera(char *str)
 	}
 	free(str);
 	return(new);
+}
+
+char *hanty_7ada_wlat_wa7da_khera(char *str)
+{
+	int		i;
+	int start = 0;
+	int end = 0;
+	i = 0;
+	if (str == NULL)
+		return(NULL);
+	back_origin(str);
+	while(str[i])
+	{
+	
+		while(str[i] && (str[i] == '\6' || str[i] == '\4' || str[i] == '\7'))
+		{
+			end++;
+			i++;
+		}
+		start = i - end-1;
+		if (end != 0)
+		{
+			if (start > 0 && str[start] &&  (str[start] == '\"' || str[start] == '\'') )
+			{
+				char __char = str[start];
+				while(start >= 0 && str[start] &&  str[start] == __char)
+				{
+					if(start > 0 && str[start-1] == __char)
+					{
+						str[start] = '\1';
+						str[start-1] = '\1';
+						start--;
+					}
+					if (start >= 0)
+						start--;
+				}
+			}
+			end = i;
+			if (str[end] &&( str[end] == '\"' || str[end] == '\''))
+			{
+				char ___char = str[end];
+				while(str[end] &&str[end] == ___char)
+				{
+					if (str[end + 1] && str[end + 1] == ___char)
+					{
+						str[end + 1] = '\1';
+						str[end] = '\1';
+						end++;
+					}
+					if (str[end])
+						end++;
+				}
+			}
+		}
+		end = 0;
+		start = 0;
+		i++;
+	}
+	flaying_qutes(str);
+	return(cleang(str));
 }
 t_table *back_space(t_table *table)
 {
@@ -213,8 +190,6 @@ t_table *back_space(t_table *table)
 		{
 			if (strchr(table->files[i], '\'') || strchr(table->files[i], '\"'))
 				table->next[i] = 4;
-			// else if(strchr(table->files[i], '\'') || strchr(table->files[i], '\"'))
-			// 	table->next[i] = 4;
 		}
 		table->files[i] = hanty_7ada_wlat_wa7da_khera(table->files[i]);
 	}

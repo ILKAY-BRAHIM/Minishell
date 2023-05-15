@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:02:43 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/14 14:23:55 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:23:26 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,16 @@
 #include "../utils/utils.h"
 #include <string.h>
 #include <stdio.h>
-
-t_token *parsing_v3(char *line, t_env *env)
+void her_doc(char *line)
 {
 	int i;
-	t_token *token;
-	t_token *new;
-	t_token *tmp;
-	char *part;
-	int count;
-
-	i = 0;
-	while(line[i])
-	{
-		if (line[i] == '\t')
-			line[i] = ' ';
-		i++;
-	}
-	count = 0;
-	i = 0;
-	while(line[i])
-	{
-		if (line[i] == '$' && (line[i + 1] == '\"' || line[i + 1] == '\'') && count == 0)
-		{
-			line[i] = '\2';
-			count = 1;
-		}
-		if (line[i] == '$' && (line[i + 1] == '\"' || line[i + 1] == '\'') && count != 0)
-			count = 0;
-		if (line[i] == '\"' || line[i] == '\'')
-			count = 1;
-		i++;
-	}
 	
-	count = 1;
 	i = 0;
 	while(line[i])
 	{
 		if (line[i] == '<' && line[i+1] == '<')
 		{
-			i = i+2;
+			i = i + 2;
 			while (line[i] == ' ' )
 				i++;
 			while(line[i] && line[i] != ' ')
@@ -75,51 +45,52 @@ t_token *parsing_v3(char *line, t_env *env)
 				else 
 					i++;
 			}
-			break ;
-			
-			
+			break ;	
 		}
 		i++;
 	}
+}
+void rm_dollar(char *line)
+{
+	int i;
+
 	i = 0;
 	while(line[i])
 	{
-		// i = 0;
-		// while((line[i] && line[i] != '\"' && line[i] != '\'')) // serch for (") and (')
-		// {
-		// 	if (line[i] == '$' && (line[i + 1] == '\"' || line[i + 1] == '\'')) // remove $ if ($"")
-		// 		line[i] = ' ';
-		// 	i++;
-		// }
-		// if (line[i] && (line[i] != '\"' && line[i] != '\'') && i != 0 && line[i - 1] == '$') // get first part that doesn't have quotes
-		// {
-		// 	part = get_part(line, line[0], line[i - 1], 0); // flag 0 in ft_strnchr control the return of function non include end of part
-		// 	printf("PART 0  %s\n", part);
-		// 	if (part == NULL)
-		// 		break ;
-		// 	line = line + (strlen(part) + 1);
-		// }
-		// else // get part that have quotes
-		// {
-		// 	part = get_part(line, line[0], line[i], 0);
-		// 	printf("%c   %c\n", line[0], line[i]);
-		// 	printf("PART 1  |%s|\n", part);
-		// 	sleep(1);
-		// 	if (part == NULL)
-		// 		break ;
-		// 	line = line + strlen(part);
-		// }
-		// if (count == 1)
-		// {
-			
-		// 	token = new_token(part);
-		// 	// printf("PART 2  %s\n", part);
-		// }
-		// else if (count > 1)
-		// 	lst_add_back(token, new_token(part));
-		// count++;
-		// free(part);
+		if (line[i] && (line[i] == '\"' || line[i] == '\''))
+		{
+			char _p = line[i];
+			i++;
+			while(line[i] && line[i] != _p)
+				i++;
+		}
+		if (line[i] == '$' && (line[i + 1] == '\"' || line[i + 1] == '\''))
+			line[i] = '\7';
+		i++;
+	}
+}
+t_token *parsing_v3(char *line, t_env *env)
+{
+	int i;
+	t_token *token;
+	t_token *new;
+	t_token *tmp;
+	char *part;
+	int count;
 
+	i = 0;
+	while(line[i])
+	{
+		if (line[i] == '\t')
+			line[i] = ' ';
+		i++;
+	}
+	rm_dollar(line);
+	count = 1;
+	i = 0;
+	her_doc(line);
+	while(line[i])
+	{
 		if (line[0] == '\"' || line[0] == '\'')
 		{
 			part = get_part(line, line[0], line[0], 0);
@@ -143,7 +114,6 @@ t_token *parsing_v3(char *line, t_env *env)
 		count++;
 		i = 0;
 	} 
-	// free(part);
 	count = 1;
 	tmp = token;
 
@@ -164,20 +134,16 @@ t_token *parsing_v3(char *line, t_env *env)
 		else 
 		{
 			tmp_frr = check_token(tmp->token, env);
-			// pause();
 			if (tmp_frr == NULL)
 			{
 				free_lst(token);
 				exit_status = 127;
-				// free(tmp_frr);
 				free_lst(new);
 				exit_status = 258;
 				new_env_var(env, ft_strjoin("?=", ft_itoa(exit_status)), 2);
 				return (NULL);
 			}
 			lst_add_back(new, tmp_frr);
-			// free_lst(token);
-			// free linked list;
 		}
 	 	tmp = tmp->next;
 		if (tmp == NULL)
@@ -185,7 +151,6 @@ t_token *parsing_v3(char *line, t_env *env)
 
 		count++;
 	}
-		// printf("OK\n");
 	free_lst(token);
 	new = join_tokens(new);
 	if (check_sp(new) == -1)
@@ -195,7 +160,6 @@ t_token *parsing_v3(char *line, t_env *env)
 		new_env_var(env, ft_strjoin("?=", ft_itoa(exit_status)), 2);
 		return (NULL);
 	}
-	// new = r_qutes(new);
 	new = join_tokens2(new);
 	return (new);
 }
