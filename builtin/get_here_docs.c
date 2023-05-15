@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_here_docs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:04:46 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/13 18:49:32 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:33:01 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builting.h"
 #include <fcntl.h>
+#include <sys/wait.h>
 
 char	*remouve_char(char *str, char c)
 {

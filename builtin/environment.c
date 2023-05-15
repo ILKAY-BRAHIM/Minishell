@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 22:44:11 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:09:07 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	rm_env_var(t_env **env, char *env_var)
 			free_one_list (befor);
 		}
 		else
+		{
 			befor->next = tmp->next;
+			free_one_list (tmp);
+		}
 	}
 	return ;
 }
@@ -84,11 +87,40 @@ char	*search_and_return(t_env *env, char *env_var, int type)
 	return (NULL);
 }
 
+void	if_not_exist(t_env **env)
+{
+	char	*n_pwd;   //most free it
+	char	*shell_var;  //most free it
+
+	if (search_and_return(*env, "SHLVL", 0))
+	{
+		shell_var = sp_strjoin("SHLVL=", ft_itoa(ft_atoi(search_and_return(*env, "SHLVL", 0)) + 1), 1);
+		new_env_var(*env, shell_var, 0);
+	}
+	else
+	{
+		shell_var = sp_strjoin("SHLVL=", ft_itoa(1), 1);
+		new_env_var(*env, shell_var, 0);
+	}
+	free(shell_var);
+	if (search_and_return(*env, "PWD", 0) == NULL)
+	{
+		n_pwd = getcwd(NULL, 0);
+		if (n_pwd != NULL)
+		{
+			shell_var = sp_strjoin("PWD=", n_pwd, 1);
+			new_env_var(*env, shell_var, 0);
+			free(shell_var);
+		}
+	}
+	return ;
+}
+
 t_env	*init_env(char **org_env)
 {
 	t_env	*env;
-	char	*n_pwd;
-	char	*shell_val;
+	char	*n_pwd;   //most free it
+	char	*shell_var;  //most free it
 	int		i;
 	int		shell_value;
 
@@ -98,29 +130,14 @@ t_env	*init_env(char **org_env)
 		return (NULL);
 	i++;
 	while (org_env[i])
-	{
-		add_back(&env, new_list(org_env[i], 0));
-		i++;
-	}
-	rm_env_var(&env, "OLDPWD");
-	if (search_and_return(env, "SHLVL", 0))
-	{
-		shell_value = ft_atoi(search_and_return(env, "SHLVL", 0));
-		shell_val = ft_strjoin("SHLVL=", ft_itoa(shell_value + 1));
-		new_env_var(env, shell_val, 0);
-	}
-	else
-	{
-		shell_val = ft_strjoin("SHLVL=", ft_itoa(1));
-		new_env_var(env, shell_val, 0);
-	}
-	if (search_and_return(env, "PWD", 0) == NULL)
-	{
-		n_pwd = getcwd(NULL, 0);
-		new_env_var(env, ft_strjoin("PWD=", n_pwd), 0);
-	}
+		add_back(&env, new_list(org_env[i++], 0));
+	if_not_exist(&env);
+	if (search_and_return(env, "OLDPWD", 0) != NULL)
+		rm_env_var(&env, "OLDPWD");
 	if (search_and_return(env, "OLDPWD", 0) == NULL)
-		new_env_var(env, "OLDPWD=", 1);
-	new_env_var(env, ft_strjoin("?=", ft_strdup("0")), 2);
+		new_env_var(env, "OLDPWD", 1);
+	shell_var = sp_strjoin("?=", "0", -1);
+	new_env_var(env, shell_var, 2);
+	free(shell_var);
 	return (env);
 }

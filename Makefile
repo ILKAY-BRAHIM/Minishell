@@ -11,8 +11,9 @@ NAME = minishell
 
 OBJ = $(SRC:.c=.o)
 CC = gcc
-FLAGE = -Wall -Werror -Wextra 
+FLAGE =  -g
 # -fsanitize=address -g
+# -Wall -Werror -Wextra
 %.o: %.c $(HEADER)
 	$(CC) -c $< -o $@
 

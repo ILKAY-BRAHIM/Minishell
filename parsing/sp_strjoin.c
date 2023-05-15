@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   sp_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:13:24 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/08 22:59:19 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/15 14:36:40 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+// 0 -> free s1
+// 1 -> free s2
+// 2 -> free s1 && s2
+// outher -> no free
 
 char	*sp_strjoin(char *s1, char *s2, int att)
 {

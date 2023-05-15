@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:27:22 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 16:12:30 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:13:19 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	execute_commande(t_table *table, t_env **env, int i)
 
 void	execution(t_tree *tree, t_env **env)
 {
+	char *exit_val;
 	int	i;
 	int	id;
 	int	status;
@@ -96,7 +97,6 @@ void	execution(t_tree *tree, t_env **env)
 			}
 			waitpid(id, &status, 0);
 			exit_status = WEXITSTATUS(status);
-			// exit_status = execute_commande(tree->table, env, 0);//most close the file descriptor
 		}
 	}
 	else 
@@ -117,10 +117,9 @@ void	execution(t_tree *tree, t_env **env)
 		}
 
 	}
-	new_env_var(*env, ft_strjoin("?=", ft_itoa(exit_status)), 2);
-	// write (2, ft_itoa(exit_status), ft_strlen(ft_itoa(exit_status)));
-	// write (2, "\n", 1);
-	// free_tree(tree); need to code it     ("_")      !!!
+	exit_val = sp_strjoin("?=", ft_itoa(exit_status), 1);
+	new_env_var(*env, exit_val, 2);
+	free(exit_val);
 	return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:43:21 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 22:30:49 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:32:34 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,16 @@ int	ft_exit(t_table *table, t_env *env)
 	if (env && search_and_return(env, "_", 0))
 		rm_env_var(&env, "_");
 	new_env_var(env, ft_strjoin("_=", ft_strdup("exit")), 0);
-	if (table->option[i] == '\0' && table->arg[i] == '\0')
+	if (table->option[i] == NULL && table->arg[i] == NULL)
 		exit(exit_status);
 	result = ft_calloc(1, 1);
-	while(table->option[i] != '\0')
+	while(table->option[i] != NULL)
 	{
 		result = sp_strjoin(result, table->option[i++], 0);
 		result = sp_strjoin(result, "  ", 0);
 	}
 	i = 0;
-	while(table->arg[i] != '\0')
+	while(table->arg[i] != NULL)
 	{
 		result = sp_strjoin(result, table->arg[i++], 0);
 		result = sp_strjoin(result, "  ", 0);

@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 11:56:04 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/13 15:30:58 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:31:03 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builting.h"
 #include <fcntl.h>
-#include "unistd.h"
+#include <unistd.h>
+#include <sys/wait.h>
 
 int	count_pipe(t_tree *tree)
 {
