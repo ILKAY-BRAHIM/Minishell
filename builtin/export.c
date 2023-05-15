@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 18:27:00 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 15:21:02 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/14 22:54:42 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char **export_val(t_env *env)
 	if (size == 0)
 		return NULL;
 	i = 0;
-	tmp = env; // sort or no [!] -----------------------
+	tmp = env;
 	export = ft_calloc(size + 1, sizeof(char *));
 	while (i < size - 1)
 	{
@@ -91,10 +91,9 @@ int	ft_export(t_table *table, t_env *env)
 
 	err = 0;
 	i = 0;
-	if (env)
+	if (env && search_and_return(env, "_", 0))
 		rm_env_var(&env, "_");
-	if (search_and_return(env, "_"))
-		new_env_var(env, ft_strjoin("_=", ft_strdup("export")), 0);
+	new_env_var(env, ft_strjoin("_=", ft_strdup("export")), 0);	
 	if (table->option[0] != NULL)
 	{
 		print_help(table, 1);
@@ -105,7 +104,8 @@ int	ft_export(t_table *table, t_env *env)
 		sorted = export_val(env);
 		while (sorted  && sorted[i] != NULL)
 		{
-			printf("%s\n", sorted[i]);
+			fd_putstr(sorted[i], 1);
+			fd_putchar('\n', 1);
 			i++;
 		}
 		return (0);
@@ -132,7 +132,7 @@ int	ft_export(t_table *table, t_env *env)
 			if (check_valid_name(table->arg[i]) == 0)
 			{
 				table->arg[i] = remouve_char(table->arg[i], '+');
-				if (search_and_return(env, table->arg[i]) == NULL)
+				if (search_and_return(env, table->arg[i], 0) == NULL)
 					new_env_var(env, table->arg[i], 1);
 			}
 			else

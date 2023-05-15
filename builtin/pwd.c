@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 01:35:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 15:21:08 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/14 22:49:19 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 
 int	ft_pwd(t_table *table, t_env *env)
 {
-	char	cd[1024];
+	char	*cd;
 
-	if (env)
+	if (env && search_and_return(env, "_", 0))
 		rm_env_var(&env, "_");
-	if (search_and_return(env, "_"))
-		new_env_var(env, ft_strjoin("_=", ft_strdup("pwd")), 0);
+	new_env_var(env, ft_strjoin("_=", ft_strdup("pwd")), 0);
 	if (table->option[0] != NULL)
 	{
 		print_help(table, 0);
@@ -28,10 +27,15 @@ int	ft_pwd(t_table *table, t_env *env)
 	}
 	else 
 	{
-		if (getcwd(cd, sizeof(cd)) == NULL)
-			perror("getcwd() error");
+		cd = getcwd(NULL, 0);
+		if (cd == NULL)
+			perror("");
 		else
-			printf("%s\n", cd);
+		{
+			fd_putstr(cd, 1);
+			fd_putchar('\n', 1);
+		}
+		free(cd);
 	}
 	return (0);
 }

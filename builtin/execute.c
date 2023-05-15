@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 02:45:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 17:27:30 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/14 22:30:26 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**ft_get_path(t_env *env)
 	int		i;
 	int		size;
 
-	env_path = search_and_return(env, "PATH");
+	env_path = search_and_return(env, "PATH", 1);
 	if (env_path == NULL)
 		return (NULL);
 	new = ft_calloc(ft_strlen(env_path) + 2, sizeof(char));
@@ -190,10 +190,9 @@ void	ft_execute(t_table *table, t_env *env)
 			cmd = sp_strjoin(cmd , table->commend, 0);
 			if (access(cmd, X_OK) == 0)
 			{
-				if (env)
+				if (env && search_and_return(env, "_", 0))
 					rm_env_var(&env, "_");
-				if (search_and_return(env, "_"))
-					new_env_var(env, sp_strjoin("_=", cmd, -1), 0);
+				new_env_var(env, sp_strjoin("_=", cmd, -1), 0);
 				char_env = ft_get_env(env);
 				call_execve(table, cmd, char_env);
 				break;
@@ -227,10 +226,9 @@ void	ft_execute(t_table *table, t_env *env)
 				not_valid( NULL, table->commend,2);
 				exit (126);
 			}
-			if (env)
+			if (env && search_and_return(env, "_", 0))
 				rm_env_var(&env, "_");
-			if (search_and_return(env, "_"))
-				new_env_var(env, sp_strjoin("_=", table->commend, -1), 0);
+			new_env_var(env, sp_strjoin("_=", table->commend, -1), 0);	
 			char_env = ft_get_env(env);
 			call_execve(table, table->commend, char_env);
 		}
@@ -255,10 +253,9 @@ void	ft_execute(t_table *table, t_env *env)
 			not_valid( NULL, table->commend,2);
 			exit (126);
 		}
-		if (env)
+		if (env && search_and_return(env, "_", 0))
 			rm_env_var(&env, "_");
-		if (search_and_return(env, "_"))
-			new_env_var(env, sp_strjoin("_=", table->commend, -1), 0);
+		new_env_var(env, sp_strjoin("_=", table->commend, -1), 0);	
 		char_env = ft_get_env(env);
 		call_execve(table, table->commend, char_env);
 	}
