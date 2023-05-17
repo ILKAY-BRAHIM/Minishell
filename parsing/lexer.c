@@ -6,29 +6,14 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:39:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/15 23:53:50 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:43:05 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_table *saver(char *data)
+void	flay_gard(char *data, int i, int index, char _char)
 {
-	t_table *table;
-	int		i;
-	char	index = 1;
-	int 	_char;
-	char	**array;
-	char	**tokons;
-
-	if (data == NULL)
-		return (NULL);
-	table = calloc(1, sizeof(t_table));
-	tokons = calloc(5, sizeof(char *));
-	i = 0;
-	while (i < 4)
-		tokons[i++] = calloc(1, 1);
-	i = 0;
 	while (data[i])
 	{
 		while (data[i] && !(data[i] == '\"'
@@ -43,10 +28,8 @@ t_table *saver(char *data)
 		{
 			if (data[i] && data[i] == ' ' && index == -1)
 			{
-				if (_char == '`')
-					data[i] = '\4';
-				else
-					data[i] = '\2';
+				(_char == '`') && (data[i] = '\4');
+				(_char != '`') && (data[i] = '\2');
 			}
 			i++;
 		}
@@ -55,147 +38,114 @@ t_table *saver(char *data)
 		if (data[i])
 			i++;
 	}
-	array = ft_split(data, ' ');
-	index = 1;
+}
+
+void	gards(char **str)
+{
+	int	i;
+
 	i = 0;
-	_char = 0;
-	while (array[i])
+	while (str[i])
 	{
-		if (strchr("<>", array[i][0]))
+		if (strchr(str[i], '`'))
 		{
-			tokons[0] = sp_strjoin(tokons[0], array[i], 0);
-			tokons[0] = sp_strjoin(tokons[0], strdup(" "), 2);
+			str[i] = sp_strjoin(str[i], "`", 0);
+			i++;
+			while (str[i] && !(strchr(str[i], '`')))
+			{
+				str[i] = sp_strjoin("`", str[i], 1);
+				str[i] = sp_strjoin(str[i], "`", 0);
 				i++;
-				tokons[1] = sp_strjoin(tokons[1], array[i], 0);
-				tokons[1] = sp_strjoin(tokons[1], strdup(" "), 2);
-		}
-		else if (index == 1 && index++)
-		{
-			int u = 1;
-			table->commend = strdup(array[i]);
-			char **www = ft_split(table->commend, '\4');
-			u = 0;
-			while (www[u])
-			{
-				if (strchr(www[u], '`'))
-				{
-					www[u] = sp_strjoin(www[u], "`", 0);
-					u++;
-					while (www[u] && !(strchr(www[u], '`')))
-					{
-						www[u] = sp_strjoin("`", www[u], 1);
-						www[u] = sp_strjoin(www[u], "`", 0);
-						u++;
-					}
-					www[u] = sp_strjoin("`", www[u], 1);
-					u++;
-				}
-				else if (www[u])
-					u++;
 			}
-			u = 1;
-			table->commend = strdup(www[0]);
-			if (www[u])
-			{
-				while (www[u] && (www[u][1] == '-'))
-				{
-					if (ft_strlen(www[u]) == 2
-						&& www[u][0] == '`' && www[u][1] == '`')
-						u++;
-					else
-					{
-						tokons[2] = sp_strjoin(tokons[2], www[u], 0);
-						tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
-						u++;
-					}
-				}
-				while (www[u])
-				{
-					if (ft_strlen(www[u]) == 2
-						&& www[u][0] == '`' && www[u][1] == '`')
-						u++;
-					else
-					{
-						_char = 1;
-						tokons[3] = sp_strjoin(tokons[3], www[u], 0);
-						tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
-						u++;
-					}
-				}
-			}
-			free_array(www);
+			str[i] = sp_strjoin("`", str[i], 1);
+			i++;
 		}
-		else if (_char == 0 && (array[i][0] == '-'
-			|| ((array[i][0] == '\"'
-				|| array[i][0] == '\'') && array[i][1] == '-')))
-		{
-			tokons[2] = sp_strjoin(tokons[2], array[i], 0);
-			tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
-		}
+		else if (str[i])
+			i++;
+	}
+}
+
+void	save_tkones(char **str, char **tokons, int y, int *_char)
+{
+	while (str[y] && str[y][1] == '-' && *_char == 0)
+	{
+		if (ft_strlen(str[y]) == 2
+			&& str[y][0] == '`' && str[y][1] == '`')
+			y++;
 		else
 		{
-			if (strchr(array[i], '\4'))
-			{
-				int y = 0;
-				char **tfo = ft_split(array[i], '\4');
-
-				while (tfo[y])
-				{
-					if (strchr(tfo[y], '`'))
-					{
-						tfo[y] = sp_strjoin(tfo[y], "`", 0);
-						y++;
-						while (tfo[y] && !(strchr(tfo[y], '`')))
-						{
-							tfo[y] = sp_strjoin("`", tfo[y], 1);
-							tfo[y] = sp_strjoin(tfo[y], "`", 0);
-							y++;
-						}
-						tfo[y] = sp_strjoin("`", tfo[y], 1);
-						y++;
-					}
-					else if (tfo[y])
-						y++;
-				}
-				y = 0;
-				while (tfo[y] && tfo[y][1] == '-' && _char == 0)
-				{
-					if (ft_strlen(tfo[y]) == 2
-						&& tfo[y][0] == '`' && tfo[y][1] == '`')
-						y++;
-					else
-					{
-						tokons[2] = sp_strjoin(tokons[2], tfo[y], 0);
-						tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
-						y++;
-					}
-				}
-				while (tfo[y])
-				{
-					if (ft_strlen(tfo[y]) == 2
-						&& tfo[y][0] == '`' && tfo[y][1] == '`')
-						y++;
-					else
-					{
-						tokons[3] = sp_strjoin(tokons[3], tfo[y], 0);
-						tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
-						_char = 1;
-						y++;
-					}
-				}
-				free_array(tfo);
-			}
-			else
-			{
-				_char = 1;
-				tokons[3] = sp_strjoin(tokons[3], array[i], 0);
-				tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
-			}
+			tokons[2] = sp_strjoin(tokons[2], str[y], 0);
+			tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
+			y++;
 		}
-		i++;
 	}
-	free_array(array);
-	i = 0;
+	while (str[y])
+	{
+		if (ft_strlen(str[y]) == 2
+			&& str[y][0] == '`' && str[y][1] == '`')
+			y++;
+		else
+		{
+			tokons[3] = sp_strjoin(tokons[3], str[y], 0);
+			tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
+			*_char = 1;
+			y++;
+		}
+	}
+}
+
+void	save_tkones_1(char **str, char **tokons, int u, int *_char)
+{
+	while (str[u] && (str[u][1] == '-'))
+	{
+		if (ft_strlen(str[u]) == 2
+			&& str[u][0] == '`' && str[u][1] == '`')
+			u++;
+		else
+		{
+			tokons[2] = sp_strjoin(tokons[2], str[u], 0);
+			tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
+			u++;
+		}
+	}
+	while (str[u])
+	{
+		if (ft_strlen(str[u]) == 2
+			&& str[u][0] == '`' && str[u][1] == '`')
+			u++;
+		else
+		{
+			*_char = 1;
+			tokons[3] = sp_strjoin(tokons[3], str[u], 0);
+			tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
+			u++;
+		}
+	}
+}
+
+void	norm_(char *str, char **tokons, int *_char)
+{
+	int		y;
+	char	**array;
+
+	y = 0;
+	if (strchr(str, '\4'))
+	{
+		array = ft_split(str, '\4');
+		gards(array);
+		save_tkones(array, tokons, 0, _char);
+		free_array(array);
+	}
+	else
+	{
+		*_char = 1;
+		tokons[3] = sp_strjoin(tokons[3], str, 0);
+		tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
+	}
+}
+
+void	creat_table(char **tokons, char **array, t_table *table, int i)
+{
 	array = ft_split(tokons[0], ' ');
 	table->arg = ft_split(tokons[3], ' ');
 	table->option = ft_split(tokons[2], ' ');
@@ -218,24 +168,89 @@ t_table *saver(char *data)
 		i++;
 	}
 	free_array(array);
-	return (back_space(table));
 }
 
-t_tree	*lexer(t_token *lst)
+void	norm_1(char **array, char **tokons, int *i)
 {
-	t_token	*tmp;
+	tokons[0] = sp_strjoin(tokons[0], array[*i], 0);
+	tokons[0] = sp_strjoin(tokons[0], strdup(" "), 2);
+	(*i)++;
+	tokons[1] = sp_strjoin(tokons[1], array[*i], 0);
+	tokons[1] = sp_strjoin(tokons[1], strdup(" "), 2);
+}
+
+void	norm_2(char **tokons, char *str, int *_char, t_table *table)
+{
+	char	**array;
+
+	table->commend = strdup(str);
+	array = ft_split(table->commend, '\4');
+	gards(array);
+	table->commend = strdup(array[0]);
+	if (array[1])
+		save_tkones_1(array, tokons, 0, _char);
+	free_array(array);
+}
+
+void	norm_3(char **array, char **tokons, t_table *table)
+{
+	int	i;
+	int	index;
+	int	_char;
+
+	i = 0;
+	index = 1;
+	_char = 0;
+	while (array[i])
+	{
+		if (strchr("<>", array[i][0]))
+			norm_1(array, tokons, &i);
+		else if (index == 1 && index++)
+			norm_2(tokons, array[i], &_char, table);
+		else if (_char == 0 && (array[i][0] == '-'
+			|| ((array[i][0] == '\"'
+				|| array[i][0] == '\'') && array[i][1] == '-')))
+		{
+			tokons[2] = sp_strjoin(tokons[2], array[i], 0);
+			tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
+		}
+		else
+			norm_(array[i], tokons, &_char);
+		i++;
+	}
+}
+
+t_table	*saver(char *data)
+{
+	t_table	*table;
+	int		i;
+	char	**array;
+	char	**tokons;
+
+	if (data == NULL)
+		return (NULL);
+	table = calloc(1, sizeof(t_table));
+	tokons = calloc(5, sizeof(char *));
+	i = 0;
+	while (i < 4)
+		tokons[i++] = calloc(1, 1);
+	flay_gard(data, 0, 1, 0);
+	array = ft_split(data, ' ');
+	norm_3(array, tokons, table);
+	free_array(array);
+	creat_table(tokons, array, table, 0);
+	return (back_space(table, -1));
+}
+
+t_tree	*lexer(t_token *lst, int count, t_token *tmp)
+{
 	t_tree	*tree;
 	t_tree	*tree_tmp;
-	int		count;
 
-	count = 0;
-	tmp = lst;
-	while (1)
+	while (tmp != NULL )
 	{
 		count++;
 		tmp = tmp->next;
-		if (tmp == NULL)
-			break ;
 	}
 	tree = calloc(1, sizeof(t_tree));
 	tree_tmp = tree;

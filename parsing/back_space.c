@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 09:58:13 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/16 00:40:48 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:33:27 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	flaying_qutes(char *str)
 	char	c;
 
 	i = 0;
+	c = '\0';
 	if (ft_strlen(str) == 3 && (str[0] == '\"' || str[0] == '\'')
 		&& str[1] == '\7' && (str[2] == '\"' || str[i] == '\''))
 		str[1] = '\1';
@@ -158,14 +159,8 @@ void	save_qutes_1(char *str, int end, char ___char)
 	}
 }
 
-char	*hanty_7ada_wlat_wa7da_khera(char *str)
+char	*mother_str(char *str, int i, int end, int start)
 {
-	int		i;
-	int		start;
-	int		end;
-
-	i = 0;
-	end = 0;
 	if (str == NULL)
 		return (NULL);
 	back_origin(str);
@@ -193,17 +188,14 @@ char	*hanty_7ada_wlat_wa7da_khera(char *str)
 	return (cleang(str));
 }
 
-t_table *back_space(t_table *table)
+t_table *back_space(t_table *table, int i)
 {
-	int	i;
-
-	i = -1;
 	table->commend = remouve_char(table->commend, '\7');
-	table->commend = hanty_7ada_wlat_wa7da_khera(table->commend);
+	table->commend = mother_str(table->commend, 0, 0, 0);
 	while (table->arg[++i])
 	{
 		table->arg[i] = remouve_char(table->arg[i], '\7');
-		table->arg[i] = hanty_7ada_wlat_wa7da_khera(table->arg[i]);
+		table->arg[i] = mother_str(table->arg[i], 0, 0, 0);
 	}
 	i = -1;
 	while (table->files[++i])
@@ -213,13 +205,13 @@ t_table *back_space(t_table *table)
 			if (strchr(table->files[i], '\'') || strchr(table->files[i], '\"'))
 				table->next[i] = 4;
 		}
-		table->files[i] = hanty_7ada_wlat_wa7da_khera(table->files[i]);
+		table->files[i] = mother_str(table->files[i], 0, 0, 0);
 	}
 	i = -1;
 	while (table->option[++i])
 	{
 		table->option[i] = remouve_char(table->option[i], '\7');
-		table->option[i] = hanty_7ada_wlat_wa7da_khera(table->option[i]);
+		table->option[i] = mother_str(table->option[i], 0, 0, 0);
 	}
 	return (table);
 }

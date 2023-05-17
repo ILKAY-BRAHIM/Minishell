@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:59:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/16 00:55:14 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:30:29 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_token	*qutes(char *data, t_env *env)
 {
 	t_token	*new;
 
+	new = NULL;
 	if (data[0] == '\"')
 	{
 		if (data[ft_strlen(data) - 1] == '\"' && data[1] != '\0')
@@ -44,69 +45,75 @@ t_token	*qutes(char *data, t_env *env)
 	return (new);
 }
 
-t_token	*check_token(char *data, t_env *env)
+void	save_n(t_token **new, t_env *env, char *split, int *count)
+{
+	char	*str;
+	char	*part;
+	int		x;
+	char	fin;
+
+	x = 0;
+	fin = split[strlen(split) - 1];
+	part = get_part(split, split[0], fin, 2);
+	while (part[x] && part[x] == ' ')
+		x++;
+	if (part[x] != '\0')
+	{
+		if (strchr(part, '$'))
+			part = expanding(part, env);
+		if (*count == 1 && (*count)++)
+			*new = new_token(part);
+		else
+			lst_add_back(*new, new_token(part));
+	}
+	free(part);
+	str = strchr(split, fin);
+	if (*count == 1 && (*count)++)
+		*new = new_token(str);
+	else
+		lst_add_back(*new, new_token(str));
+}
+
+void	save_n_1(t_token **new, t_env *env, char *split, int *count)
+{
+	char	*part;
+
+	if (strchr(split, '$'))
+	{
+		part = expanding(split, env);
+		if (*count == 1 && (*count)++)
+			*new = new_token(part);
+		else
+			lst_add_back(*new, new_token(part));
+		free(part);
+	}
+	else
+	{
+		if (*count == 1 && (*count)++)
+			*new = new_token(split);
+		else
+			lst_add_back(*new, new_token(split));
+	}
+}
+
+t_token	*check_token(char *data, t_env *env, int i, int count)
 {
 	char	**split;
-	char	*part;
-	int		count;
-	char	*str;
 	char	fin;
-	int		x;
-	int		i;
-	t_token *new;
+	t_token	*new;
 
-	i = 0;
-	count = 1;
 	if (data[0] == '\"' || data[0] == '\'')
 		new = qutes(data, env);
 	else
 	{
 		split = ft_strtok(data, "<>|", 1);
-		i = 0;
 		while (split[i])
 		{
 			fin = split[i][strlen(split[i]) - 1];
-			x = 0;
 			if (split[i][0] != fin && (fin == '|' || fin == '>' || fin == '<'))
-			{
-				part = get_part(split[i], split[i][0], fin, 2);
-				while (part[x] && part[x] == ' ')
-					x++;
-				if (part[x] != '\0')
-				{
-					if (strchr(part, '$'))
-						part = expanding(part, env);
-					if (count == 1 && count++)
-						new = new_token(part);
-					else
-						lst_add_back(new, new_token(part));
-				}
-				free(part);
-				str = strchr(split[i], fin);
-				if (count == 1 && count++)
-					new = new_token(str);
-				else
-					lst_add_back(new, new_token(str));
-			}
+				save_n(&new, env, split[i], &count);
 			else
-			{
-				if (strchr(split[i], '$'))
-				{
-					part = expanding(split[i], env);
-					if (count == 1 && count++)
-						new = new_token(part);
-					else
-						lst_add_back(new, new_token(part));
-					free(part);
-				}
-				else
-				{
-					if (count == 1 && count++)
-						new = new_token(split[i]);
-					else
-						lst_add_back(new, new_token(split[i]));
-				}
-			}
+				save_n_1(&new, env, split[i], &count);
 			i++;
 		}
 		free_array(split);

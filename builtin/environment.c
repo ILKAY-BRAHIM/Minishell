@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/15 16:30:06 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:34:55 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,10 @@ void	if_not_exist(t_env **env)
 t_env	*init_env(char **org_env)
 {
 	t_env	*env;
-	char	*n_pwd;   //most free it
+	// char	*n_pwd;   //most free it
 	char	*shell_var;  //most free it
 	int		i;
-	int		shell_value;
+	// int		shell_value;
 
 	i = 0;
 	env = new_list(org_env[i], 0);

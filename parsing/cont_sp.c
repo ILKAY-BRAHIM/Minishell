@@ -6,19 +6,14 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 01:34:18 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/15 23:47:53 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:34:00 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	count_sp(char *line)
+int	count_sp(char *line, int i, int cont)
 {
-	int	i;
-	int	cont;
-
-	i = 0;
-	cont = 1;
 	while (line[i])
 	{
 		if (line[i] == '|')
