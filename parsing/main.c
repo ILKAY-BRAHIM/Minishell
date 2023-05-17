@@ -6,13 +6,11 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:44:34 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/15 16:46:45 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:59:08 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-
 
 void	free_tree(t_tree *tree)
 {
@@ -142,15 +140,16 @@ void	print_tree(t_tree *tree)
 		x++;
 	}
 }
+
 int main(int argc, char **argv, char **origin_env)
 {
-	t_tree *tree;
+	t_tree	*tree;
 	t_env	*env;
-	t_token *lst;
-	char *line;
-	int i;
+	t_token	*lst;
+	char	*line;
+	int		i;
 
-	(void)argc; 
+	(void)argc;
 	(void)argv;
 	env = init_env(origin_env);
 	while (1)
@@ -160,42 +159,17 @@ int main(int argc, char **argv, char **origin_env)
 		line = get_prompt();
 		if (line != NULL)
 		{
-			lst = parsing_v3(line, env);
-			// pause();
+			lst = parsing_v3(line, env, 1);
 			if (lst != NULL)
 			{
-				tree = lexer(lst);
+				tree = lexer(lst, 0, lst);
 				free_lst(lst);
 				// print_tree(tree);
 				execution(tree, &env);
 				free_tree(tree);
 			}
-			// if (lst != NULL)
-			// {
-			// 	fre = lst;
-			// 	while(1)
-			// 	{
-			// 		if (lst == NULL)
-			// 			break;
-			// 		printf("%s\n", lst->token);
-			// 		lst = lst->next;
-			// 	}
-			// 	lst = fre;
-			// }
-			// while(fre && fre->next != NULL)
-			// {
-			// 	fre = fre->next;
-			// 	free(lst->token);
-			// 	free(lst);
-			// 	lst = fre;
-			// }
-			// if (fre)
-			// {
-			// 	free(lst->token);
-			// 	free(lst);	
-			// }
 		}
-		if(line)
+		if (line)
 			free (line);
 	}
 }

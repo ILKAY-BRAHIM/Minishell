@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 23:42:42 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 18:06:49 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/16 22:32:44 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,52 +18,48 @@
 //flag = 3  ---> get part nn include first and nn include end
 //flag = 4  ---> get part nn include first and include end
 //flag = 5  ---> get part nn include first and include all of end
-
-char	*get_part(char *str, char first, char end, int flag)
+char	*reserve(char *str, char *array, char first, char end)
 {
-	char	*array;
-	unsigned long		i;
-	int		j;
+	int	i;
 
 	i = 0;
 	str = strchr(str, first);
 	if (str == NULL)
 		return (NULL);
-	if (first == end)
+	(first == end) && (i++);
+	while (str[i] && str[i] != end)
 		i++;
-	while(str[i] && str[i] != end )
-		i++;
-	while(str[i] && str[i] == end )
+	while (str[i] && str[i] == end)
 		i++;
 	array = calloc(i + 1, 1);
-	// if (i == strlen(str) && (str[1] != '<' || str[1] != '>'))
-	// {
-	// 	array[0] = str[0];
-	// 	return (array);
-	// }
+	return (array);
+}
+
+char	*get_part(char *str, char first, char end, int flag)
+{
+	char				*array;
+	unsigned long		i;
+	int					j;
+
+	array = NULL;
+	if (str == NULL)
+		return (NULL);
+	array = reserve(str, array, first, end);
 	i = 0;
 	j = 0;
+	(first == end && flag == 1 && str[0] != str[1]) && (array[0] = str[0]);
 	if (first == end && flag == 1 && str[0] != str[1])
-	{
-		array[0] = str[0];
 		return (array);
-	}	
 	if (flag < 3)
 		array[j++] = str[i++];
 	else
 		i++;
-	while(str[i] && str[i] != end)
+	while (str[i] && str[i] != end)
 		array[j++] = str[i++];
 	if (str[i] && (flag == 2 || flag == 3))
 		return (array);
-	if (str[i] && (flag == 0 || flag == 4))
-		array[j++] = str[i++];
+	(str[i] && (flag == 0 || flag == 4)) && (array[j++] = str[i++]);
 	while (str[i] && str[i] == end && (flag == 5 || flag == 1))
 		array[j++] = str[i++];
 	return (array);
 }
-// int main ()
-// {
-// 	char s[50] = "\"hhhhhh\" ls";
-// 	printf("%s\n", get_part(s, '\"', '\"', 0));
-// }

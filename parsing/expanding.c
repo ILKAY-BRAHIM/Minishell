@@ -3,72 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:20:59 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/14 22:31:49 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:59:36 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+void	_norm_5(char *str, char **new, t_env *env, char *array)
+{
+	int	i;
+
+	i = 1;
+	while (str[i] && (isdigit(str[i]) || isalpha(str[i])
+			|| str[i] == '_' || str[i] == '?' || str[i] == '@'))
+		i++;
+	if (str[i] == '$')
+		array = get_part(str, '$', str[i], 2);
+	else
+		array = get_part(str, '$', str[i], 2);
+	ft_memmove(str, (str) + strlen(array), strlen((str) + strlen(array)) + 1);
+	if (*((array) + 1) == '?')
+	{
+		*new = search_and_return (env, "?", 1);
+		*new = sp_strjoin(*new, (array) + 2, 0);
+	}
+	else if ((*((array) + 1) >= '0'
+			&& *((array) + 1) <= '9') || *((array) + 1) == '@')
+		*new = strdup((array) + 2);
+	else
+		*new = search_and_return (env, (array) + 1, 1);
+	free (array);
+}
+
+void	_norm_6(char **array, char **new, int i)
+{
+	if (*array == NULL || (*array)[0] == 0)
+		*array = strdup("\7");
+	else
+	{
+		i = 0;
+		while ((*array)[i])
+		{
+			if ((*array)[i] == '\t')
+				(*array)[i] = ' ';
+			i++;
+		}
+		i = 0;
+		*new = strdup("`");
+		*array = sp_strjoin(*new, *array, 2);
+		*array = sp_strjoin(*array, strdup("`"), 2);
+	}
+}
+
 char	*expand(char *str, t_env *env)
 {
 	char	*array;
 	char	*new;
-	int		i;
 
 	array = strchr(str, '$');
-	if (strlen(str) <= 1 || str[1] == ' ' || str[1] == '\"' || (!isalpha(str[1]) && !isdigit(str[1]) && str[1] != '_' && str[1] != '?' && str[1] != '@'))
+	if (strlen(str) <= 1 || str[1] == ' ' || str[1] == '\"' || (!isalpha(str[1])
+			&& !isdigit(str[1]) && str[1] != '_'
+			&& str[1] != '?' && str[1] != '@'))
 		return (str);
 	if (array != NULL)
 	{
 		array = strchr(str + 1, '$');
 		if (array != NULL)
 			return (str);
-		i = 1;
-		while (str[i] && (isdigit(str[i]) || isalpha(str[i]) || str[i] == '_' || str[i] == '?' || str[i] == '@'))
-			i++;
-		if (str[i] == '$')
-			array = get_part(str, '$', str[i], 2);
-		else
-			array = get_part(str, '$', str[i], 2);
-		ft_memmove(str, str + strlen(array), strlen(str + strlen(array)) + 1);
-		if (*(array+1) == '?')
-		{
-			new = search_and_return (env, "?", 1);
-			new = sp_strjoin(new, array+2, 0);
-		}
-		else if((*(array+1) >= '0' && *(array+1) <= '9' )|| *(array+1) == '@')
-		{
-			// new = search_and_return (env, *(array+1), 1);
-			// new = sp_strjoin("", array+2, 0);
-			new = strdup(array+2);
-		}
-		else
-			new = search_and_return (env, array + 1, 1);
-		free (array);
+		_norm_5(str, &new, env, array);
 		array = new;
-		if (array == NULL || array[0] == 0)
-		{
-			// array = sp_strjoin("\6", array, -1);
-			// array = sp_strjoin(array, "\6", 0);
-			array = strdup("\7");
-		}
-		else
-		{
-			i = 0;
-			while(array[i])
-			{
-				if(array[i] == '\t')
-					array[i] = ' ';
-				i++;
-			}
-			i = 0;
-			new = strdup("`");
-			array = sp_strjoin(new, array, 2);
-			array = sp_strjoin(array, strdup("`"), 2);
-		}
+		_norm_6(&array, &new, 0);
 	}
 	if (array != NULL)
 	{
@@ -76,37 +83,22 @@ char	*expand(char *str, t_env *env)
 		free (str);
 		str = sp_strjoin(array, new, 2);
 	}
-	return (str); 
+	return (str);
 }
-char	*expanding(char *str, t_env *env)
+
+char	*norm_4(t_env *env, char *begin, char *str)
 {
 	char	**array;
-	char	*begin;
 	char	*result;
 	int		i;
-	int		j;
 
-	i = -1;
-	j = -1;
-	if (!(strchr(str, '$')))
-		return (str);
+	i = 0;
 	result = ft_calloc(1, 1);
-	begin = NULL;
-	while (1)
-		if (str[++i] == '$' && str[i + 1] != '$')
-			break ;
-	if (i != 0)
-	{
-		begin = ft_calloc(i + 1, 1);
-		while(++j < i)
-			begin[j] = str[j];
-		ft_memmove(str, str+i, strlen(str+i) + 1);
-	}
 	array = ft_strtok(str, "$", 2);
 	if (begin != NULL)
 		begin = expand(begin, env);
 	i = 0;
-	while(array[i])
+	while (array[i])
 	{
 		array[i] = expand(array[i], env);
 		i++;
@@ -116,24 +108,32 @@ char	*expanding(char *str, t_env *env)
 	else
 		free(begin);
 	i = 0;
-	while(array[i])
+	while (array[i])
 		result = sp_strjoin(result, array[i++], 0);
 	free_array(array);
-	// free(str);
 	return (result);
 }
 
-// int main(int argc, char **argv, char **old_env)
-// {
-// 	t_env *env;
-// 	char *list;
-// 	char *new;
-// 	(void)argc;
-// 	env = init_env(old_env);
-// 	new = strdup(argv[1]);
-// 	list = expanding(new, env);
-// 	// free(new);
-// 	printf("%s\n", list);
-// 	pause();
-// 	// pause();
-// }
+char	*expanding(char *str, t_env *env)
+{
+	char	*begin;
+	int		i;
+	int		j;
+
+	i = -1;
+	j = -1;
+	if (!(strchr(str, '$')))
+		return (str);
+	begin = NULL;
+	while (1)
+		if (str[++i] == '$' && str[i + 1] != '$')
+			break ;
+	if (i != 0)
+	{
+		begin = ft_calloc(i + 1, 1);
+		while (++j < i)
+			begin[j] = str[j];
+		ft_memmove(str, str + i, strlen(str + i) + 1);
+	}
+	return (norm_4(env, begin, str));
+}

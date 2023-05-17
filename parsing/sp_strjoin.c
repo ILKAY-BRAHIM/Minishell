@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sp_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:13:24 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/15 14:36:40 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/15 23:24:58 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*sp_strjoin(char *s1, char *s2, int att)
 	len_s2 = ft_strlen(s2);
 	i = 0;
 	j = 0;
-	new = ft_calloc(sizeof(char) , (len_s1 + len_s2 + 2));
+	new = ft_calloc(sizeof(char), (len_s1 + len_s2 + 2));
 	if (!new)
 		return (NULL);
 	while (s1[j] != '\0')

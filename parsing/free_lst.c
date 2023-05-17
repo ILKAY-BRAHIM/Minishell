@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 22:50:19 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/02 18:06:49 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/15 22:54:47 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	free_lst(t_token *token)
 {
-	t_token *tmp_frr;
+	t_token	*tmp_frr;
+
 	tmp_frr = token;
-	while(tmp_frr->next != NULL)
+	while (tmp_frr->next != NULL)
 	{
 		tmp_frr = tmp_frr->next;
 		free(token->token);
