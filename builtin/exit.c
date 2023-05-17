@@ -6,18 +6,14 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:43:21 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/16 16:20:12 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:24:44 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builting.h"
 
-// norm 25 line : ----> ok
-// nb function : -----> 3
-// tester : ----------> ok
-
-int	err_ch(char *arg) // 21 line
+int	err_ch(char *arg)
 {
 	int	i;
 
@@ -42,7 +38,7 @@ int	err_ch(char *arg) // 21 line
 	return (0);
 }
 
-int	check_status(char **arg) // 22 line
+int	check_status(char **arg)
 {
 	int	i;
 	int	type;
@@ -68,7 +64,7 @@ int	check_status(char **arg) // 22 line
 		exit(ft_atoi(arg[0]) & 255);
 }
 
-int	ft_exit(t_table *table, t_env **env) // 25 line
+int	ft_exit(t_table *table, t_env **env)
 {
 	char		*result;
 	char		**spl;
@@ -81,13 +77,13 @@ int	ft_exit(t_table *table, t_env **env) // 25 line
 	if (table->option[i] == NULL && table->arg[i] == NULL)
 		exit(exit_status);
 	result = ft_calloc(1, 1);
-	while(table->option[i] != NULL)
+	while (table->option[i] != NULL)
 	{
 		result = sp_strjoin(result, table->option[i++], 0);
 		result = sp_strjoin(result, "  ", 0);
 	}
 	i = 0;
-	while(table->arg[i] != NULL)
+	while (table->arg[i] != NULL)
 	{
 		result = sp_strjoin(result, table->arg[i++], 0);
 		result = sp_strjoin(result, "  ", 0);

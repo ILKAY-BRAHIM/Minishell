@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 11:56:04 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/16 19:47:35 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:37:33 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 int	count_pipe(t_tree *tree)
 {
 	int	size;
-	
+
 	size = 1;
 	while (tree->type == 1)
 	{
@@ -33,12 +33,12 @@ int	count_pipe(t_tree *tree)
 	return (size);
 }
 
-void	redirect_result(t_tree *tree, t_pipe *p) // 25 line
+void	redirect_result(t_tree *tree, t_pipe *p)
 {
 	if (p->i == 0)
 	{
 		close(p->p_1[0]);
-		dup2(p->p_1[1], STDOUT_FILENO); //write
+		dup2(p->p_1[1], STDOUT_FILENO);
 		if (tree->left->table->next[0] != 0)
 			redirection(tree->left->table);
 	}
@@ -46,8 +46,8 @@ void	redirect_result(t_tree *tree, t_pipe *p) // 25 line
 	{
 		close(p->p_2[0]);
 		close(p->p_1[1]);
-		dup2(p->p_1[0], STDIN_FILENO); //read
-		dup2(p->p_2[1], STDOUT_FILENO); //write
+		dup2(p->p_1[0], STDIN_FILENO);
+		dup2(p->p_2[1], STDOUT_FILENO);
 		if (tree->left->table->next[0] != 0)
 			redirection(tree->left->table);
 	}
@@ -55,8 +55,8 @@ void	redirect_result(t_tree *tree, t_pipe *p) // 25 line
 	{
 		close(p->p_2[1]);
 		close(p->p_1[0]);
-			dup2(p->p_2[0], STDIN_FILENO); //read
-			dup2(p->p_1[1], STDOUT_FILENO); //write
+		dup2(p->p_2[0], STDIN_FILENO);
+		dup2(p->p_1[1], STDOUT_FILENO);
 		if (tree->left->table->next[0] != 0)
 			redirection(tree->left->table);
 	}
@@ -74,7 +74,7 @@ void	execute_last_cmd(t_tree *tree, t_pipe *p, t_env **env)
 			redirection(tree->table);
 		execute_commande(tree->table, env, 1);
 	}
-	else if(p->i % 2 == 0)
+	else if (p->i % 2 == 0)
 	{
 		close(p->p_1[0]);
 		close(p->p_1[1]);
@@ -85,24 +85,25 @@ void	execute_last_cmd(t_tree *tree, t_pipe *p, t_env **env)
 		execute_commande(tree->table, env, 1);
 	}
 }
-void	close_open_pipe(t_pipe *p)
-{
-	if (p->i == 0)
-		pipe(p->p_2);
-	else if (p->i % 2 != 0)
-	{
-		close(p->p_1[0]);
-		close(p->p_1[1]);
-		pipe(p->p_1);
-	}
-	else if (p->i % 2 == 0)
-	{
-		close(p->p_2[0]);
-		close(p->p_2[1]);
-		pipe(p->p_2);
-	}
-	p->i++;
-}
+
+// void	close_open_pipe(t_pipe *p)
+// {
+// 	if (p->i == 0)
+// 		pipe(p->p_2);
+// 	else if (p->i % 2 != 0)
+// 	{
+// 		close(p->p_1[0]);
+// 		close(p->p_1[1]);
+// 		pipe(p->p_1);
+// 	}
+// 	else if (p->i % 2 == 0)
+// 	{
+// 		close(p->p_2[0]);
+// 		close(p->p_2[1]);
+// 		pipe(p->p_2);
+// 	}
+// 	p->i++;
+// }
 
 void	execute_firsts_cmd(t_tree *tree, t_env **env, t_pipe *p)
 {
@@ -121,23 +122,23 @@ void	execute_firsts_cmd(t_tree *tree, t_env **env, t_pipe *p)
 	close_open_pipe(p);
 }
 
-void	close_parent_pipe(t_pipe *p)
-{
-	close(p->p_1[0]);
-	close(p->p_2[0]);
-	close(p->p_1[1]);
-	close(p->p_2[1]);
-	p->i = 0;
-	while (p->i < p->size)
-	{
-		waitpid(p->id[p->i], &(p->status), 0);
-		p->i++;
-	}
-}
+// void	close_parent_pipe(t_pipe *p)
+// {
+// 	close(p->p_1[0]);
+// 	close(p->p_2[0]);
+// 	close(p->p_1[1]);
+// 	close(p->p_2[1]);
+// 	p->i = 0;
+// 	while (p->i < p->size)
+// 	{
+// 		waitpid(p->id[p->i], &(p->status), 0);
+// 		p->i++;
+// 	}
+// }
 
 int	pipex(t_tree *tree, t_env **env)
 {
-	t_pipe p;
+	t_pipe	p;
 
 	p.i = 0;
 	p.j = 0;
@@ -150,7 +151,7 @@ int	pipex(t_tree *tree, t_env **env)
 		execute_firsts_cmd(tree, env, &p);
 		tree = tree->right;
 	}
-	if (p.id[p.i-1] != 0)
+	if (p.id[p.i - 1] != 0)
 	{
 		p.id[p.i] = fork();
 		if (p.id[p.i] == 0)

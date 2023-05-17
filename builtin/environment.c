@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/17 17:57:34 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/17 23:21:05 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,12 @@ char	*search_and_return(t_env *env, char *env_var, int type)
 			if (type == 0)
 				return (tmp->value);
 			if (type == 1)
-				return (ft_strdup(tmp->value));
+			{
+				if (tmp->value && tmp->value[0] != '\0')
+					return (ft_strdup(tmp->value));
+				else
+					return (NULL);
+			}
 		}
 	}
 	return (NULL);

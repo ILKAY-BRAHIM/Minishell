@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:39:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/17 17:43:05 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/17 23:16:47 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ void	norm_2(char **tokons, char *str, int *_char, t_table *table)
 	table->commend = strdup(str);
 	array = ft_split(table->commend, '\4');
 	gards(array);
+	free (table->commend);
 	table->commend = strdup(array[0]);
 	if (array[1])
 		save_tkones_1(array, tokons, 0, _char);

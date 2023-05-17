@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:04:46 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/16 17:49:41 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:33:00 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 #include <fcntl.h>
 #include <sys/wait.h>
 
-// norm 25 line : ----> ok
-// nb function : -----> 5
-// tester : ----------> ok
-
-char	*remouve_char(char *str, char c) // 24 line
+char	*remouve_char(char *str, char c)
 {
 	int		size;
 	int		i;
@@ -59,7 +55,7 @@ void	exp_here_doc(t_env *env, char **read)
 	free(exp);
 }
 
-void	here_doc(t_env *env, int output, char *end, int expand) // 22 line
+void	here_doc(t_env *env, int output, char *end, int expand)
 {
 	char	*read;
 	char	*result;
@@ -68,10 +64,11 @@ void	here_doc(t_env *env, int output, char *end, int expand) // 22 line
 	while (1)
 	{
 		read = readline("> ");
-		if (!read || (read[0] == '\0' && strlen(end) == 2 &&  end[0] == '\1' && end[1] == '\1'))
-			break;
+		if (!read || (read[0] == '\0'
+				&& strlen(end) == 2 && end[0] == '\1' && end[1] == '\1'))
+			break ;
 		add_history(read);
-		if (ft_strcmp(read , end) == 0)
+		if (ft_strcmp(read, end) == 0)
 		{
 			free(read);
 			break ;
@@ -88,7 +85,7 @@ void	here_doc(t_env *env, int output, char *end, int expand) // 22 line
 void	here_doc_file(t_tree *tree, t_env *env, int i)
 {
 	int	id;
-	int status;
+	int	status;
 	int	herdoc;
 
 	id = fork();
@@ -105,7 +102,7 @@ void	here_doc_file(t_tree *tree, t_env *env, int i)
 	return ;
 }
 
-void	get_here_docs(t_tree *tree, t_env *env) // 22 line
+void	get_here_docs(t_tree *tree, t_env *env)
 {
 	t_tree	*tmp;
 	int		i;
@@ -114,18 +111,20 @@ void	get_here_docs(t_tree *tree, t_env *env) // 22 line
 	while (tmp->type == 1)
 	{
 		i = 0;
-		while(tmp->left->table->next[i] != 0)
+		while (tmp->left->table->next[i] != 0)
 		{
-			if (tmp->left->table->next[i] == HERE_DOC || tmp->left->table->next[i] == HERE_DOC_EX)
+			if (tmp->left->table->next[i] == HERE_DOC
+				|| tmp->left->table->next[i] == HERE_DOC_EX)
 				here_doc_file(tmp->left, env, i);
 			i++;
 		}
 		tmp = tmp->right;
 	}
 	i = 0;
-	while(tmp->table->next[i] != 0)
+	while (tmp->table->next[i] != 0)
 	{
-		if (tmp->table->next[i] == HERE_DOC || tmp->table->next[i] == HERE_DOC_EX)
+		if (tmp->table->next[i] == HERE_DOC
+			|| tmp->table->next[i] == HERE_DOC_EX)
 			here_doc_file(tmp, env, i);
 		i++;
 	}

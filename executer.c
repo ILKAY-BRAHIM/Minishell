@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:27:22 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/17 17:23:30 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:53:07 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int	execute_cmd(t_table *table, t_env **env, int i)
 	{
 		id = fork();
 		if (id == 0)
+		{
+			signal(SIGINT, SIG_DFL);
 			ft_execute(table, env);
+		}
 		waitpid(id, &status, 0);
 		err = WEXITSTATUS(status);
 	}
@@ -40,7 +43,7 @@ int	execute_cmd(t_table *table, t_env **env, int i)
 	return (err);
 }
 
-int	execute_commande(t_table *table, t_env **env, int i) // 20 line
+int	execute_commande(t_table *table, t_env **env, int i)
 {
 	int	err;
 
@@ -77,10 +80,10 @@ void	cmd_in_parent(t_table *table, t_env **env, int *executed)
 	}
 }
 
-void	simple_cmd(t_tree *tree, t_env **env, int executed, int id) // 24 line
+void	simple_cmd(t_tree *tree, t_env **env, int executed, int id)
 {
 	int	status;
-	
+
 	status = 0;
 	if (tree->table->next[0] == 0)
 		exit_status = execute_commande(tree->table, env, 0);
@@ -105,17 +108,17 @@ void	simple_cmd(t_tree *tree, t_env **env, int executed, int id) // 24 line
 	}
 }
 
-void	execution(t_tree *tree, t_env **env) // 25 line
+void	execution(t_tree *tree, t_env **env)
 {
 	int	id;
 	int	status;
 
 	id = 0;
 	if (tree->type == 0)
-		simple_cmd(tree, env,0, 0);
-	else 
+		simple_cmd(tree, env, 0, 0);
+	else
 	{
-		id = fork(); 
+		id = fork();
 		if (id == 0)
 		{
 			get_here_docs(tree, *env);
