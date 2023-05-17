@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:43:21 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/17 18:24:44 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/17 23:33:45 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	check_status(char **arg)
 	{
 		fd_putstr("minishell: exit: too many arguments\n", 2);
 		exit_status = 1;
+		free_array(arg);
 		return (1);
 	}
 	if (ft_strcmp(arg[0], "-9223372036854775808") == 0)

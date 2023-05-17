@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:59:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/16 22:30:29 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/17 23:50:34 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,22 @@ t_token	*_print_r(void)
 t_token	*qutes(char *data, t_env *env)
 {
 	t_token	*new;
+	int		i;
 
+	i = 0;
 	new = NULL;
 	if (data[0] == '\"')
 	{
 		if (data[ft_strlen(data) - 1] == '\"' && data[1] != '\0')
 		{
 			if (strchr(data, '$'))
+			{
 				data = expanding(data, env);
+				i = 1;
+			}
 			new = new_token(data);
+			if (i == 1)
+				free(data);
 		}
 		else
 			return (_print_r());
@@ -48,6 +55,7 @@ t_token	*qutes(char *data, t_env *env)
 void	save_n(t_token **new, t_env *env, char *split, int *count)
 {
 	char	*str;
+	char	*tmp;
 	char	*part;
 	int		x;
 	char	fin;
@@ -60,7 +68,11 @@ void	save_n(t_token **new, t_env *env, char *split, int *count)
 	if (part[x] != '\0')
 	{
 		if (strchr(part, '$'))
+		{
+			tmp = part;
 			part = expanding(part, env);
+			free(tmp);
+		}
 		if (*count == 1 && (*count)++)
 			*new = new_token(part);
 		else
