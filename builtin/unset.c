@@ -6,16 +6,18 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 17:55:05 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 22:31:31 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/16 19:58:55 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builting.h"
 
-// less than 25 line /\/\/\/\/\/\/\/
+// norm 25 line : ----> ok
+// nb function : -----> 1
+// tester : ----------> ok
 
-int	ft_unset(t_table *table, t_env **env)
+int	ft_unset(t_table *table, t_env **env) // 25 line
 {
 	int	i;
 	int	err;
@@ -24,7 +26,7 @@ int	ft_unset(t_table *table, t_env **env)
 	err = 0;
 	if (env && search_and_return(*env, "_", 0))
 		rm_env_var(env, "_");
-	new_env_var(*env, ft_strjoin("_=", ft_strdup("unset")), 0);
+	new_env_var(env, ft_strjoin("_=", ft_strdup("unset")), 0);
 	if (table->option[0] != NULL)
 	{
 		print_help(table, 1);

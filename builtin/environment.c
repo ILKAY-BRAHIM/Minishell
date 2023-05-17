@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/15 16:30:06 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:28:42 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,33 @@ void	rm_env_var(t_env **env, char *env_var)
 		if (befor == *env)
 		{
 			*env = (*env)->next;
-			free_one_list (befor);
+			tmp = befor;
 		}
 		else
-		{
 			befor->next = tmp->next;
-			free_one_list (tmp);
-		}
+		free_one_list (tmp);
 	}
 	return ;
 }
 
-void	new_env_var(t_env *env, char *env_var, int type)
+void	new_env_var(t_env **env, char *env_var, int type)
 {
 	t_env	*tmp;
 	t_env	*new;
 
 	new = new_list(env_var, type);
-	tmp = env;
-	while (tmp->name && ft_strncmp(new->name, tmp->name, -1) != 0)
+	tmp = *env;
+	if (*env == NULL)
+	{
+		*env = new;
+		return (free(env_var));
+	}
+	while (tmp && tmp->name && ft_strncmp(new->name, tmp->name, -1) != 0)
 	{
 		if (tmp->next == NULL)
 		{
-			add_back(&env, new);
-			return ;
+			add_back(env, new);
+			return (free(env_var));
 		}
 		tmp = tmp->next;
 	}
@@ -62,8 +65,7 @@ void	new_env_var(t_env *env, char *env_var, int type)
 	tmp->value = ft_strdup(new->value);
 	tmp->type = type;
 	free_one_list(new);
-	free(env_var);
-	return ;
+	return (free(env_var));
 }
 
 char	*search_and_return(t_env *env, char *env_var, int type)
@@ -80,38 +82,39 @@ char	*search_and_return(t_env *env, char *env_var, int type)
 			tmp = tmp->next;
 		}
 		if (tmp->name && ft_strncmp(env_var, tmp->name, -1) == 0)
-		if (type == 0)
-			return (tmp->value);
-		if (type == 1)
-			return (ft_strdup(tmp->value));
+		{
+			if (type == 0)
+				return (tmp->value);
+			if (type == 1)
+				return (ft_strdup(tmp->value));
+		}
 	}
 	return (NULL);
 }
 
 void	if_not_exist(t_env **env)
 {
-	char	*n_pwd;   //most free it
-	char	*shell_var;  //most free it
+	char	*n_pwd;
+	char	*shell_var;
 
 	if (search_and_return(*env, "SHLVL", 0))
 	{
-		shell_var = sp_strjoin("SHLVL=", ft_itoa(ft_atoi(search_and_return(*env, "SHLVL", 0)) + 1), 1);
-		new_env_var(*env, shell_var, 0);
+		shell_var = sp_strjoin("SHLVL=",
+				ft_itoa(ft_atoi(search_and_return(*env, "SHLVL", 0)) + 1), 1);
+		new_env_var(env, shell_var, 0);
 	}
 	else
 	{
 		shell_var = sp_strjoin("SHLVL=", ft_itoa(1), 1);
-		new_env_var(*env, shell_var, 0);
+		new_env_var(env, shell_var, 0);
 	}
-	// free(shell_var);
 	if (search_and_return(*env, "PWD", 0) == NULL)
 	{
 		n_pwd = getcwd(NULL, 0);
 		if (n_pwd != NULL)
 		{
 			shell_var = sp_strjoin("PWD=", n_pwd, 1);
-			new_env_var(*env, shell_var, 0);
-			// free(shell_var);
+			new_env_var(env, shell_var, 0);
 		}
 	}
 	return ;
@@ -120,10 +123,8 @@ void	if_not_exist(t_env **env)
 t_env	*init_env(char **org_env)
 {
 	t_env	*env;
-	char	*n_pwd;   //most free it
-	char	*shell_var;  //most free it
+	char	*shell_var;
 	int		i;
-	int		shell_value;
 
 	i = 0;
 	env = new_list(org_env[i], 0);
@@ -136,9 +137,8 @@ t_env	*init_env(char **org_env)
 	if (search_and_return(env, "OLDPWD", 0) != NULL)
 		rm_env_var(&env, "OLDPWD");
 	if (search_and_return(env, "OLDPWD", 0) == NULL)
-		new_env_var(env, ft_strdup("OLDPWD"), 1);
+		new_env_var(&env, ft_strdup("OLDPWD"), 1);
 	shell_var = sp_strjoin("?=", "0", -1);
-	new_env_var(env, shell_var, 2);
-	// free(shell_var);
+	new_env_var(&env, shell_var, 2);
 	return (env);
 }

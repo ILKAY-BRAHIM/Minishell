@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:38:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/14 22:24:04 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/15 22:51:58 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	free_env(t_env *env);
 t_env	*init_env(char **org_env);
 char	*search_and_return(t_env *env, char *env_var, int type);
 void	rm_env_var(t_env **env, char *env_var);
-void	new_env_var(t_env *env, char *env_var, int type);
+void	new_env_var(t_env **env, char *env_var, int type);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 int count_sp(char *line);
 t_token *check_token(char *data, t_env *env);

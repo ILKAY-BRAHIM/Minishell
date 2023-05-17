@@ -6,14 +6,18 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:43:21 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/15 13:32:34 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:20:12 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builting.h"
 
-int	err_ch(char *arg)
+// norm 25 line : ----> ok
+// nb function : -----> 3
+// tester : ----------> ok
+
+int	err_ch(char *arg) // 21 line
 {
 	int	i;
 
@@ -38,7 +42,7 @@ int	err_ch(char *arg)
 	return (0);
 }
 
-int	check_status(char **arg)
+int	check_status(char **arg) // 22 line
 {
 	int	i;
 	int	type;
@@ -64,15 +68,15 @@ int	check_status(char **arg)
 		exit(ft_atoi(arg[0]) & 255);
 }
 
-int	ft_exit(t_table *table, t_env *env)
+int	ft_exit(t_table *table, t_env **env) // 25 line
 {
 	char		*result;
 	char		**spl;
 	int			i;
 
 	i = 0;
-	if (env && search_and_return(env, "_", 0))
-		rm_env_var(&env, "_");
+	if (*env && search_and_return(*env, "_", 0))
+		rm_env_var(env, "_");
 	new_env_var(env, ft_strjoin("_=", ft_strdup("exit")), 0);
 	if (table->option[i] == NULL && table->arg[i] == NULL)
 		exit(exit_status);

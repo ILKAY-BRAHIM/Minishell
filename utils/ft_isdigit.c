@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 11:41:59 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 18:22:39 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/16 23:12:21 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,3 @@ int	ft_isdigit(int src)
 		return (1);
 	return (0);
 }
-
-// int	main()
-// {
-// 	printf ("%d\n", ft_isdigit('5'));
-// }

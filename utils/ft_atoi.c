@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:13:11 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 19:28:47 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/16 23:12:00 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ long long	ft_atoi(const char *str)
 	negative = 1;
 	result = 0;
 	while (*str == 32 || (*str >= 9 && *str <= 13))
-	{
 		str++;
-	}
 	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')

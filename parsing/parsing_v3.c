@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_v3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:02:43 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/15 16:23:26 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/15 22:56:28 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ t_token *parsing_v3(char *line, t_env *env)
 			{
 				free_lst(token);
 				exit_status = 258;
-				new_env_var(env, ft_strjoin("?=", ft_itoa(exit_status)), 2);
+				new_env_var(&env, ft_strjoin("?=", ft_itoa(exit_status)), 2);
 				return(NULL);	
 			}
 		}
@@ -140,7 +140,7 @@ t_token *parsing_v3(char *line, t_env *env)
 				exit_status = 127;
 				free_lst(new);
 				exit_status = 258;
-				new_env_var(env, ft_strjoin("?=", ft_itoa(exit_status)), 2);
+				new_env_var(&env, ft_strjoin("?=", ft_itoa(exit_status)), 2);
 				return (NULL);
 			}
 			lst_add_back(new, tmp_frr);
@@ -157,7 +157,7 @@ t_token *parsing_v3(char *line, t_env *env)
 	{
 		free_lst(new);
 		exit_status = 2;
-		new_env_var(env, ft_strjoin("?=", ft_itoa(exit_status)), 2);
+		new_env_var(&env, ft_strjoin("?=", ft_itoa(exit_status)), 2);
 		return (NULL);
 	}
 	new = join_tokens2(new);

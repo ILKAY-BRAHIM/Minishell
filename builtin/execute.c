@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 02:45:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/14 22:30:26 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:46:21 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,48 @@
 #include "builting.h"
 #include <sys/stat.h>
 
+// norm 25 line : ----> ok
+// nb function : -----> 10
+// tester : ----------> ok
+
+void	add_internal_executabel(char **env_path, char *new)
+{
+	int		i;
+	int		size;
+
+	i = 0;
+	size = 0;
+	while ((*env_path)[i])
+	{
+		if (i == 0 && (*env_path)[i] == ':')
+		{
+			new[size] = '.';
+			size++;
+		}
+		else if (size == i && (*env_path)[i + 1]
+			&& (*env_path)[i] == ':' && (*env_path)[i + 1] == ':')
+		{
+			new[size++] = (*env_path)[i++];
+			new[size] = '.';
+			size++;
+		}
+		new[size++] = (*env_path)[i++];
+	}
+	free(*env_path);
+	*env_path = new;
+}
+
 char	**ft_get_path(t_env *env)
 {
 	char	*env_path;
 	char	*new;
 	char	**path;
-	int		i;
-	int		size;
 
 	env_path = search_and_return(env, "PATH", 1);
 	if (env_path == NULL)
 		return (NULL);
 	new = ft_calloc(ft_strlen(env_path) + 2, sizeof(char));
-	i = 0;
-	size = 0;
-	while (env_path[i])
-	{
-		if (i == 0 && env_path[i] == ':')
-		{
-			new[size] = '.';
-			size++;
-		}
-		else if (size == i && env_path[i + 1] && env_path[i] == ':' && env_path[i + 1] == ':')
-		{
-			new[size++] = env_path[i++];
-			new[size] = '.';
-			size++;
-		}
-		new[size++] = env_path[i++];
-	}
-	if (size != i)
-	{
-		free(env_path);
-		env_path = new;
-	}
+	add_internal_executabel(&env_path, new);
 	if (env_path)
 	{
 		path = ft_split(env_path, ':');
@@ -60,203 +68,82 @@ char	**ft_get_path(t_env *env)
 
 char	**ft_get_env(t_env *list_env)
 {
-	t_env	*tmp;
 	char	**env;
 	int		i;
 	int		size;
 
 	i = 0;
-	tmp = list_env;
-	size = 0;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		size++;
-	}
+	size = list_size(list_env);
 	if (size == 0)
-		return NULL;
+		return (NULL);
 	env = ft_calloc(size + 1, sizeof(char *));
-	tmp = list_env;
-	while (tmp)
+	while (list_env)
 	{
-		if (tmp->type == 0)
+		if (list_env->type == 0)
 		{
-			env[i] = sp_strjoin(tmp->name, "=", -1);
-			if (tmp->value[0] != '\0')
-			{
-				env[i] = sp_strjoin(env[i], tmp->value, -1);
-			}
+			env[i] = sp_strjoin(list_env->name, "=", -1);
+			if (list_env->value[0] != '\0')
+				env[i] = sp_strjoin(env[i], list_env->value, -1);
 		}
-		tmp = tmp->next;
+		list_env = list_env->next;
 		i++;
 	}
 	return (env);
 }
 
-// join all option whith all args
-// split them in char** 
-// creat the first arg for execve
-// the caracter that i split with them i need to change it [!] ------ ********** [!]
-
-void	replac_char(char **str, char old, char new)
+void	executabel_err_check(t_table *table)
 {
-	int		i;
-	int		j;
+	struct stat	path_stat;
 
-	j = 0;
-	i = 0;
-	while (str[i])
+	if (ft_strchr(table->commend, '/') == NULL)
 	{
-		while (str[i][j])
-		{
-			if (str[i][j] == old)
-				str[i][j] = new;
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-	return;
-}
-
-void	call_execve(t_table *table, char *path, char **env)
-{
-	char	**argv;
-	char	*cmd;
-	char	*cmd_lwr;
-	int		i;
-
-	i = 0;
-	cmd_lwr = (ft_tolower(table->commend));
-	cmd = sp_strjoin(path, "\4", -1);
-	while (table->option[i] != NULL)
-	{
-		cmd = sp_strjoin(cmd, table->option[i], 0);
-		cmd = sp_strjoin(cmd, "\4", 0);
-		i++;
-	}
-	i = 0;
-	while (table->arg[i] != NULL)
-	{
-		if (strchr(table->arg[i], '\1'))
-		{
-			if (ft_strcmp(cmd_lwr, "echo") != 0)
-				table->arg[i] = remouve_char(table->arg[i], '\1');
-			if (table->arg[i][0] == '\0')
-			{
-				// fd_putstr("minishell: ", 2);
-				fd_putstr(table->commend, 2);
-				fd_putstr(": No such file or directory\n", 2);
-				exit(1);
-			}
-		}
-		table->arg[i] = remouve_char(table->arg[i], '\7');
-		cmd = sp_strjoin(cmd, table->arg[i], 0);
-		cmd = sp_strjoin(cmd, "\4", 0);
-		i++;
-	}
-	free(cmd_lwr);
-	argv = ft_split(cmd, '\4');
-	replac_char(argv, '\1', '\0');
-	exit_status = 0;
-	if (execve(path, argv, env) == -1)
-	{
-		fd_putstr("minishell: ", 2);
-		fd_putstr(table->commend, 2);
-		fd_putstr(": command not found\n", 2);
-		//free argv & path
+		not_valid(table->commend, table->commend, 4);
 		exit (127);
 	}
-	exit (1);
+	else if (stat(table->commend, &path_stat) == 0)
+	{
+		if (S_ISDIR(path_stat.st_mode))
+		{
+			not_valid(NULL, table->commend, 5);
+			exit (126);
+		}
+	}
+	if (access(table->commend, F_OK) != 0)
+	{
+		not_valid(NULL, table->commend, 0);
+		exit (127);
+	}
+	if (access(table->commend, X_OK) != 0)
+	{
+		not_valid(NULL, table->commend, 2);
+		exit (126);
+	}
 }
 
-void	ft_execute(t_table *table, t_env *env)
+void	ft_execute(t_table *table, t_env **env)
 {
 	char	**path;
 	char	**char_env;
-	char	*cmd;
 	int		i;
-	struct stat path_stat;
 
 	i = 0;
 	if (table->commend == NULL)
 		return ;
-	path = ft_get_path(env);
+	path = ft_get_path(*env);
 	if (path != NULL)
 	{
 		while (path && path[i])
+			normal_execute(table, env, path[i++]);
+		if (path[i] == NULL)
 		{
-			cmd = sp_strjoin(path[i], "/", -1);
-			cmd = sp_strjoin(cmd , table->commend, 0);
-			if (access(cmd, X_OK) == 0)
-			{
-				if (env && search_and_return(env, "_", 0))
-					rm_env_var(&env, "_");
-				new_env_var(env, sp_strjoin("_=", cmd, -1), 0);
-				char_env = ft_get_env(env);
-				call_execve(table, cmd, char_env);
-				break;
-			}
-			else
-				i++;
-			free(cmd);
-		}
-		if (path == NULL || path[i] == NULL)
-		{
-			if (ft_strchr(table->commend, '/') == NULL)
-			{
-				not_valid( table->commend, table->commend,4);
-				exit (127);
-			}
-			else if (stat(table->commend, &path_stat) == 0)
-			{
-				if (S_ISDIR(path_stat.st_mode))
-				{
-					not_valid(NULL, table->commend, 5);
-					exit (126);
-				}
-			}
-			if (access(table->commend, F_OK) != 0)
-			{
-				not_valid( NULL, table->commend,0);
-				exit (127);
-			}
-			if (access(table->commend, X_OK) != 0)
-			{
-				not_valid( NULL, table->commend,2);
-				exit (126);
-			}
-			if (env && search_and_return(env, "_", 0))
-				rm_env_var(&env, "_");
-			new_env_var(env, sp_strjoin("_=", table->commend, -1), 0);	
-			char_env = ft_get_env(env);
+			executabel_err_check(table);
+			if (*env && search_and_return(*env, "_", 0))
+				rm_env_var(env, "_");
+			new_env_var(env, sp_strjoin("_=", table->commend, -1), 0);
+			char_env = ft_get_env(*env);
 			call_execve(table, table->commend, char_env);
 		}
 	}
 	else if (table->commend != NULL)
-	{
-		if (ft_strchr(table->commend, '/') == NULL)
-		{
-			if (path == NULL)
-				not_valid( NULL, table->commend,0);
-			else
-				not_valid( NULL, table->commend,4);
-			exit (127);
-		}
-		if (access(table->commend, F_OK) != 0)
-		{
-			not_valid( NULL, table->commend,0);
-			exit (127);
-		}
-		if (access(table->commend, X_OK) != 0)
-		{
-			not_valid( NULL, table->commend,2);
-			exit (126);
-		}
-		if (env && search_and_return(env, "_", 0))
-			rm_env_var(&env, "_");
-		new_env_var(env, sp_strjoin("_=", table->commend, -1), 0);	
-		char_env = ft_get_env(env);
-		call_execve(table, table->commend, char_env);
-	}
+		no_path_execution(table, env, path);
 }
