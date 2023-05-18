@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_v3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:02:43 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/17 17:58:22 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/18 21:19:22 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,43 +15,43 @@
 #include <string.h>
 #include <stdio.h>
 
-void	her_doc(char *line, int i)
-{
-	while (line[++i])
-	{
-		if (line[i] == '<' && line[i + 1] == '<')
-		{
-			i = i + 2;
-			while (line[i] == ' ' )
-				i++;
-			while (line[i] && line[i] != ' ')
-			{
-				(line[i] == '$') && (line[i] = '\5');
-				if ((line[i] == '\"' || line[i] == '\'') && i++)
-				{
-					while (line[i] && !(line[i] == '\"' || line[i] == '\''))
-					{
-						(line[i] == '$') && (line[i] = '\5');
-						i++;
-					}
-					(line[i] == '\"' || line[i] == '\'') && (i++);
-				}
-				else
-					i++;
-			}
-			break ;
-		}
-	}
-}
+// void	her_doc(char *line, int i)
+// {
+// 	while (line[++i])
+// 	{
+// 		if (line[i] == '<' && line[i + 1] == '<')
+// 		{
+// 			i = i + 2;
+// 			while (line[i] == ' ' )
+// 				i++;
+// 			while (line[i] && line[i] != ' ')
+// 			{
+// 				(line[i] == '$') && (line[i] = '\5');
+// 				if ((line[i] == '\"' || line[i] == '\'') && i++)
+// 				{
+// 					while (line[i] && !(line[i] == '\"' || line[i] == '\''))
+// 					{
+// 						(line[i] == '$') && (line[i] = '\5');
+// 						i++;
+// 					}
+// 					(line[i] == '\"' || line[i] == '\'') && (i++);
+// 				}
+// 				else
+// 					i++;
+// 			}
+// 			break ;
+// 		}
+// 	}
+// }
 
-int	free_strlen(char *str)
-{
-	int	i;
+// int	free_strlen(char *str)
+// {
+// 	int	i;
 
-	i = strlen(str);
-	free(str);
-	return (i);
-}
+// 	i = strlen(str);
+// 	free(str);
+// 	return (i);
+// }
 
 void	tokens_of_qutes(char *line, t_token **token, char *part, int count)
 {
