@@ -6,7 +6,8 @@ SRC = executer.c $(addprefix parsing/, main.c get_prompt.c  new_token.c parsing_
 									ft_isalpha.c ft_substr.c fd_putstr.c ft_strtrim.c ft_tolower.c free_list.c)\
 								$(addprefix builtin/, environment.c echo.c print_help.c env.c cd.c export.c pwd.c unset.c execute.c\
 								redirection.c pipex.c exit.c get_here_docs.c execution_utils.c export_utils.c pipe_utils.c\
-								redirecte_app.c redirecte_in.c redirecte_out.c)
+								redirecte_app.c redirecte_in.c redirecte_out.c)\
+								$(addprefix utils_parsing/, function_back_space.c function_lexer.c function_parsin_v3.c norm_1.c)
 
 HEADER = minishell.h
 NAME = minishell

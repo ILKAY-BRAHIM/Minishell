@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:02:43 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/17 17:58:22 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/18 23:39:13 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,43 +15,43 @@
 #include <string.h>
 #include <stdio.h>
 
-void	her_doc(char *line, int i)
-{
-	while (line[++i])
-	{
-		if (line[i] == '<' && line[i + 1] == '<')
-		{
-			i = i + 2;
-			while (line[i] == ' ' )
-				i++;
-			while (line[i] && line[i] != ' ')
-			{
-				(line[i] == '$') && (line[i] = '\5');
-				if ((line[i] == '\"' || line[i] == '\'') && i++)
-				{
-					while (line[i] && !(line[i] == '\"' || line[i] == '\''))
-					{
-						(line[i] == '$') && (line[i] = '\5');
-						i++;
-					}
-					(line[i] == '\"' || line[i] == '\'') && (i++);
-				}
-				else
-					i++;
-			}
-			break ;
-		}
-	}
-}
+// void	her_doc(char *line, int i)
+// {
+// 	while (line[++i])
+// 	{
+// 		if (line[i] == '<' && line[i + 1] == '<')
+// 		{
+// 			i = i + 2;
+// 			while (line[i] == ' ' )
+// 				i++;
+// 			while (line[i] && line[i] != ' ')
+// 			{
+// 				(line[i] == '$') && (line[i] = '\5');
+// 				if ((line[i] == '\"' || line[i] == '\'') && i++)
+// 				{
+// 					while (line[i] && !(line[i] == '\"' || line[i] == '\''))
+// 					{
+// 						(line[i] == '$') && (line[i] = '\5');
+// 						i++;
+// 					}
+// 					(line[i] == '\"' || line[i] == '\'') && (i++);
+// 				}
+// 				else
+// 					i++;
+// 			}
+// 			break ;
+// 		}
+// 	}
+// }
 
-int	free_strlen(char *str)
-{
-	int	i;
+// int	free_strlen(char *str)
+// {
+// 	int	i;
 
-	i = strlen(str);
-	free(str);
-	return (i);
-}
+// 	i = strlen(str);
+// 	free(str);
+// 	return (i);
+// }
 
 void	tokens_of_qutes(char *line, t_token **token, char *part, int count)
 {
@@ -110,8 +110,8 @@ t_token	*_norm_7(t_token *token, t_env *env, t_token *new, int type)
 	if (type == 1)
 		free_lst(new);
 	free_lst(token);
-	exit_status = 258;
-	new_env_var(&env, ft_strjoin("?=", ft_itoa(exit_status)), 2);
+	g_exit = 258;
+	new_env_var(&env, ft_strjoin("?=", ft_itoa(g_exit)), 2);
 	return (NULL);
 }
 
@@ -122,8 +122,8 @@ t_token	*_norm_8(t_token *token, t_env *env, t_token *new)
 	if (check_sp(new, 0, NULL, NULL) == -1)
 	{
 		free_lst(new);
-		exit_status = 2;
-		new_env_var(&env, ft_strjoin("?=", ft_itoa(exit_status)), 2);
+		g_exit = 2;
+		new_env_var(&env, ft_strjoin("?=", ft_itoa(g_exit)), 2);
 		return (NULL);
 	}
 	new = join_tokens2(new, 1);
@@ -158,3 +158,4 @@ t_token	*parsing_v3(char *line, t_env *env, int count)
 	}
 	return (_norm_8(token, env, new));
 }
+

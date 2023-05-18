@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:38:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/17 17:55:45 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/18 23:31:39 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <readline/history.h>
 # include <string.h>
 # include "utils/utils.h"
+# include "utils_parsing/parsing.h"
 # include <ctype.h>
 
 # define HERE_DOC_EX 1
@@ -28,7 +29,7 @@
 # define HERE_DOC 4
 # define R_APPEND 5
 
-int	exit_status;
+int	g_exit;
 
 typedef struct s_token
 {

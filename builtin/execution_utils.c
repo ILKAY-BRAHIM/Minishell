@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:34:00 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/17 17:53:10 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/18 23:34:51 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	call_execve(t_table *table, char *path, char **env)
 	free(cmd_lwr);
 	argv = ft_split(cmd, '\4');
 	replac_char(argv, '\1', '\0');
-	exit_status = 0;
+	g_exit = 0;
 	if (execve(path, argv, env) == -1)
 	{
 		not_valid(table->commend, NULL, 4);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:59:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/17 23:50:34 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:13:12 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,18 @@ t_token	*_print_r(void)
 	return (NULL);
 }
 
-t_token	*qutes(char *data, t_env *env)
+t_token	*qutes(char *data, t_env *env, int i)
 {
 	t_token	*new;
-	int		i;
 
-	i = 0;
 	new = NULL;
 	if (data[0] == '\"')
 	{
 		if (data[ft_strlen(data) - 1] == '\"' && data[1] != '\0')
 		{
+			(strchr(data, '$')) && (i = 1);
 			if (strchr(data, '$'))
-			{
 				data = expanding(data, env);
-				i = 1;
-			}
 			new = new_token(data);
 			if (i == 1)
 				free(data);
@@ -54,36 +50,31 @@ t_token	*qutes(char *data, t_env *env)
 
 void	save_n(t_token **new, t_env *env, char *split, int *count)
 {
-	char	*str;
 	char	*tmp;
 	char	*part;
 	int		x;
-	char	fin;
 
 	x = 0;
-	fin = split[strlen(split) - 1];
-	part = get_part(split, split[0], fin, 2);
+	part = get_part(split, split[0], split[strlen(split) - 1], 2);
 	while (part[x] && part[x] == ' ')
 		x++;
 	if (part[x] != '\0')
 	{
-		if (strchr(part, '$'))
-		{
-			tmp = part;
-			part = expanding(part, env);
+		(strchr(part, '$')) && (tmp = part);
+		(strchr(part, '$')) && (part = expanding(part, env));
+		if (strchr(tmp, '$'))
 			free(tmp);
-		}
 		if (*count == 1 && (*count)++)
 			*new = new_token(part);
 		else
 			lst_add_back(*new, new_token(part));
 	}
 	free(part);
-	str = strchr(split, fin);
+	part = strchr(split, split[strlen(split) - 1]);
 	if (*count == 1 && (*count)++)
-		*new = new_token(str);
+		*new = new_token(part);
 	else
-		lst_add_back(*new, new_token(str));
+		lst_add_back(*new, new_token(part));
 }
 
 void	save_n_1(t_token **new, t_env *env, char *split, int *count)
@@ -115,7 +106,7 @@ t_token	*check_token(char *data, t_env *env, int i, int count)
 	t_token	*new;
 
 	if (data[0] == '\"' || data[0] == '\'')
-		new = qutes(data, env);
+		new = qutes(data, env, 0);
 	else
 	{
 		split = ft_strtok(data, "<>|", 1);

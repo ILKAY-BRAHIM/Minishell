@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:27:22 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/18 23:07:10 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/18 23:33:59 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ int	execute_commande(t_table *table, t_env **env, int i)
 void	cmd_in_parent(t_table *table, t_env **env, int *executed)
 {
 	if (ft_strcmp(table->commend, "unset") == 0)
-		exit_status = execute_commande(table, env, 0);
+		g_exit = execute_commande(table, env, 0);
 	else if (ft_strcmp(table->commend, "cd") == 0)
-		exit_status = execute_commande(table, env, 0);
+		g_exit = execute_commande(table, env, 0);
 	else if (ft_strcmp(table->commend, "export") == 0 && table->arg[0] != NULL)
 	{
 		*executed = 1;
-		exit_status = execute_commande(table, env, 0);
+		g_exit = execute_commande(table, env, 0);
 	}
 }
 
@@ -86,7 +86,7 @@ void	simple_cmd(t_tree *tree, t_env **env, int executed, int id)
 
 	status = 0;
 	if (tree->table->next[0] == 0)
-		exit_status = execute_commande(tree->table, env, 0);
+		g_exit = execute_commande(tree->table, env, 0);
 	else
 	{
 		get_here_docs(tree, *env);
@@ -101,10 +101,10 @@ void	simple_cmd(t_tree *tree, t_env **env, int executed, int id)
 				status = execute_commande(tree->table, env, 1);
 				exit(status);
 			}
-			exit(exit_status);
+			exit(g_exit);
 		}
 		waitpid(id, &status, 0);
-		exit_status = WEXITSTATUS(status);
+		g_exit = WEXITSTATUS(status);
 	}
 }
 
@@ -122,17 +122,17 @@ void	execution(t_tree *tree, t_env **env)
 		if (id == 0)
 		{
 			get_here_docs(tree, *env);
-			exit_status = pipex(tree, env);
-			exit(exit_status);
+			g_exit = pipex(tree, env);
+			exit(g_exit);
 		}
 		waitpid(id, &status, 0);
-		exit_status = WEXITSTATUS(status);
-		if (exit_status == 105)
+		g_exit = WEXITSTATUS(status);
+		if (g_exit == 105)
 		{
 			write (2, "minishell: fork: Resource temporarily unavailable\n", 50);
-			exit_status = 1;
+			g_exit = 1;
 		}
 	}
-	new_env_var(env, sp_strjoin("?=", ft_itoa(exit_status), 1), 2);
+	new_env_var(env, sp_strjoin("?=", ft_itoa(g_exit), 1), 2);
 	return ;
 }
