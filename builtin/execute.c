@@ -6,17 +6,13 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 02:45:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/17 17:46:21 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:33:57 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builting.h"
 #include <sys/stat.h>
-
-// norm 25 line : ----> ok
-// nb function : -----> 10
-// tester : ----------> ok
 
 void	add_internal_executabel(char **env_path, char *new)
 {

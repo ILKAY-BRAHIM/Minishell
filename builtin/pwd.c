@@ -6,18 +6,14 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 01:35:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/16 19:58:27 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:36:44 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builting.h"
 
-// norm 25 line : ----> ok
-// nb function : -----> 1
-// tester : ----------> ok
-
-int	ft_pwd(t_table *table, t_env **env) // 23 line
+int	ft_pwd(t_table *table, t_env **env)
 {
 	char	*cd;
 
@@ -29,7 +25,7 @@ int	ft_pwd(t_table *table, t_env **env) // 23 line
 		print_help(table, 0);
 		return (1);
 	}
-	else 
+	else
 	{
 		cd = getcwd(NULL, 0);
 		if (cd == NULL)

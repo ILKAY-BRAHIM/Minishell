@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 09:26:35 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/17 17:26:05 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:32:19 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_echo(t_table *table, t_env **env)
 		print_options(table, &new_line);
 	while (table->arg && table->arg[i])
 	{
-		table->arg[i] = remouve_char(table->arg[i] , '\1');
+		table->arg[i] = remouve_char(table->arg[i], '\1');
 		if (table->arg[i][0] != '\0')
 			fd_putstr(table->arg[i], 1);
 		i++;

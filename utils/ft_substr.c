@@ -3,15 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 06:17:28 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/08 23:23:25 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:46:16 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "utils.h"
+
+int	size_of_alc(int len_s, int len)
+{
+	if (len < len_s)
+		return (len);
+	else
+		return (len_s);
+}
 
 char	*ft_substr(char *s, unsigned int start, size_t len)
 {
@@ -26,16 +34,13 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	i = 0;
 	if (start >= len_s)
 	{
-		substring = calloc(sizeof(char), 1);
+		substring = ft_calloc(sizeof(char), 1);
 		return (substring);
 	}
-	if (len < len_s)
-		m = len;
-	else
-		m = len_s;
+	m = size_of_alc(len_s, len);
 	if (!s[0])
 		return (NULL);
-	substring = calloc(sizeof(char) , (m + 2));
+	substring = ft_calloc(sizeof(char), (m + 2));
 	if (!substring)
 		return (NULL);
 	while (i < m && start <= len_s)

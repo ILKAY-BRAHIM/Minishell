@@ -6,7 +6,7 @@
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:27:22 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/17 19:53:07 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/18 23:07:10 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	execute_commande(t_table *table, t_env **env, int i)
 	else if (ft_strncmp("pwd", table->commend, -1) == 0)
 		err = ft_pwd(table, env);
 	else if (ft_strncmp("unset", table->commend, -1) == 0)
-		err = ft_unset(table, env);
+		err = ft_unset(table, env, 0);
 	else if (ft_strncmp("exit", table->commend, -1) == 0)
 		err = ft_exit(table, env);
 	else
