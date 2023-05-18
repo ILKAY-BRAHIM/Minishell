@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:59:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/18 19:13:12 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 00:02:22 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,16 @@ void	save_n(t_token **new, t_env *env, char *split, int *count)
 {
 	char	*tmp;
 	char	*part;
-	int		x;
 
-	x = 0;
 	part = get_part(split, split[0], split[strlen(split) - 1], 2);
-	while (part[x] && part[x] == ' ')
-		x++;
-	if (part[x] != '\0')
+	tmp = part;
+	while (*tmp && *tmp == ' ')
+		tmp++;
+	if (*tmp != '\0')
 	{
 		(strchr(part, '$')) && (tmp = part);
-		(strchr(part, '$')) && (part = expanding(part, env));
+		if (strchr(part, '$'))
+			part = expanding(part, env);
 		if (strchr(tmp, '$'))
 			free(tmp);
 		if (*count == 1 && (*count)++)
