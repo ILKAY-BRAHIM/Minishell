@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:48:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/16 16:42:12 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:51:13 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ t_token	*join_tokens(t_token *t, char *tmp, int count, char *array)
 	tmp_lst = t;
 	while (t != NULL)
 	{
-		array = strchr("<>|", t->token[0]);
+		array = ft_strchr("<>|", t->token[0]);
 		(array == NULL && tmp != NULL) && (tmp = sp_strjoin(tmp, t->token, 0));
-		(array == NULL && tmp == NULL) && (tmp = strdup(t->token));
+		(array == NULL && tmp == NULL) && (tmp = ft_strdup(t->token));
 		if (array != NULL)
 			norm(t->token, &new, &tmp, &count);
 		t = t->next;

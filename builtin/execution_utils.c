@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:34:00 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/17 17:53:10 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:48:27 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	arg_concatenation(t_table *table, char *cmd_lwr, char **cmd)
 	i = 0;
 	while (table->arg[i] != NULL)
 	{
-		if (strchr(table->arg[i], '\1'))
+		if (ft_strchr(table->arg[i], '\1'))
 		{
 			if (ft_strcmp(cmd_lwr, "echo") != 0)
 				table->arg[i] = remouve_char(table->arg[i], '\1');
@@ -81,7 +81,7 @@ void	call_execve(t_table *table, char *path, char **env)
 	free(cmd_lwr);
 	argv = ft_split(cmd, '\4');
 	replac_char(argv, '\1', '\0');
-	exit_status = 0;
+	g_exit = 0;
 	if (execve(path, argv, env) == -1)
 	{
 		not_valid(table->commend, NULL, 4);

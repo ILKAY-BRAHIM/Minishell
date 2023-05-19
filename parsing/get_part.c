@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 23:42:42 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/16 22:32:44 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:48:27 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*reserve(char *str, char *array, char first, char end)
 	int	i;
 
 	i = 0;
-	str = strchr(str, first);
+	str = ft_strchr(str, first);
 	if (str == NULL)
 		return (NULL);
 	(first == end) && (i++);
@@ -31,7 +31,7 @@ char	*reserve(char *str, char *array, char first, char end)
 		i++;
 	while (str[i] && str[i] == end)
 		i++;
-	array = calloc(i + 1, 1);
+	array = ft_calloc(i + 1, 1);
 	return (array);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:18:46 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/18 21:20:10 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:51:13 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void	gards(char **str)
 	i = 0;
 	while (str[i])
 	{
-		if (strchr(str[i], '`'))
+		if (ft_strchr(str[i], '`'))
 		{
 			str[i] = sp_strjoin(str[i], "`", 0);
 			i++;
-			while (str[i] && !(strchr(str[i], '`')))
+			while (str[i] && !(ft_strchr(str[i], '`')))
 			{
 				str[i] = sp_strjoin("`", str[i], 1);
 				str[i] = sp_strjoin(str[i], "`", 0);
@@ -75,7 +75,7 @@ void	save_tkones(char **str, char **tokons, int y, int *_char)
 		else
 		{
 			tokons[2] = sp_strjoin(tokons[2], str[y], 0);
-			tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
+			tokons[2] = sp_strjoin(tokons[2], ft_strdup(" "), 2);
 			y++;
 		}
 	}
@@ -87,7 +87,7 @@ void	save_tkones(char **str, char **tokons, int y, int *_char)
 		else
 		{
 			tokons[3] = sp_strjoin(tokons[3], str[y], 0);
-			tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
+			tokons[3] = sp_strjoin(tokons[3], ft_strdup(" "), 2);
 			*_char = 1;
 			y++;
 		}
@@ -104,7 +104,7 @@ void	save_tkones_1(char **str, char **tokons, int u, int *_char)
 		else
 		{
 			tokons[2] = sp_strjoin(tokons[2], str[u], 0);
-			tokons[2] = sp_strjoin(tokons[2], strdup(" "), 2);
+			tokons[2] = sp_strjoin(tokons[2], ft_strdup(" "), 2);
 			u++;
 		}
 	}
@@ -117,7 +117,7 @@ void	save_tkones_1(char **str, char **tokons, int u, int *_char)
 		{
 			*_char = 1;
 			tokons[3] = sp_strjoin(tokons[3], str[u], 0);
-			tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
+			tokons[3] = sp_strjoin(tokons[3], ft_strdup(" "), 2);
 			u++;
 		}
 	}
@@ -129,7 +129,7 @@ void	norm_(char *str, char **tokons, int *_char)
 	char	**array;
 
 	y = 0;
-	if (strchr(str, '\4'))
+	if (ft_strchr(str, '\4'))
 	{
 		array = ft_split(str, '\4');
 		gards(array);
@@ -140,6 +140,6 @@ void	norm_(char *str, char **tokons, int *_char)
 	{
 		*_char = 1;
 		tokons[3] = sp_strjoin(tokons[3], str, 0);
-		tokons[3] = sp_strjoin(tokons[3], strdup(" "), 2);
+		tokons[3] = sp_strjoin(tokons[3], ft_strdup(" "), 2);
 	}
 }

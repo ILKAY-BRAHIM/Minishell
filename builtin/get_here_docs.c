@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_here_docs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:04:46 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/17 18:33:00 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:51:13 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	here_doc(t_env *env, int output, char *end, int expand)
 	{
 		read = readline("> ");
 		if (!read || (read[0] == '\0'
-				&& strlen(end) == 2 && end[0] == '\1' && end[1] == '\1'))
+				&& ft_strlen(end) == 2 && end[0] == '\1' && end[1] == '\1'))
 			break ;
 		add_history(read);
 		if (ft_strcmp(read, end) == 0)
@@ -88,9 +88,11 @@ void	here_doc_file(t_tree *tree, t_env *env, int i)
 	int	status;
 	int	herdoc;
 
+	// signal(SIGINT, SIG_IGN);
 	id = fork();
 	if (id == 0)
 	{
+		// signal(SIGINT, SIG_DFL);
 		herdoc = open("/tmp/heredoc_", O_CREAT | O_TRUNC | O_RDWR, 0644);
 		here_doc(env, herdoc, tree->table->files[i], tree->table->next[i]);
 		close(herdoc);
@@ -99,6 +101,8 @@ void	here_doc_file(t_tree *tree, t_env *env, int i)
 	free(tree->table->files[i]);
 	tree->table->files[i] = ft_strdup("/tmp/heredoc_");
 	waitpid(id, &status, 0);
+	status += 128;
+	g_exit = WEXITSTATUS(status);
 	return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:22:58 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/17 17:34:24 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:51:13 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ void	_tok(char *str, char **tok, int att, char *sp)
 	while (str[i])
 	{
 		if (str[i])
-			token = strchr(sp, str[i]);
+			token = ft_strchr(sp, str[i]);
 		if (token && str[i])
 		{
 			token = get_part(str, str[0], token[0], att);
 			tok[j++] = ft_strdup(token);
-			ft_memmove(str, str + strlen(token),
-				strlen(str + strlen(token)) + 1);
+			ft_memmove(str, str + ft_strlen(token),
+				ft_strlen(str + ft_strlen(token)) + 1);
 			free(token);
 			i = 0;
 		}
@@ -53,7 +53,7 @@ void	_tok(char *str, char **tok, int att, char *sp)
 			i++;
 	}
 	if (*str != '\0')
-		tok[j++] = strdup(str);
+		tok[j++] = ft_strdup(str);
 	tok[j] = NULL;
 }
 
@@ -67,7 +67,7 @@ char	**ft_strtok(char *strw, char *sp, int att)
 	i = 0;
 	j = 0;
 	tok = NULL;
-	str = strdup (strw);
+	str = ft_strdup (strw);
 	if (att == 1)
 		tok = ft_calloc(count_sp(str, 0, 1) + 1, sizeof(char *));
 	else if (att == 2)

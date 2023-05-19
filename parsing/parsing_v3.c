@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 17:02:43 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/18 21:19:22 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:50:28 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,6 @@
 #include "../utils/utils.h"
 #include <string.h>
 #include <stdio.h>
-
-// void	her_doc(char *line, int i)
-// {
-// 	while (line[++i])
-// 	{
-// 		if (line[i] == '<' && line[i + 1] == '<')
-// 		{
-// 			i = i + 2;
-// 			while (line[i] == ' ' )
-// 				i++;
-// 			while (line[i] && line[i] != ' ')
-// 			{
-// 				(line[i] == '$') && (line[i] = '\5');
-// 				if ((line[i] == '\"' || line[i] == '\'') && i++)
-// 				{
-// 					while (line[i] && !(line[i] == '\"' || line[i] == '\''))
-// 					{
-// 						(line[i] == '$') && (line[i] = '\5');
-// 						i++;
-// 					}
-// 					(line[i] == '\"' || line[i] == '\'') && (i++);
-// 				}
-// 				else
-// 					i++;
-// 			}
-// 			break ;
-// 		}
-// 	}
-// }
-
-// int	free_strlen(char *str)
-// {
-// 	int	i;
-
-// 	i = strlen(str);
-// 	free(str);
-// 	return (i);
-// }
 
 void	tokens_of_qutes(char *line, t_token **token, char *part, int count)
 {
@@ -70,15 +32,14 @@ void	tokens_of_qutes(char *line, t_token **token, char *part, int count)
 		}
 		else
 		{
-			while (line[i] && (line[i] != '\"' && line[i] != '\''))
-				i++;
+			i = rp_tab(&line);
 			part = get_part(line, line[0], line[i], 2);
 			if (count == 1 && count++)
 				*token = new_token(part);
 			else
 				lst_add_back(*token, new_token(part));
 		}
-		line = line + free_strlen(part);
+		line = line + free_ft_strlen(part);
 	}
 }
 
@@ -110,8 +71,8 @@ t_token	*_norm_7(t_token *token, t_env *env, t_token *new, int type)
 	if (type == 1)
 		free_lst(new);
 	free_lst(token);
-	exit_status = 258;
-	new_env_var(&env, ft_strjoin("?=", ft_itoa(exit_status)), 2);
+	g_exit = 258;
+	new_env_var(&env, ft_strjoin("?=", ft_itoa(g_exit)), 2);
 	return (NULL);
 }
 
@@ -122,8 +83,8 @@ t_token	*_norm_8(t_token *token, t_env *env, t_token *new)
 	if (check_sp(new, 0, NULL, NULL) == -1)
 	{
 		free_lst(new);
-		exit_status = 2;
-		new_env_var(&env, ft_strjoin("?=", ft_itoa(exit_status)), 2);
+		g_exit = 2;
+		new_env_var(&env, ft_strjoin("?=", ft_itoa(g_exit)), 2);
 		return (NULL);
 	}
 	new = join_tokens2(new, 1);

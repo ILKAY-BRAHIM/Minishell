@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:25:12 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/18 20:34:15 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:50:28 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	back_origin(char *str)
 		i++;
 	}
 	i = 0;
-	if (strchr(str, '\2'))
+	if (ft_strchr(str, '\2'))
 	{
 		while (str[i])
 		{

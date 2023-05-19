@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 09:28:39 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/16 16:54:45 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:44:53 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	_norm(char *str, t_token **new, int *count, char **tmp)
 		lst_add_back(*new, new_token(*tmp));
 	lst_add_back(*new, new_token(str));
 	free(*tmp);
-	*tmp = calloc(1, 1);
+	*tmp = ft_calloc(1, 1);
 }
 
 t_token	*join_tokens2(t_token *lst, int count)
@@ -29,7 +29,7 @@ t_token	*join_tokens2(t_token *lst, int count)
 	t_token	*lst_tmp;
 	char	*tmp;
 
-	tmp = calloc(1, 1);
+	tmp = ft_calloc(1, 1);
 	lst_tmp = lst;
 	while (lst != NULL)
 	{

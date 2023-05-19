@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 21:54:40 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/16 13:14:17 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:50:28 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ int	my_print(char type)
 
 int	check_p1(char *str)
 {
-	if (strlen(str) == 2)
+	if (ft_strlen(str) == 2)
 	{
 		if (!(str[0] == str[1] && str[0] != '|'))
 			return (my_print(str[1]));
 	}
-	if (strlen(str) == 3)
+	if (ft_strlen(str) == 3)
 		return (my_print(str[2]));
-	if (strlen(str) > 3)
+	if (ft_strlen(str) > 3)
 	{
 		if (str[0] == '|')
 			my_print(str[2]);
@@ -74,7 +74,7 @@ int	check_sp(t_token *token, int i, char *tm, char *part)
 		return (my_print(token->token[0]));
 	while (token != NULL)
 	{
-		part = strchr("<>|", token->token[0]);
+		part = ft_strchr("<>|", token->token[0]);
 		if (part != NULL)
 		{
 			if (check_p2(token->token, tm) == -1)

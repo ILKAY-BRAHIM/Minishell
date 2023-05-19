@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:38:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/18 20:36:44 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:29:42 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define HERE_DOC 4
 # define R_APPEND 5
 
-int	exit_status;
+int	g_exit;
 
 typedef struct s_token
 {
@@ -57,8 +57,8 @@ typedef struct s_tree
 	struct s_tree	*right;
 }				t_tree;
 
-// void rl_replace_line(const char *str, int i);
-// int rl_on_new_line();
+// void	rl_replace_line(const char *str, int i);
+// int		rl_on_new_line();
 t_token	*new_token(char *data);
 void	lst_add_back(t_token *lst, t_token *new);
 t_token	*parsing_v3(char *line, t_env *env, int count);
@@ -88,7 +88,7 @@ t_token	*join_tokens2(t_token *lst, int count);
 void	free_array(char **array);
 char	*ft_itoa(int n);
 t_table	*back_space(t_table *table, int i);
-// void handell_sig();
+// void 	handell_sig();
 void	execution(t_tree *tree, t_env **env);
 void	fd_putchar(char c, int fd);
 char	*mother_str(char *str, int i, int end, int start);

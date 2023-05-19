@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:29:22 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/18 21:19:47 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:50:28 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	norm_1(char **array, char **tokons, int *i);
 void	save_tkones(char **str, char **tokons, int y, int *_char);
 void	save_tkones_1(char **str, char **tokons, int u, int *_char);
 void	norm_(char *str, char **tokons, int *_char);
-int		free_strlen(char *str);
+int		free_ft_strlen(char *str);
 void	her_doc(char *line, int i);
+int		rp_tab(char **line);
 #endif

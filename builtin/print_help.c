@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   print_help.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 17:55:16 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/16 19:58:18 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:50:28 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builting.h"
-
-// norm 25 line : ----> ok
-// nb function : -----> 5
-// tester : ----------> ok
 
 void	fd_putchar(char c, int fd)
 {
@@ -27,10 +23,11 @@ int	check_valid_name(char *name)
 	int	i;
 
 	i = 0;
-	if (ft_isdigit(name[i]) != 0 || (ft_isalpha(name[i]) == 0 && name[i] != '_'))
+	if (ft_isdigit(name[i]) != 0
+		|| (ft_isalpha(name[i]) == 0 && name[i] != '_'))
 		return (1);
 	i++;
-	while(name[i] != '\0')
+	while (name[i] != '\0')
 	{
 		if (ft_isalpha(name[i]) == 0
 			&& ft_isdigit(name[i]) == 0 && name[i] != '_' && name[i] != '+')
@@ -47,19 +44,19 @@ void	continue_(char *arg, int type)
 	if (type == 3 && arg)
 	{
 		fd_putstr(arg, 2);
-		fd_putstr(" : Not a directory\n", 2);	
+		fd_putstr(" : Not a directory\n", 2);
 	}
 	else if (type == 4)
 		fd_putstr("command not found\n", 2);
 	else if (type == 5 && arg)
 	{
 		fd_putstr(arg, 2);
-		fd_putstr(": is a directory\n", 2);	
+		fd_putstr(": is a directory\n", 2);
 	}
 	return ;
 }
 
-int	not_valid(char *cmd, char *arg, int type) // 25 line
+int	not_valid(char *cmd, char *arg, int type)
 {
 	fd_putstr("minishell: ", 2);
 	if (cmd)
@@ -81,7 +78,7 @@ int	not_valid(char *cmd, char *arg, int type) // 25 line
 	else if (type == 2 && arg)
 	{
 		fd_putstr(arg, 2);
-		fd_putstr(" : Permission denied\n", 2);	
+		fd_putstr(" : Permission denied\n", 2);
 	}
 	else
 		continue_(arg, type);

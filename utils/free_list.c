@@ -1,24 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   free_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 09:29:27 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/18 22:33:06 by rrasezin         ###   ########.fr       */
+/*   Created: 2023/05/18 22:39:37 by rrasezin          #+#    #+#             */
+/*   Updated: 2023/05/18 22:40:18 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	ft_putstr(char *str)
+void	free_one_list(t_env *list)
 {
-	int	i;
+	if (list)
+	{
+		if (list->name)
+		{
+			free(list->name);
+			list->name = NULL;
+		}
+		if (list->value)
+		{
+			free(list->value);
+			list->value = NULL;
+		}
+		if (list)
+		{
+			free (list);
+			list = NULL;
+		}
+	}
+	return ;
+}
 
-	i = 0;
-	while (str[i])
-		write(1, &str[i++], 1);
-	write (1, "\n", 1);
+void	free_env(t_env *env)
+{
+	t_env	*tmp;
+
+	tmp = env;
+	while (1)
+	{
+		free_one_list(tmp);
+		if (tmp->next == NULL)
+			break ;
+		tmp = tmp->next;
+	}
 	return ;
 }

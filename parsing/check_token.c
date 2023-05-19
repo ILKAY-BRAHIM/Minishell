@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:59:06 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/19 00:02:22 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:50:28 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_token	*qutes(char *data, t_env *env, int i)
 	{
 		if (data[ft_strlen(data) - 1] == '\"' && data[1] != '\0')
 		{
-			(strchr(data, '$')) && (i = 1);
-			if (strchr(data, '$'))
+			(ft_strchr(data, '$')) && (i = 1);
+			if (ft_strchr(data, '$'))
 				data = expanding(data, env);
 			new = new_token(data);
 			if (i == 1)
@@ -53,16 +53,16 @@ void	save_n(t_token **new, t_env *env, char *split, int *count)
 	char	*tmp;
 	char	*part;
 
-	part = get_part(split, split[0], split[strlen(split) - 1], 2);
+	part = get_part(split, split[0], split[ft_strlen(split) - 1], 2);
 	tmp = part;
 	while (*tmp && *tmp == ' ')
 		tmp++;
 	if (*tmp != '\0')
 	{
-		(strchr(part, '$')) && (tmp = part);
-		if (strchr(part, '$'))
+		(ft_strchr(part, '$')) && (tmp = part);
+		if (ft_strchr(part, '$'))
 			part = expanding(part, env);
-		if (strchr(tmp, '$'))
+		if (ft_strchr(tmp, '$'))
 			free(tmp);
 		if (*count == 1 && (*count)++)
 			*new = new_token(part);
@@ -70,7 +70,7 @@ void	save_n(t_token **new, t_env *env, char *split, int *count)
 			lst_add_back(*new, new_token(part));
 	}
 	free(part);
-	part = strchr(split, split[strlen(split) - 1]);
+	part = ft_strchr(split, split[ft_strlen(split) - 1]);
 	if (*count == 1 && (*count)++)
 		*new = new_token(part);
 	else
@@ -81,7 +81,7 @@ void	save_n_1(t_token **new, t_env *env, char *split, int *count)
 {
 	char	*part;
 
-	if (strchr(split, '$'))
+	if (ft_strchr(split, '$'))
 	{
 		part = expanding(split, env);
 		if (*count == 1 && (*count)++)
@@ -112,7 +112,7 @@ t_token	*check_token(char *data, t_env *env, int i, int count)
 		split = ft_strtok(data, "<>|", 1);
 		while (split[i])
 		{
-			fin = split[i][strlen(split[i]) - 1];
+			fin = split[i][ft_strlen(split[i]) - 1];
 			if (split[i][0] != fin && (fin == '|' || fin == '>' || fin == '<'))
 				save_n(&new, env, split[i], &count);
 			else

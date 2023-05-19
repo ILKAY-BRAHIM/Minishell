@@ -3,27 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 17:55:05 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/16 19:58:55 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:51:13 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include "builting.h"
 
-// norm 25 line : ----> ok
-// nb function : -----> 1
-// tester : ----------> ok
-
-int	ft_unset(t_table *table, t_env **env) // 25 line
+int	ft_unset(t_table *table, t_env **env, int err)
 {
 	int	i;
-	int	err;
 
 	i = 0;
-	err = 0;
 	if (env && search_and_return(*env, "_", 0))
 		rm_env_var(env, "_");
 	new_env_var(env, ft_strjoin("_=", ft_strdup("unset")), 0);
@@ -34,7 +28,8 @@ int	ft_unset(t_table *table, t_env **env) // 25 line
 	}
 	while (table->arg[i])
 	{
-		if (check_valid_name(table->arg[i]) != 0 || ft_strchr(table->arg[i], '+'))
+		if (check_valid_name(table->arg[i]) != 0
+			|| ft_strchr(table->arg[i], '+'))
 		{
 			not_valid(table->commend, table->arg[i], 1);
 			err = 1;

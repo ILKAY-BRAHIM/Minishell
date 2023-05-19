@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 11:43:21 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/17 23:33:45 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:51:13 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	check_status(char **arg)
 	if (arg[1] != NULL)
 	{
 		fd_putstr("minishell: exit: too many arguments\n", 2);
-		exit_status = 1;
+		g_exit = 1;
 		free_array(arg);
 		return (1);
 	}
@@ -76,7 +76,7 @@ int	ft_exit(t_table *table, t_env **env)
 		rm_env_var(env, "_");
 	new_env_var(env, ft_strjoin("_=", ft_strdup("exit")), 0);
 	if (table->option[i] == NULL && table->arg[i] == NULL)
-		exit(exit_status);
+		exit(g_exit);
 	result = ft_calloc(1, 1);
 	while (table->option[i] != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:16:02 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/18 21:19:31 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:50:28 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,25 @@
 #include <string.h>
 #include <stdio.h>
 
-int	free_strlen(char *str)
+int	rp_tab(char **line)
 {
 	int	i;
 
-	i = strlen(str);
+	i = 0;
+	while ((*line)[i] && ((*line)[i] != '\"' && (*line)[i] != '\''))
+	{
+		if ((*line)[i] == '\t')
+			(*line)[i] = ' ';
+		i++;
+	}
+	return (i);
+}
+
+int	free_ft_strlen(char *str)
+{
+	int	i;
+
+	i = ft_strlen(str);
 	free(str);
 	return (i);
 }

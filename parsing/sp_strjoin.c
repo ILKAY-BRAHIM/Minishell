@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:13:24 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/15 23:24:58 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:50:28 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,22 @@
 // 1 -> free s2
 // 2 -> free s1 && s2
 // outher -> no free
+void	free_str(char *s1, char *s2, int att)
+{
+	if (att == 2)
+	{
+		free(s1);
+		att--;
+		s1 = NULL;
+	}
+	if (att == 1)
+	{
+		free(s2);
+		s2 = NULL;
+	}
+	if (att == 0)
+		free(s1);
+}
 
 char	*sp_strjoin(char *s1, char *s2, int att)
 {
@@ -40,18 +56,6 @@ char	*sp_strjoin(char *s1, char *s2, int att)
 	while (s2[j] != '\0' && len_s2-- > 0)
 		new[i++] = s2[j++];
 	new[i] = '\0';
-	if (att == 2)
-	{
-		free(s1);
-		att--;
-		s1 = NULL;
-	}
-	if (att == 1)
-	{
-		free(s2);
-		s2 = NULL;
-	}
-	if (att == 0)
-		free(s1);
+	free_str(s1, s2, att);
 	return (new);
 }

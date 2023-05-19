@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:20:59 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/18 15:52:19 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:51:13 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	_norm_5(char *str, char **new, t_env *env, char *array)
 		array = get_part(str, '$', str[i], 2);
 	else
 		array = get_part(str, '$', str[i], 2);
-	ft_memmove(str, (str) + strlen(array), strlen((str) + strlen(array)) + 1);
+	ft_memmove(str, (str) + ft_strlen(array), ft_strlen((str) + ft_strlen(array)) + 1);
 	if (*((array) + 1) == '?')
 	{
 		*new = search_and_return (env, "?", 1);
@@ -32,7 +32,7 @@ void	_norm_5(char *str, char **new, t_env *env, char *array)
 	}
 	else if ((*((array) + 1) >= '0'
 			&& *((array) + 1) <= '9') || *((array) + 1) == '@')
-		*new = strdup((array) + 2);
+		*new = ft_strdup((array) + 2);
 	else
 		*new = search_and_return (env, (array) + 1, 1);
 	free (array);
@@ -41,7 +41,7 @@ void	_norm_5(char *str, char **new, t_env *env, char *array)
 void	_norm_6(char **array, char **new, int i)
 {
 	if (*array == NULL || (*array)[0] == 0)
-		*array = strdup("\7");
+		*array = ft_strdup("\7");
 	else
 	{
 		i = 0;
@@ -52,9 +52,9 @@ void	_norm_6(char **array, char **new, int i)
 			i++;
 		}
 		i = 0;
-		*new = strdup("`");
+		*new = ft_strdup("`");
 		*array = sp_strjoin(*new, *array, 2);
-		*array = sp_strjoin(*array, strdup("`"), 2);
+		*array = sp_strjoin(*array, ft_strdup("`"), 2);
 	}
 }
 
@@ -63,14 +63,14 @@ char	*expand(char *str, t_env *env)
 	char	*array;
 	char	*new;
 
-	array = strchr(str, '$');
-	if (strlen(str) <= 1 || str[1] == ' ' || str[1] == '\"' || (!isalpha(str[1])
+	array = ft_strchr(str, '$');
+	if (ft_strlen(str) <= 1 || str[1] == ' ' || str[1] == '\"' || (!isalpha(str[1])
 			&& !isdigit(str[1]) && str[1] != '_'
 			&& str[1] != '?' && str[1] != '@'))
 		return (str);
 	if (array != NULL)
 	{
-		array = strchr(str + 1, '$');
+		array = ft_strchr(str + 1, '$');
 		if (array != NULL)
 			return (str);
 		_norm_5(str, &new, env, array);
@@ -79,7 +79,7 @@ char	*expand(char *str, t_env *env)
 	}
 	if (array != NULL)
 	{
-		new = strdup(str);
+		new = ft_strdup(str);
 		free (str);
 		str = sp_strjoin(array, new, 2);
 	}
@@ -122,7 +122,7 @@ char	*expanding(char *str, t_env *env)
 
 	i = -1;
 	j = -1;
-	if (!(strchr(str, '$')))
+	if (!(ft_strchr(str, '$')))
 		return (str);
 	begin = NULL;
 	while (1)
@@ -133,7 +133,7 @@ char	*expanding(char *str, t_env *env)
 		begin = ft_calloc(i + 1, 1);
 		while (++j < i)
 			begin[j] = str[j];
-		ft_memmove(str, str + i, strlen(str + i) + 1);
+		ft_memmove(str, str + i, ft_strlen(str + i) + 1);
 	}
 	return (norm_4(env, begin, str));
 }
