@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 11:56:04 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/19 16:44:53 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:17:26 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,9 @@ int	pipex(t_tree *tree, t_env **env)
 		// signal(SIGINT, SIG_IGN);
 		p.id[p.i] = fork();
 		if (p.id[p.i] == 0)
-		{
 			// signal(SIGINT, SIG_DFL);
+		if (p.id[p.i] == 0)
 			execute_last_cmd(tree, &p, env);
-		}
 		close_parent_pipe(&p);
 	}
 	p.status += 128;

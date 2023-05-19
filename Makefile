@@ -1,4 +1,4 @@
-SRC = executer.c $(addprefix parsing/, main.c get_prompt.c  new_token.c parsing_v3.c  check_token.c ft_strtok.c ft_memmove.c cont_sp.c \
+SRC = executer.c executer_utils.c $(addprefix parsing/, main.c get_prompt.c  new_token.c parsing_v3.c  check_token.c ft_strtok.c ft_memmove.c cont_sp.c \
 							expanding.c sp_strjoin.c  free_lst.c join_tokens.c check_sp.c get_part.c lexer.c join_tokens2.c \
 								free_array.c back_space.c)\
 								$(addprefix utils/, ft_atoi.c ft_calloc.c ft_itoa.c ft_split.c ft_strcmp.c ft_strjoin.c ft_strncmp.c\

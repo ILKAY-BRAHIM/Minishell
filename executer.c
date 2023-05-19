@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:27:22 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/19 16:34:12 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:15:39 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	execute_cmd(t_table *table, t_env **env, int i)
 		waitpid(id, &status, 0);
 		status += 128;
 		err = WEXITSTATUS(status);
-		// printf("exit :%d\n", err);
 	}
 	else
 		ft_execute(table, env);
@@ -98,16 +97,7 @@ void	simple_cmd(t_tree *tree, t_env **env, int executed, int id)
 		// signal(SIGINT, SIG_IGN);
 		id = fork();
 		if (id == 0)
-		{
-			// signal(SIGINT, SIG_DFL);
-			redirection(tree->table);
-			if (executed == 0 && tree->table->commend)
-			{
-				status = execute_commande(tree->table, env, 1);
-				exit(status);
-			}
-			exit(g_exit);
-		}
+			red_smp_cmd(tree->table, env, executed);
 		waitpid(id, &status, 0);
 		status += 128;
 		g_exit = WEXITSTATUS(status);
@@ -127,12 +117,7 @@ void	execution(t_tree *tree, t_env **env)
 		// signal(SIGINT, SIG_IGN);
 		id = fork();
 		if (id == 0)
-		{
-			// signal(SIGINT, SIG_DFL);
-			get_here_docs(tree, *env);
-			g_exit = pipex(tree, env);
-			exit(g_exit);
-		}
+			ex_here_docs(tree, env);
 		waitpid(id, &status, 0);
 		status += 128;
 		g_exit = WEXITSTATUS(status);

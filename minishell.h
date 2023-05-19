@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:38:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/19 16:29:42 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:09:40 by rrasezin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	free_array(char **array);
 char	*ft_itoa(int n);
 t_table	*back_space(t_table *table, int i);
 // void 	handell_sig();
+void	red_smp_cmd(t_table *table, t_env **env, int executed);
+void	ex_here_docs(t_tree *tree, t_env **env);
 void	execution(t_tree *tree, t_env **env);
 void	fd_putchar(char c, int fd);
 char	*mother_str(char *str, int i, int end, int start);
