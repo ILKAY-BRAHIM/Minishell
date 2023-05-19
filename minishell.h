@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 22:38:48 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/19 17:09:40 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/19 19:38:09 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
-// # include <signal.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
@@ -34,8 +34,6 @@ int	g_exit;
 typedef struct s_token
 {
 	char			*token;
-	char			*sp;
-	int				id;
 	struct s_token	*next;
 }		t_token;
 
@@ -43,7 +41,6 @@ typedef struct s_table
 {
 	char	*commend;
 	char	**arg;
-	int		*exp;
 	char	**option;
 	int		*next;
 	char	**files;
@@ -57,12 +54,11 @@ typedef struct s_tree
 	struct s_tree	*right;
 }				t_tree;
 
-// void	rl_replace_line(const char *str, int i);
-// int		rl_on_new_line();
+void	rl_replace_line(const char *str, int i);
+int		rl_on_new_line(void);
 t_token	*new_token(char *data);
 void	lst_add_back(t_token *lst, t_token *new);
 t_token	*parsing_v3(char *line, t_env *env, int count);
-char	*ft_strnchr(char *s, char first, char end, int flage);
 char	*get_prompt(void);
 t_env	*new_list(char *org_env, int type);
 void	add_back(t_env **list, t_env *new);
@@ -80,21 +76,16 @@ char	*sp_strjoin(char *s1, char *s2, int att);
 char	*expanding(char *str, t_env *env);
 void	free_lst(t_token *token);
 t_token	*join_tokens(t_token *t, char *tmp, int count, char *array);
-t_token	*r_qutes(t_token *tokens);
 int		check_sp(t_token *token, int i, char *tm, char *part);
 char	*get_part(char *str, char first, char end, int flag);
 t_tree	*lexer(t_token *lst, int count, t_token *tmp);
 t_token	*join_tokens2(t_token *lst, int count);
 void	free_array(char **array);
-char	*ft_itoa(int n);
 t_table	*back_space(t_table *table, int i);
-// void 	handell_sig();
+void	handell_sig(void);
 void	red_smp_cmd(t_table *table, t_env **env, int executed);
 void	ex_here_docs(t_tree *tree, t_env **env);
 void	execution(t_tree *tree, t_env **env);
 void	fd_putchar(char c, int fd);
 char	*mother_str(char *str, int i, int end, int start);
-// void	execute_commande(t_table *table, t_env *env);
-
-// void	print_help(t_table *table, int i);
 #endif

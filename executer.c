@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:27:22 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/19 17:15:39 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/19 19:37:07 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-
-// norm 25 line : ----> ok
-// nb function : -----> 5
-// tester : ----------> ok
 
 int	execute_cmd(t_table *table, t_env **env, int i)
 {
@@ -29,11 +25,12 @@ int	execute_cmd(t_table *table, t_env **env, int i)
 	err = 0;
 	if (i == 0)
 	{
-		// signal(SIGINT, SIG_IGN);
+		signal(SIGINT, SIG_IGN);
 		id = fork();
 		if (id == 0)
 		{
-			// signal(SIGINT, SIG_DFL);
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			ft_execute(table, env);
 		}
 		waitpid(id, &status, 0);
@@ -94,7 +91,7 @@ void	simple_cmd(t_tree *tree, t_env **env, int executed, int id)
 		get_here_docs(tree, *env);
 		if (tree->table->commend)
 			cmd_in_parent(tree->table, env, &executed);
-		// signal(SIGINT, SIG_IGN);
+		signal(SIGINT, SIG_IGN);
 		id = fork();
 		if (id == 0)
 			red_smp_cmd(tree->table, env, executed);
@@ -114,7 +111,7 @@ void	execution(t_tree *tree, t_env **env)
 		simple_cmd(tree, env, 0, 0);
 	else
 	{
-		// signal(SIGINT, SIG_IGN);
+		signal(SIGINT, SIG_IGN);
 		id = fork();
 		if (id == 0)
 			ex_here_docs(tree, env);

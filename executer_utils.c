@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrasezin <rrasezin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:00:47 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/19 17:08:45 by rrasezin         ###   ########.fr       */
+/*   Updated: 2023/05/19 19:36:48 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	red_smp_cmd(t_table *table, t_env **env, int executed)
 	int	status;
 
 	status = 0;
-	// signal(SIGINT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	redirection(table);
 	if (executed == 0 && table->commend)
 	{
@@ -33,7 +34,8 @@ void	red_smp_cmd(t_table *table, t_env **env, int executed)
 
 void	ex_here_docs(t_tree *tree, t_env **env)
 {
-	// signal(SIGINT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	get_here_docs(tree, *env);
 	g_exit = pipex(tree, env);
 	exit(g_exit);

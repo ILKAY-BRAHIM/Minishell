@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:04:46 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/19 16:51:13 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 19:37:17 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,12 @@ void	here_doc_file(t_tree *tree, t_env *env, int i)
 	int	status;
 	int	herdoc;
 
-	// signal(SIGINT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
 	id = fork();
 	if (id == 0)
 	{
-		// signal(SIGINT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		herdoc = open("/tmp/heredoc_", O_CREAT | O_TRUNC | O_RDWR, 0644);
 		here_doc(env, herdoc, tree->table->files[i], tree->table->next[i]);
 		close(herdoc);

@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 09:58:13 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/19 16:50:28 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:20:36 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@ t_table	*back_space(t_table *table, int i)
 	{
 		if (ft_strchr(table->files[i], '\5') || table->next[i] == 1)
 		{
-			if (ft_strchr(table->files[i], '\'') || ft_strchr(table->files[i], '\"'))
+			if (ft_strchr(table->files[i], '\'')
+				|| ft_strchr(table->files[i], '\"'))
 				table->next[i] = 4;
 		}
 		table->files[i] = mother_str(table->files[i], 0, 0, 0);

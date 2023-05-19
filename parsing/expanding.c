@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 18:20:59 by bchifour          #+#    #+#             */
-/*   Updated: 2023/05/19 16:51:13 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:21:50 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	_norm_5(char *str, char **new, t_env *env, char *array)
 		array = get_part(str, '$', str[i], 2);
 	else
 		array = get_part(str, '$', str[i], 2);
-	ft_memmove(str, (str) + ft_strlen(array), ft_strlen((str) + ft_strlen(array)) + 1);
+	ft_memmove(str, (str) + ft_strlen(array),
+		ft_strlen((str) + ft_strlen(array)) + 1);
 	if (*((array) + 1) == '?')
 	{
 		*new = search_and_return (env, "?", 1);
@@ -64,7 +65,8 @@ char	*expand(char *str, t_env *env)
 	char	*new;
 
 	array = ft_strchr(str, '$');
-	if (ft_strlen(str) <= 1 || str[1] == ' ' || str[1] == '\"' || (!isalpha(str[1])
+	if (ft_strlen(str) <= 1 || str[1] == ' '
+		|| str[1] == '\"' || (!isalpha(str[1])
 			&& !isdigit(str[1]) && str[1] != '_'
 			&& str[1] != '?' && str[1] != '@'))
 		return (str);
