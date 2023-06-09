@@ -14,7 +14,7 @@ NAME = minishell
 
 OBJ = $(SRC:.c=.o)
 CC = cc
-FLAGE =  -Wall -Werror -Wextra
+FLAGE =  
 %.o: %.c $(HEADER)
 	$(CC) -c $< -o $@
 
