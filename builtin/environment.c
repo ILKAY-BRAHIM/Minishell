@@ -6,7 +6,7 @@
 /*   By: bchifour <bchifour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 07:06:01 by rrasezin          #+#    #+#             */
-/*   Updated: 2023/05/19 16:51:13 by bchifour         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:59:23 by bchifour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,16 @@ t_env	*init_env(char **org_env)
 	int		i;
 
 	i = 0;
-	env = new_list(org_env[i], 0);
+	if (org_env[0] != NULL)
+	{
+		env = new_list(org_env[i], 0);
+		i++;
+	}
+	else
+		env = new_list("_=env", 0);
 	if (!env)
 		return (NULL);
-	i++;
-	while (org_env[i])
+	while (org_env[i] != NULL)
 		add_back(&env, new_list(org_env[i++], 0));
 	if_not_exist(&env);
 	if (search_and_return(env, "OLDPWD", 0) != NULL)
